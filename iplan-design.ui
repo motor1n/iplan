@@ -1,0 +1,2782 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1024</width>
+    <height>768</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>iPlan - Индивидуальный план работы преподавателя</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <item>
+     <widget class="QWidget" name="widget" native="true">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <layout class="QGridLayout" name="gridLayout">
+       <item row="4" column="0">
+        <widget class="QPushButton" name="pb3">
+         <property name="text">
+          <string>Сохранить</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="lbl_title1">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="font">
+          <font>
+           <family>Trebuchet MS</family>
+           <pointsize>12</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>Учебная работа</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1" rowspan="5" colspan="2">
+        <widget class="QTabWidget" name="tabs">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="currentIndex">
+          <number>0</number>
+         </property>
+         <widget class="QWidget" name="tab1">
+          <attribute name="title">
+           <string>Учебно-методическая</string>
+          </attribute>
+          <layout class="QGridLayout" name="gridLayout_2">
+           <item row="0" column="0">
+            <widget class="QTreeWidget" name="tree1">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>9</pointsize>
+              </font>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+             <attribute name="headerMinimumSectionSize">
+              <number>100</number>
+             </attribute>
+             <attribute name="headerDefaultSectionSize">
+              <number>480</number>
+             </attribute>
+             <column>
+              <property name="text">
+               <string>Вид работы</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Трудоёмкость</string>
+              </property>
+             </column>
+             <item>
+              <property name="text">
+               <string>Разработка УМК</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <item>
+               <property name="text">
+                <string>Разработка программы учебной дисциплины (модуля) / практики, включённой в учебный план в данном учебном году (в результате открытия новой ОПОП или актуализации ОПОП)</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>40 часов за одну программу всем авторам</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Подготовка аннотации программы дисциплины / практики</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>2 часа за аннотацию 1 программы</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Разработка лекций по дисциплине, реализуемой преподавателем впервые</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>2 часа за 1 час лекций</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Разработка фондов оценочных средств (за исключением вопросов к зачёту и/или экзамену)</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>4 часа на одно занятие (за 2 часа ауд. занятий)</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Разработка фондов оценочных средств (за исключением вопросов к зачёту и/или экзамену)</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>10 часов за одну форму текущего и/или промежуточного контроля</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Разработка заданий для самостоятельной работы обучающихся по дисциплине, реализуемой впервые</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>0,25 часа за каждые четыре часа самостоятельной работы обучающихся (согласно учебному плану)</string>
+               </property>
+              </item>
+             </item>
+             <item>
+              <property name="text">
+               <string>Актуализация УМК</string>
+              </property>
+              <item>
+               <property name="text">
+                <string>Актуализация программы учебной дисциплины (модуля) / практики (например, содержания дескрипторов, тематического планирования, распределения часов по видам и формам работы, методических указаний по освоению дисциплины (содержания контактной работы с преподавателем, самостоятельной работы студентов, тем курсовых работ), ресурсов, необходимых для освоения дисциплины; ресурсов, необходимых для осуществления образовательного процесса по дисциплине; методических материалов, определяющих процедуры оценивания результатов обучения)</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>4 часа за программу</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Актуализация программы учебной дисциплины (модуля) / практики, новой для данного преподавателя (преподаваемой им впервые)</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>10 часов за одну программу</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Актуализация аннотации программы дисциплины / практики</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>1 час за аннотацию 1 программы</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Актуализация материалов к практическим и лабораторным занятиям</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>1 час на одно занятие (за 2 часа ауд. занятий)</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Актуализация фондов оценочных средств (за исключением вопросов к зачёту и /или экзамену)</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>4 часа за одну форму текущего и/или промежуточного контроля</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Актуализация заданий для самостоятельной работы обучающихся</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>0,25 часа за каждые 10 часов самостоятельной работы обучающихся (согласно учебному плану)</string>
+               </property>
+              </item>
+             </item>
+             <item>
+              <property name="text">
+               <string>Подготовка к контактной работе с обучающимся</string>
+              </property>
+              <item>
+               <property name="text">
+                <string>Подготовка к лекции по дисциплине, реализуемой не впервые (в том числе актуализация содержания лекционного материала)</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>0,5 часа за 1 час лекций</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Подготовка к семинарам, практическим и лабораторным занятиям</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>0,25 часа за 1 час занятий</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Проверка самостоятельной работы обучающихся</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>0,1 часа на 1 обучающегося за 10 часов самостоятельной работы (согласно учебному плану)</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Просмотры работ обучающихся в ИИ</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>4 часа на курс в семестр</string>
+               </property>
+              </item>
+             </item>
+             <item>
+              <property name="text">
+               <string>Подготовка учебника, учебного пособия, электронного издания</string>
+              </property>
+              <item>
+               <property name="text">
+                <string>Издание учебника или учебного пособия по рекомендации редакционно-издательского совета НГПУ с грифом Минобрнауки России / УМО (с обязательной передачей издания в библиотеку НГПУ по лицензионному договору)</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>30 часов за 1 п.л. всем авторам (в т.ч. учитываются авторы, не являющиеся сотрудниками университета)</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Издание учебника или учебного пособия по рекомендации редакционно-издательского совета НГПУ без грифа Минобрнауки России / УМО (с обязательной передачей издания в библиотеку НГПУ по лицензионному договору)</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>25 часов за 1 п.л. всем авторам (в т.ч. учитываются авторы, не являющиеся сотрудниками университета)</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Повторное издание учебника, учебного пособия по рекомендации редакционно-издательского совета университета (с обязательной передачей издания в библиотеку НГПУ по лицензионному договору)</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>10 часов за 1 п.л. всем авторам (в т.ч. учитываются авторы, не являющиеся сотрудниками университета)</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Рецензирование учебно-методических материалов (учебников, учебных пособий, учебно-методических комплексов) по согласованию с УМС университета</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>6 часов за 1 печатный лист</string>
+               </property>
+              </item>
+             </item>
+             <item>
+              <property name="text">
+               <string>Создание цифровых образовательных ресурсов</string>
+              </property>
+              <item>
+               <property name="text">
+                <string>Создание презентаций по дисциплине впервые</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>4 часа на одно занятие (на 2 аудиторных часа)</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Актуализация презентаций</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>1 час на одно занятие (на 2 аудиторных часа)</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Регистрация образовательного электронного ресурса в Информрегистре Роскомнадзора с получением свидетельства</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>20 часов</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Создание личной страницы преподавателя на сайте НГПУ и ее насыщение учебными и учебно-методическими материалами</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>20 часов</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Обновление материала личной страницы преподавателя на сайте НГПУ</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>10 часов</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Создание учебных видеофильмов</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>40 часов за 1 фильм</string>
+               </property>
+              </item>
+             </item>
+             <item>
+              <property name="text">
+               <string>Подготовка к контактной работе с обучающимся</string>
+              </property>
+              <item>
+               <property name="text">
+                <string>Подготовка к лекции по дисциплине, реализуемой не впервые (в том числе актуализация содержания лекционного материала)</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>0,5 часа за 1 час лекций</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Подготовка к семинарам, практическим и лабораторным занятиям</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>0,25 часа за 1 час занятий</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Проверка самостоятельной работы обучающихся</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>0,1 часа на 1 обучающегося за 10 часов самостоятельной работы (согласно учебному плану)</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Просмотры работ обучающихся в ИИ</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>4 часа на курс в семестр</string>
+               </property>
+              </item>
+             </item>
+             <item>
+              <property name="text">
+               <string>Подготовка учебника, учебного пособия, электронного издания</string>
+              </property>
+              <item>
+               <property name="text">
+                <string>Издание учебника или учебного пособия по рекомендации редакционно-издательского совета НГПУ с грифом Минобрнауки России / УМО (с обязательной передачей издания в библиотеку НГПУ по лицензионному договору)</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>30 часов за 1 п.л. всем авторам (в т.ч. учитываются авторы, не являющиеся сотрудниками университета)</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Издание учебника или учебного пособия по рекомендации редакционно-издательского совета НГПУ без грифа Минобрнауки России / УМО (с обязательной передачей издания в библиотеку НГПУ по лицензионному договору)</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>25 часов за 1 п.л. всем авторам (в т.ч. учитываются авторы, не являющиеся сотрудниками университета)</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Повторное издание учебника, учебного пособия по рекомендации редакционно-издательского совета университета (с обязательной передачей издания в библиотеку НГПУ по лицензионному договору)</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>10 часов за 1 п.л. всем авторам (в т.ч. учитываются авторы, не являющиеся сотрудниками университета)</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Рецензирование учебно-методических материалов (учебников, учебных пособий, учебно-методических комплексов) по согласованию с УМС университета</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>6 часов за 1 печатный лист</string>
+               </property>
+              </item>
+             </item>
+             <item>
+              <property name="text">
+               <string>Создание цифровых образовательных ресурсов</string>
+              </property>
+              <item>
+               <property name="text">
+                <string>Создание презентаций по дисциплине впервые</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>4 часа на одно занятие (на 2 аудиторных часа)</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Актуализация презентаций</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>1 час на одно занятие (на 2 аудиторных часа)</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Регистрация образовательного электронного ресурса в Информрегистре Роскомнадзора с получением свидетельства</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>20 часов</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Создание личной страницы преподавателя на сайте НГПУ и её насыщение учебными и учебно-методическими материалами</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>20 часов</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Обновление материала личной страницы преподавателя на сайте НГПУ</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>10 часов</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Создание учебных видеофильмов</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>40 часов за 1 фильм</string>
+               </property>
+              </item>
+             </item>
+             <item>
+              <property name="text">
+               <string>Другие виды учебно-методической работы</string>
+              </property>
+              <item>
+               <property name="text">
+                <string>Создание фондов ГИА по ОПОП, открытым в данном учебном году</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>20 часов на одну ОПОП</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Актуализация фондов ГИА по ОПОП (в том числе обновление вопросов экзаменационных билетов, тем ВКР)</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>10 часов на одну ОПОП</string>
+               </property>
+              </item>
+             </item>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QPushButton" name="pb01">
+             <property name="text">
+              <string>  Записать в таблицу</string>
+             </property>
+             <property name="icon">
+              <iconset>
+               <normalon>pic/down-arrow_icon.png</normalon>
+              </iconset>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QTableWidget" name="tw1">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>9</pointsize>
+              </font>
+             </property>
+             <attribute name="horizontalHeaderDefaultSectionSize">
+              <number>150</number>
+             </attribute>
+             <row>
+              <property name="text">
+               <string>1</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>2</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>3</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>4</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>5</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>6</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>7</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>8</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>9</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>10</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>11</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>12</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>13</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>14</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>15</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>16</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>17</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>18</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>19</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>20</string>
+              </property>
+             </row>
+             <column>
+              <property name="text">
+               <string>Виды работы</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Трудоёмкость</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Форма отчётности</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Срок выполнения</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Запланировано</string>
+              </property>
+             </column>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="tab2">
+          <attribute name="title">
+           <string>Организационная</string>
+          </attribute>
+          <layout class="QGridLayout" name="gridLayout_3">
+           <item row="0" column="0">
+            <widget class="QTreeWidget" name="tree2">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>9</pointsize>
+              </font>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+             <attribute name="headerMinimumSectionSize">
+              <number>100</number>
+             </attribute>
+             <attribute name="headerDefaultSectionSize">
+              <number>480</number>
+             </attribute>
+             <column>
+              <property name="text">
+               <string>Вид работы</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Трудоёмкость</string>
+              </property>
+             </column>
+             <item>
+              <property name="text">
+               <string>Выполнение административных функций</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <item>
+               <property name="text">
+                <string>Директор института*</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>1474 – 1494 часа</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Декан факультета*</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>1224 часа</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Заведующий кафедрой*</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>350 часов – при учебной нагрузке кафедры до 10 000 часов; 400 часов – при учебной нагрузке кафедры от 10 000 до 15 000 часов; 450 часов – при учебной нагрузке кафедры от 15 000 до 20 000 часов; 500 часов – при учебной нагрузке кафедры свыше 20 000 часов</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Руководство методической работой факультета/института*</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>до 100 часов в год</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Руководство методическим семинаром кафедры*</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>20 – 30 часов в год</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Работа в качестве секретаря Учёного совета университета*</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>до 100 часов в год</string>
+               </property>
+              </item>
+             </item>
+             <item>
+              <property name="text">
+               <string>Участие в работе коллегиальных органов, комиссий</string>
+              </property>
+              <item>
+               <property name="text">
+                <string>Участие в работе Учёного совета университета (не планируется ректору, проректорам, директорам, деканам)</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>до 30 часов в год</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Участие в работе учебно-методического совета факультета/института</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>до 30 часов в год</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Участие в заседании кафедры (не планируется заведующим кафедрой)</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>до 20 часов в год</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Участие в заседаниях методического семинара кафедры</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>до 10 часов в год</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Участие в работе Учёного совета института/факультета (не планируется директорам, деканам, заведующим кафедрами)</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>до 30 часов в год (членам совета),
+до 60 часов в год (секретарю совета)</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Участие в работе Совета по психолого-педагогическому образованию</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>до 60 часов в год (членам совета)</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Участие в работе учебно-методического совета университета</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>до 60 часов в год</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Участие в работе Координационного совета по дополнительному образованию</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>60 часов в год</string>
+               </property>
+              </item>
+             </item>
+             <item>
+              <property name="text">
+               <string>Организация учебного процесса в подразделении</string>
+              </property>
+              <item>
+               <property name="text">
+                <string>Тьюторское сопровождение обучающегося</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>4 часа за одного обучающегося в год</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Тьюторское сопровождение обучающихся-инвалидов</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>30 часов на обучающегося-инвалида в год (на основании личного заявления обучающегося об организации тьюторского сопровождения)</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Подготовка материалов для получения лицензии по новой ОПОП</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>до 200 часов на всех участников</string>
+               </property>
+              </item>
+             </item>
+             <item>
+              <property name="text">
+               <string>Работа с потребителем и заинтересованными сторонами</string>
+              </property>
+              <item>
+               <property name="text">
+                <string>Сотрудничество с организациями и предприятиями (в том числе по организации практик)</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>до 50 часов в год (устанавливает заведующий кафедрой в зависимости от объёмов работ и результатов деятельности)</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Работа с потребителем по заданию кафедры (экспертиза исследовательских, творческих, социально-значимых проектов педагогической общественности города и области; рецензирование исследовательских работ школьников в рамках проведения на базе университета научно-исследовательских конференций; руководство научно-исследовательской работой школьников; членство в жюри школьных конкурсов и др.)</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>до 50 часов в год (устанавливает заведующий кафедрой в зависимости от объемов работ и результатов деятельности)</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Выступления в СМИ</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>до 6 часов на выступление каждому преподавателю</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Подготовка и проведение мероприятий в рамках профориентационной и рекламно- информационной работы</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>6 часов на одно мероприятие каждому преподавателю</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Организация профессиональных конкурсов для учителей и других работников</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>до 80 часов за одно мероприятие на всех исполнителей</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Разработка положения о конференции, олимпиаде, фестивале для школьников, студентов, работников системы образования региона</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>до 20 часов на одно положение</string>
+               </property>
+              </item>
+             </item>
+             <item>
+              <property name="text">
+               <string>Другие виды организационной работы</string>
+              </property>
+              <item>
+               <property name="text">
+                <string>Взаимное посещение занятий преподавателей кафедры с последующим анализом результатов</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>4 часа на одно занятие</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Ведение отчётной документации преподавателем (планы, отчёты, формы и т.д.)</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>20 часов</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Проведение спортивных соревнований (по приказу ректора)</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>6 часов в день</string>
+               </property>
+              </item>
+             </item>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QPushButton" name="pb02">
+             <property name="text">
+              <string>  Записать в таблицу</string>
+             </property>
+             <property name="icon">
+              <iconset>
+               <normalon>pic/down-arrow_icon.png</normalon>
+              </iconset>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QTableWidget" name="tw2">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>9</pointsize>
+              </font>
+             </property>
+             <attribute name="horizontalHeaderDefaultSectionSize">
+              <number>150</number>
+             </attribute>
+             <row>
+              <property name="text">
+               <string>1</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>2</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>3</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>4</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>5</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>6</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>7</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>8</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>9</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>10</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>11</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>12</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>13</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>14</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>15</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>16</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>17</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>18</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>19</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>20</string>
+              </property>
+             </row>
+             <column>
+              <property name="text">
+               <string>Виды работы</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Трудоёмкость</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Форма отчётности</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Срок выполнения</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Запланировано</string>
+              </property>
+             </column>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="tab3">
+          <attribute name="title">
+           <string>Научно-исследовательская</string>
+          </attribute>
+          <layout class="QGridLayout" name="gridLayout_4">
+           <item row="0" column="0">
+            <widget class="QTreeWidget" name="tree3">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>9</pointsize>
+              </font>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+             <attribute name="headerMinimumSectionSize">
+              <number>100</number>
+             </attribute>
+             <attribute name="headerDefaultSectionSize">
+              <number>480</number>
+             </attribute>
+             <column>
+              <property name="text">
+               <string>Вид работы</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Трудоёмкость</string>
+              </property>
+             </column>
+             <item>
+              <property name="text">
+               <string>Научно-исследовательская работа ППС</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <item>
+               <property name="text">
+                <string>Подготовка текста одной главы кандидатской диссертации и её обсуждение на заседании кафедры</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>до 70 часов</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Подготовка текста одной главы докторской диссертации и её обсуждение на заседании кафедры</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>до 120 часов</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Издание научной монографии с обязательной передачей экземпляра издания в библиотеку НГПУ по лицензионному договору</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>до 50 часов за один печатный лист всем авторам</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Выступление с устным или стендовым докладом на научном (научно-практическом, научно- методическом) конгрессе, конференции, семинаре, научной школе</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>Мероприятие международного и всероссийского уровня – до 20 часов; регионального и городского уровня – до 10 часов</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Рецензирование по заказу редакции статьи в научном журнале из перечня РИНЦ, ВАК, а также в иностранном научном журнале</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>6 часов</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Рецензирование научных монографии</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>6 часов за один печатный лист монографии</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Публикация статьи в научном журнале, индексируемом в &quot;Web of Science&quot; (&quot;Web of Knowledge&quot;) и &quot;Scopus&quot;</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>до 80 часов на всех авторов</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Публикация статьи в научном журнале, индексируемом в &quot;PubMed&quot;, &quot;Mathematics&quot;, &quot;Chemical, Abstract&quot;, &quot;Agris&quot;, &quot;GeoRef&quot;, &quot;ERICH PLUS&quot;</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>до 60 часов на всех авторов</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Публикация статьи в научном журнале, индексируемом в РИНЦ</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>до 40 часов на всех авторов</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Публикация научной статьи в иных зарубежных изданиях</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>до 20 часов на всех авторов</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Публикация научных результатов в иных научных изданиях (в том числе сборниках конференций), индексируемых в РИНЦ</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>до 15 часов на всех авторов</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Участие в международных и всероссийских научно-технических и творческих выставках, конкурсах</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>до 100 часов</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Участие в региональных и городских научно-технических и творческих выставках</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>до 50 часов</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Редактирование научных изданий (монографии, статьи)</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>до 6 часов за один печатный лист монографии / одну статью</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Патент на изобретение (с передачей прав патентообладателя на НГПУ): а) подача и регистрация заявки в Роспатент; б) получение патента в Роспатенте</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>до 40 часов (на всех авторов); до 20 часов (на всех авторов)</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Патент на полезную модель (с передачей прав патентообладателя на НГПУ): а) подача и регистрация заявки в Роспатент; б) получение патента в Роспатенте</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>до 30 часов (на всех авторов); до 15 часов (на всех авторов)</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Свидетельство на программу для ЭВМ, базу данных, топологию интегральных микросхем (с передачей прав правообладателя НГПУ): а) подача заявки и регистрация заявки в Роспатенте; б) получение свидетельства в Роспатенте</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>до 30 часов (на всех авторов); до 15 часов (на всех авторов)</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Проведение научных исследований в соответствии с планом НИР университета, утвержденным Учёным советом НГПУ, с утверждением результатов руководителем темы НИР и проректором по научной работе (проведение и обработка эксперимента, участие в научной экспедиции, работа в архивах и музеях, социологические опросы и др.)</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>до 200 часов на одного исполнителя</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Успешная защита диссертации с последующим принятием решения Минобрнауки России о выдаче диплома или диссертационным советом, которому Минобрнауки России предоставил право выдавать дипломы</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>до 100 часов – за кандидатскую диссертацию, до 200 часов – за докторскую диссертацию</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Подготовка заявки к участию в конкурсе на получение грантов</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>а) международного уровня – до 100 часов на всех участников; б) федерального уровня – до 80 часов на всех участников; в) регионального и городского уровня – до 50 часов на всех участников; г) внутривузовского – до 20 часов на всех участников</string>
+               </property>
+              </item>
+             </item>
+             <item>
+              <property name="text">
+               <string>Руководство и консультирование</string>
+              </property>
+              <item>
+               <property name="text">
+                <string>Руководство подготовкой студенческого проекта на конкурсы научных грантов</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>20 часов на один проект</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Подготовка студенческих публикаций (учитываются только изданные)</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>10 часов на одну публикацию</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Руководство научными кружками, проблемными группами, научными лабораториями на общественных началах вне штатного расписания университета (с представлением и утверждением отчёта о проделанной работе на заседании кафедры)</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>до 50 часов на одну структуру (с учётом реальных затрат рабочего времени)</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Руководство студентами – участниками научных международных, всероссийских или региональных студенческих олимпиад, конкурсов, конференций и др.</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>10 часов на одного студента-участника</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Работа в общественных научных, научно-методических структурах университета (координационный совет по науке, редакционно-издательский совет, комиссии, жюри конкурсов и др.)</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>до 20 часов на одну структуру (с учётом реальных затрат рабочего времени)</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Работа в международных, российских, областных и городских общественных научных, научно-методических научно-экспертных структурах (совет, рабочие группы, объединения, жюри и др.)</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>до 30 часов на одну структуру (с учётом реальных затрат рабочего времени)</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Руководство одним из направлений научной деятельности университета, утверждённым Учёным советом университета, с представлением интегрированного отчёта о результатах деятельности по научному направлению</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>до 100 часов руководителю научного направления</string>
+               </property>
+              </item>
+             </item>
+             <item>
+              <property name="text">
+               <string>Другие виды научно-исследовательской работы</string>
+              </property>
+              <item>
+               <property name="text">
+                <string>Организация международных или всероссийских научных и творческих конференций на базе университета (работа в оргкомитете по приказу ректора)</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>до 20 часов на одного преподавателя, но не более 100 часов на одно мероприятие</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Организация других видов научных конференций (региональных, областных, городских и т.д., в том числе студенческих) (работа в оргкомитете по приказу ректора)</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>до 20 часов на одного преподавателя, но не более 80 часов на одно мероприятие</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Организация научно-технических и творческих выставок на базе университета (работа в оргкомитете по приказу ректора)</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>до 20 часов на преподавателя, но не более 120 часов на одно мероприятие</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Членство в редакционных коллегиях научных журналов (российских и зарубежных)*</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>до 30 часов на одно издание</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Членство в действующих диссертационных советах*</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>до 30 часов в одном совете (учитываются реальные затраты рабочего времени)</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Подготовка отзыва оппонента / ведущей организации о диссертационном исследовании: на соискание учёной степени кандидата наук; на соискание учёной степени доктора наук</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>20 часов; 30 часов</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Подготовка отзыва на автореферат * диссертации на соискание учёной степени кандидата наук; диссертации на соискание учёной степени доктора наук</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>до 6 часов; до 10 часов</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Подготовка, организация и проведение персональной творческой выставки</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>до 100 часов</string>
+               </property>
+              </item>
+             </item>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QPushButton" name="pb03">
+             <property name="text">
+              <string>  Записать в таблицу</string>
+             </property>
+             <property name="icon">
+              <iconset>
+               <normalon>pic/down-arrow_icon.png</normalon>
+              </iconset>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QTableWidget" name="tw3">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>9</pointsize>
+              </font>
+             </property>
+             <attribute name="horizontalHeaderDefaultSectionSize">
+              <number>150</number>
+             </attribute>
+             <row>
+              <property name="text">
+               <string>1</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>2</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>3</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>4</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>5</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>6</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>7</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>8</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>9</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>10</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>11</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>12</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>13</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>14</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>15</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>16</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>17</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>18</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>19</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>20</string>
+              </property>
+             </row>
+             <column>
+              <property name="text">
+               <string>Виды работы</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Трудоёмкость</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Форма отчётности</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Срок выполнения</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Запланировано</string>
+              </property>
+             </column>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="tab4">
+          <attribute name="title">
+           <string>Воспитательная</string>
+          </attribute>
+          <layout class="QGridLayout" name="gridLayout_5">
+           <item row="0" column="0">
+            <widget class="QTreeWidget" name="tree4">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>9</pointsize>
+              </font>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+             <attribute name="headerMinimumSectionSize">
+              <number>100</number>
+             </attribute>
+             <attribute name="headerDefaultSectionSize">
+              <number>480</number>
+             </attribute>
+             <column>
+              <property name="text">
+               <string>Вид работы</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Трудоёмкость</string>
+              </property>
+             </column>
+             <item>
+              <property name="text">
+               <string>Воспитательная работа</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <item>
+               <property name="text">
+                <string>Работа куратором группы</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>1 курса – до 75 часов; 2 – 5 курсов до 50 часов</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Работа с органами студенческого самоуправления</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>от 20 до 40 часов в год</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Организация мероприятий по воспитанию студентов (трудовому, патриотическому, гражданскому, экологическому и др.)</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>до 10 часов на мероприятие</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Работа по организации смотров-конкурсов самодеятельности студентов</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>до 20 часов в год</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Организация и проведения интеллектуальных игр (олимпиад)</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>до 40 часов за одно мероприятие</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Руководство творческими кружками, секциями, клубами</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>до 50 часов в год</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Посещение общежитий</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>до 20 часов в год</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Организация волонтёрского движения</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>до 50 часов</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Подготовка студентов, завоевавших призовые места в международных, общероссийских, региональных и других не менее значимых конкурсах, фестивалях, соревнованиях</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>10 часов на одного студента</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Организация и участие в проведении выездных студенческих мероприятий (летняя педагогическая школа, выезд студенческого актива, культурно-массовые и спортивные сборы и др.)</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>20 часов на одно мероприятие</string>
+               </property>
+              </item>
+             </item>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QPushButton" name="pb04">
+             <property name="text">
+              <string>  Записать в таблицу</string>
+             </property>
+             <property name="icon">
+              <iconset>
+               <normalon>pic/down-arrow_icon.png</normalon>
+              </iconset>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QTableWidget" name="tw4">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>9</pointsize>
+              </font>
+             </property>
+             <attribute name="horizontalHeaderDefaultSectionSize">
+              <number>150</number>
+             </attribute>
+             <row>
+              <property name="text">
+               <string>1</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>2</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>3</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>4</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>5</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>6</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>7</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>8</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>9</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>10</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>11</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>12</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>13</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>14</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>15</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>16</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>17</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>18</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>19</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>20</string>
+              </property>
+             </row>
+             <column>
+              <property name="text">
+               <string>Виды работы</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Трудоёмкость</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Форма отчётности</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Срок выполнения</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Запланировано</string>
+              </property>
+             </column>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="tab5">
+          <attribute name="title">
+           <string>Повышение квалификации</string>
+          </attribute>
+          <layout class="QGridLayout" name="gridLayout_6">
+           <item row="0" column="0">
+            <widget class="QTreeWidget" name="tree5">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>9</pointsize>
+              </font>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+             <attribute name="headerMinimumSectionSize">
+              <number>100</number>
+             </attribute>
+             <attribute name="headerDefaultSectionSize">
+              <number>480</number>
+             </attribute>
+             <column>
+              <property name="text">
+               <string>Вид работы</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Трудоёмкость</string>
+              </property>
+             </column>
+             <item>
+              <property name="text">
+               <string>Повышение профессионального уровня</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <item>
+               <property name="text">
+                <string>Повышение квалификации</string>
+               </property>
+               <property name="checkState">
+                <enum>Unchecked</enum>
+               </property>
+               <property name="text">
+                <string>16 – 72 часа</string>
+               </property>
+              </item>
+             </item>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QPushButton" name="pb05">
+             <property name="text">
+              <string>  Записать в таблицу</string>
+             </property>
+             <property name="icon">
+              <iconset>
+               <normalon>pic/down-arrow_icon.png</normalon>
+              </iconset>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QTableWidget" name="tw5">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>9</pointsize>
+              </font>
+             </property>
+             <attribute name="horizontalHeaderDefaultSectionSize">
+              <number>150</number>
+             </attribute>
+             <row>
+              <property name="text">
+               <string>1</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>2</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>3</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>4</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>5</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>6</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>7</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>8</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>9</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>10</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>11</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>12</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>13</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>14</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>15</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>16</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>17</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>18</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>19</string>
+              </property>
+             </row>
+             <row>
+              <property name="text">
+               <string>20</string>
+              </property>
+             </row>
+             <column>
+              <property name="text">
+               <string>Виды работы</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Трудоёмкость</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Форма отчётности</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Срок выполнения</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Запланировано</string>
+              </property>
+             </column>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </widget>
+       </item>
+       <item row="0" column="1" colspan="2">
+        <widget class="QLabel" name="lbl_title2">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="font">
+          <font>
+           <family>Trebuchet MS</family>
+           <pointsize>12</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>Внеучебная работа</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QWidget" name="qw" native="true">
+         <layout class="QGridLayout" name="gl">
+          <property name="sizeConstraint">
+           <enum>QLayout::SetMinimumSize</enum>
+          </property>
+          <item row="0" column="0">
+           <widget class="QLabel" name="lbl1">
+            <property name="text">
+             <string>Ф.И.О.</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QComboBox" name="cb1">
+            <item>
+             <property name="text">
+              <string>---</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Александрова Зоя Алексеевна</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Бурматов Александр Анатольевич</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Гавенко Надежда Владимировна</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Галай Игорь Алексеевич</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Дудковская Ирина Алексеевна</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Жидкова Наталья Дмитриевна</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Завершинская Елена Александровна</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Зензеря Ирина Викторовна</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Избицкая Ольга Викторовна</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Ижденёва Ирина Вальтеровна</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Кобелев Владимир Александрович</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Кожевникова Ирина Николаевна</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Кузнецова Елена Владимировна</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Лукьянова Наталья Альбертовна</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Мезенцева Олеся Ивановна</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Моторин Владислав Валерьевич</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Ольховская Юлия Ивановна</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Петровская Вера Геннадьевна</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Степанова Любовь Николаевна</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Тарасова Ольга Анатольевна</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Шаталова Наталья Петровна</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Шишкин Василий Архипович</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="lbl2">
+            <property name="text">
+             <string>Учёная степень,
+звание</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QComboBox" name="cb2">
+            <item>
+             <property name="text">
+              <string>---</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>кандидат педагогических наук</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>доктор педагогических наук</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>нет учёной степени</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="lbl3">
+            <property name="text">
+             <string>Должность</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QComboBox" name="cb3">
+            <item>
+             <property name="text">
+              <string>---</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>ассистент</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>ст. преподаватель</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>доцент</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>профессор</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QLabel" name="lbl4">
+            <property name="text">
+             <string>Кафедра</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QComboBox" name="cb4">
+            <item>
+             <property name="text">
+              <string>---</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>каф</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>МИиМП</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item row="4" column="0">
+           <widget class="QLabel" name="lbl5">
+            <property name="text">
+             <string>Дата избрания
+по конкурсу</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="1">
+           <widget class="QDateEdit" name="de">
+            <property name="font">
+             <font>
+              <pointsize>10</pointsize>
+             </font>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="0">
+           <widget class="QLabel" name="lbl6">
+            <property name="text">
+             <string>Учебный год</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="1">
+           <widget class="QLineEdit" name="le">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>11</pointsize>
+             </font>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="0">
+           <widget class="QLabel" name="lbl7">
+            <property name="text">
+             <string>Файл нагрузки --&gt;</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="1">
+           <widget class="QPushButton" name="pb1">
+            <property name="text">
+             <string>Открыть...</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QPushButton" name="pb2">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>Старт!</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1024</width>
+     <height>30</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
