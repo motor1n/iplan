@@ -1,7 +1,3 @@
-# Полуавтоматическая генерация индивидуального плана преподавателя
-# motor1n develop PyQt5 - 2020 year
-
-
 import sys
 import xlrd
 import datetime as dt
