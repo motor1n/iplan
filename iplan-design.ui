@@ -27,6 +27,27 @@
        </sizepolicy>
       </property>
       <layout class="QGridLayout" name="gridLayout">
+       <item row="0" column="1" colspan="2">
+        <widget class="QLabel" name="lbl_title2">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="font">
+          <font>
+           <family>Trebuchet MS</family>
+           <pointsize>12</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>Внеучебная работа</string>
+         </property>
+        </widget>
+       </item>
        <item row="1" column="1" rowspan="5" colspan="2">
         <widget class="QTabWidget" name="tabs">
          <property name="sizePolicy">
@@ -145,7 +166,7 @@
                 <enum>Unchecked</enum>
                </property>
                <property name="text">
-                <string>0,25 часа за каждые четыре часа самостоятельной работы обучающихся (согласно учебному плану)</string>
+                <string>0.25 часа за каждые четыре часа самостоятельной работы обучающихся (согласно учебному плану)</string>
                </property>
               </item>
              </item>
@@ -155,7 +176,7 @@
               </property>
               <item>
                <property name="text">
-                <string>Актуализация программы учебной дисциплины (модуля) / практики (например, содержания дескрипторов, тематического планирования, распределения часов по видам и формам работы, методических указаний по освоению дисциплины (содержания контактной работы с преподавателем, самостоятельной работы студентов, тем курсовых работ), ресурсов, необходимых для освоения дисциплины; ресурсов, необходимых для осуществления образовательного процесса по дисциплине; методических материалов, определяющих процедуры оценивания результатов обучения)</string>
+                <string>Актуализация программы учебной дисциплины (модуля) / практики (например, содержания дескрипторов, тематического планирования, распределения часов по видам и формам работы, методических указаний по освоению дисциплины и т.д.</string>
                </property>
                <property name="checkState">
                 <enum>Unchecked</enum>
@@ -216,7 +237,7 @@
                 <enum>Unchecked</enum>
                </property>
                <property name="text">
-                <string>0,25 часа за каждые 10 часов самостоятельной работы обучающихся (согласно учебному плану)</string>
+                <string>0.25 часа за каждые 10 часов самостоятельной работы обучающихся (согласно учебному плану)</string>
                </property>
               </item>
              </item>
@@ -232,7 +253,7 @@
                 <enum>Unchecked</enum>
                </property>
                <property name="text">
-                <string>0,5 часа за 1 час лекций</string>
+                <string>0.5 часа за 1 час лекций</string>
                </property>
               </item>
               <item>
@@ -243,7 +264,7 @@
                 <enum>Unchecked</enum>
                </property>
                <property name="text">
-                <string>0,25 часа за 1 час занятий</string>
+                <string>0.25 часа за 1 час занятий</string>
                </property>
               </item>
               <item>
@@ -254,7 +275,7 @@
                 <enum>Unchecked</enum>
                </property>
                <property name="text">
-                <string>0,1 часа на 1 обучающегося за 10 часов самостоятельной работы (согласно учебному плану)</string>
+                <string>0.1 часа на 1 обучающегося за 10 часов самостоятельной работы (согласно учебному плану)</string>
                </property>
               </item>
               <item>
@@ -401,7 +422,7 @@
                 <enum>Unchecked</enum>
                </property>
                <property name="text">
-                <string>0,5 часа за 1 час лекций</string>
+                <string>0.5 часа за 1 час лекций</string>
                </property>
               </item>
               <item>
@@ -412,7 +433,7 @@
                 <enum>Unchecked</enum>
                </property>
                <property name="text">
-                <string>0,25 часа за 1 час занятий</string>
+                <string>0.25 часа за 1 час занятий</string>
                </property>
               </item>
               <item>
@@ -423,7 +444,7 @@
                 <enum>Unchecked</enum>
                </property>
                <property name="text">
-                <string>0,1 часа на 1 обучающегося за 10 часов самостоятельной работы (согласно учебному плану)</string>
+                <string>0.1 часа на 1 обучающегося за 10 часов самостоятельной работы (согласно учебному плану)</string>
                </property>
               </item>
               <item>
@@ -2385,27 +2406,82 @@
          </widget>
         </widget>
        </item>
-       <item row="0" column="0">
-        <widget class="QLabel" name="lbl_title1">
+       <item row="3" column="0">
+        <widget class="QTextBrowser" name="tb">
          <property name="sizePolicy">
-          <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+          <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
-         <property name="font">
-          <font>
-           <family>Trebuchet MS</family>
-           <pointsize>12</pointsize>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
+         <property name="maximumSize">
+          <size>
+           <width>402</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="html">
+          <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Noto Sans'; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;1.&lt;/span&gt; Заполните данные в разделе &lt;span style=&quot; font-weight:600;&quot;&gt;Учебная работа&lt;/span&gt;:&lt;/p&gt;
+&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot;&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Ф.И.О.&lt;/li&gt;
+&lt;li style=&quot;&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;учёная степень, звание&lt;/li&gt;
+&lt;li style=&quot;&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;должность&lt;/li&gt;
+&lt;li style=&quot;&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;кафедра&lt;/li&gt;
+&lt;li style=&quot;&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;дата избрания по конкурсу&lt;/li&gt;
+&lt;li style=&quot;&quot; style=&quot; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;учебный год&lt;/li&gt;&lt;/ul&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;2.&lt;/span&gt; Откройте файл учебной нагрузки → &lt;span style=&quot; font-weight:600;&quot;&gt;Открыть&lt;/span&gt;...&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;3.&lt;/span&gt; Заполните данные в разделе &lt;span style=&quot; font-weight:600;&quot;&gt;Внеучебная работа&lt;/span&gt;:&lt;/p&gt;
+&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot;&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;в каждой вкладке выберите необходимые вам виды работы&lt;/li&gt;&lt;/ul&gt;
+&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-size:11pt;&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;нажмите кнопку &lt;/span&gt;&lt;span style=&quot; font-size:10pt; font-weight:600;&quot;&gt;Записать в таблицу&lt;/span&gt;&lt;/li&gt;
+&lt;li style=&quot;&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;в кажой строке таблицы задайте &lt;span style=&quot; font-weight:600;&quot;&gt;Срок выполнения&lt;/span&gt; &lt;/li&gt;&lt;/ul&gt;
+&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot;&quot; style=&quot; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;исходя из трудоёмкости, заполните вручную количество запланированных часов&lt;/li&gt;&lt;/ul&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;4.&lt;/span&gt; Сохраните результат → &lt;span style=&quot; font-weight:600;&quot;&gt;Сохранить&lt;/span&gt;...&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="0">
+        <widget class="QProgressBar" name="progress">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>402</width>
+           <height>26</height>
+          </size>
+         </property>
+         <property name="value">
+          <number>0</number>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0">
+        <widget class="QPushButton" name="pb_save">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>402</width>
+           <height>34</height>
+          </size>
+         </property>
+         <property name="layoutDirection">
+          <enum>Qt::LeftToRight</enum>
          </property>
          <property name="text">
-          <string>Учебная работа</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
+          <string>Сохранить...</string>
          </property>
         </widget>
        </item>
@@ -2688,7 +2764,7 @@
            </widget>
           </item>
           <item row="6" column="1">
-           <widget class="QPushButton" name="pb1">
+           <widget class="QPushButton" name="pb_lrn">
             <property name="text">
              <string>Открыть...</string>
             </property>
@@ -2700,10 +2776,10 @@
          </layout>
         </widget>
        </item>
-       <item row="0" column="1" colspan="2">
-        <widget class="QLabel" name="lbl_title2">
+       <item row="0" column="0">
+        <widget class="QLabel" name="lbl_title1">
          <property name="sizePolicy">
-          <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+          <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
@@ -2717,48 +2793,31 @@
           </font>
          </property>
          <property name="text">
-          <string>Внеучебная работа</string>
+          <string>Учебная работа</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
          </property>
         </widget>
        </item>
-       <item row="5" column="0">
-        <widget class="QProgressBar" name="progress">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
+       <item row="2" column="0">
+        <widget class="QLabel" name="label">
          <property name="maximumSize">
           <size>
            <width>402</width>
-           <height>26</height>
+           <height>20</height>
           </size>
          </property>
-         <property name="value">
-          <number>0</number>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="0">
-        <widget class="QPushButton" name="pb3">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>402</width>
-           <height>34</height>
-          </size>
-         </property>
-         <property name="layoutDirection">
-          <enum>Qt::LeftToRight</enum>
+         <property name="font">
+          <font>
+           <family>Trebuchet MS</family>
+           <pointsize>12</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
          </property>
          <property name="text">
-          <string>Сохранить...</string>
+          <string>Порядок заполнения индивидуального плана</string>
          </property>
         </widget>
        </item>
