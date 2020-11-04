@@ -232,8 +232,10 @@ class PlanForm(QMainWindow):
                         self.up2[f'{d2[t]}{d1[3]}0{i + 1}'] = tables[t].cellWidget(i, 3).currentText()
                         # Поле: Запланировано
                         itm = tables[t].item(i, 4).text()
-                        planned = f'{int(int(itm) / float(labour))}\u2219{labour}={itm}'
-                        self.up2[f'{d2[t]}{d1[4]}0{i + 1}'] = planned
+                        # Проверяем - первые символы в трудоёмкости цифры?
+                        if labour.isnumeric():
+                            planned = f'{int(int(itm) / float(labour))}\u2219{labour}={itm}'
+                            self.up2[f'{d2[t]}{d1[4]}0{i + 1}'] = planned
                         summ += int(itm)
                         break
             # Записываем общую сумму по разделу внеучебной работы в документ docx
