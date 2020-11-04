@@ -18,7 +18,7 @@ CURRENT_YEAR = int(dt.datetime.today().strftime('%Y'))
 # Текущий месяц:
 CURRENT_MONTH = int(dt.datetime.today().strftime('%m'))
 # Если пользователь воспользовался приложением во втором семестре,
-# то уменьшим CURRENT_YEAR на единицу:
+# то для корректности уменьшим CURRENT_YEAR на единицу:
 if CURRENT_MONTH in range(1, 7):
     CURRENT_YEAR -= 1
 # Заместитель директора по учебной и научной работе:
@@ -42,27 +42,30 @@ class PlanForm(QMainWindow):
         self.de.setDate(dt.date.today() - dt.timedelta(days=548))
         # Включаем возможность выбирать дату при помощи PopUp-календаря:
         self.de.setCalendarPopup(True)
-        # Сигнал --> слот: pb1 --> pb_open
-        self.pb1.clicked.connect(self.pb_open)
-        # Сигнал pb3 --> слот pb_save
-        self.pb3.clicked.connect(lambda checked, tab=self.tw1: self.pb_save(tab))
-        # Учебно-методическая работа - сигнал pb01 --> слот load_in_tab
+        # Учебная работа - сигнал pb_lrn --> слот learn
+        self.pb_lrn.clicked.connect(self.learn)
+        # Учебно-методическая работа - сигнал pb01 --> слот extra
         self.pb01.clicked.connect(lambda checked, tree=self.tree1,
-                                         tab=self.tw1: self.load_in_tab(tree, tab))
-        # Организационная работа - сигнал pb02 --> слот load_in_tab
+                                         tab=self.tw1: self.extra(tree, tab))
+        # Организационная работа - сигнал pb02 --> слот extra
         self.pb02.clicked.connect(lambda checked, tree=self.tree2,
-                                         tab=self.tw2: self.load_in_tab(tree, tab))
-        # Научно-исследовательская работа - сигнал pb03 --> слот load_in_tab
+                                         tab=self.tw2: self.extra(tree, tab))
+        # Научно-исследовательская работа - сигнал pb03 --> слот extra
         self.pb03.clicked.connect(lambda checked, tree=self.tree3,
-                                         tab=self.tw3: self.load_in_tab(tree, tab))
-        # Воспитательная работа - сигнал pb04 --> слот load_in_tab
+                                         tab=self.tw3: self.extra(tree, tab))
+        # Воспитательная работа - сигнал pb04 --> слот extra
         self.pb04.clicked.connect(lambda checked, tree=self.tree4,
-                                         tab=self.tw4: self.load_in_tab(tree, tab))
-        # Повышение квалификации - сигнал pb05 --> слот load_in_tab
+                                         tab=self.tw4: self.extra(tree, tab))
+        # Повышение квалификации - сигнал pb05 --> слот extra
         self.pb05.clicked.connect(lambda checked, tree=self.tree5,
-                                         tab=self.tw5: self.load_in_tab(tree, tab))
+                                         tab=self.tw5: self.extra(tree, tab))
+        # Сигнал pb3 --> слот savedocx
+        self.pb_save.clicked.connect(lambda checked,
+                                        tables=(self.tw1, self.tw2, self.tw3,
+                                                self.tw4, self.tw5): self.savedocx(tables))
 
-    def pb_open(self):
+    def learn(self):
+        """Заполнение данных по учебной работе"""
         fname = QFileDialog.getOpenFileName(self, 'Выбрать файл', '',
                                             'Excel 2007–365 (.xlsx)(*.xlsx)')[0]
         workbook = xlrd.open_workbook(fname)
@@ -149,31 +152,34 @@ class PlanForm(QMainWindow):
         self.up1['dy4'] = tmp4 = as4 + cs4
         self.up1['lrnYP'] = tmp1 + tmp2 + tmp3 + tmp4
 
-    def load_in_tab(self, tree, tab):
-        """Загрузка отмеченных элементов QTreeWidgetItem в таблицу QTableWidget"""
-        checklist = list()  # Список для найденых выделенных check
+    def extra(self, tree, tab):
+        """Заполнение данных по внеучебной работе"""
+        # Загрузка отмеченных элементов QTreeWidgetItem в таблицу QTableWidget
+        # Список для найденых выделенных check
+        checklist = list()
+        # Создаём итератор для прохода по элементам QTreeWidget
         iter = QTreeWidgetItemIterator(tree, QTreeWidgetItemIterator.Checked)
         while iter.value():
             currentItem = iter.value()
-            #print(currentItem.text(0), currentItem.text(1))
             checklist.append((currentItem.text(0), currentItem.text(1)))
             iter += 1
-        #print(checklist)
         # Если ничего не выбрано,
         # то выведем сообщение об этом в статус-бар и вернём пустой return
         if not checklist:
             self.statusBar().showMessage('Внеучебная работа: ничего не выбрано')
             return
         else:
-            tab.setColumnWidth(0, 500)  # Задаём размер первого столбца пошире
-            tab.clearContents()  # Очищаем содержимое таблицы
+            # Задаём размер первого столбца пошире
+            tab.setColumnWidth(0, 500)
+            # Очищаем содержимое таблицы
+            tab.clearContents()
             # Заполняем QTableWidget данными из QTreeWidget
             for i, elem in enumerate(checklist):
                 for j, val in enumerate(elem):
                     tab.setItem(i, j, QTableWidgetItem(val))
             self.statusBar().showMessage(f'Таблица сформирована')
-        # Помещаем кнопки QComboBox в поле "Срок выполнения"
-        # на таблицу QTableWidget
+        # Помещаем кнопки QComboBox
+        # в поле "Срок выполнения" на таблицу QTableWidget
         i = 0
         for j in range(len(checklist)):
             # Создаём объект QComboBox
@@ -186,8 +192,8 @@ class PlanForm(QMainWindow):
             tab.setCellWidget(i, 3, cbox)
             i += 1
 
-    def pb_save(self, tab):
-        """Получение данных из интерфейса и запись в файл индивидуального плана"""
+    def savedocx(self, tables):
+        """Сбор данных из интерфейса и запись в docx"""
         # Фамилия Имя Отчество:
         name = self.cb1.currentText()
         # Учёная степень, звание:
@@ -201,39 +207,40 @@ class PlanForm(QMainWindow):
         # Учебный год (первый семестр):
         self.current_year = int(self.cb5.currentText()[:4])
         # Словарь для дополнения в context и дальнейшего внесения данных в шаблон документа
-        self.up01 = dict()
+        self.up2 = dict()
         # Словарь соответствия столбцов исходной таблицы столбцам итоговой
-        s = {0: 'A', 1: 'B', 2: 'C', 3: 'D', 4: 'E', 5: 'F'}
+        d1 = {0: 'A', 1: 'B', 2: 'C', 3: 'D', 4: 'E', 5: 'F'}
+        # Словарь соответствия номеров вкладок разделам внеучебной работы
+        d2 = {0: 'mtd', 1: 'org', 2:'sci', 3: 'edu', 4: 'upg'}
         # Получение списка элементов заголовка таблицы:
         # lst = [tab.horizontalHeaderItem(i).text() for i in range(tab.columnCount())]
-        # Запись остальных строк в файл:
-        summ = 0
-        for i in range(tab.rowCount()):
-            #row = []
-            for j in range(tab.columnCount()):
-                #itm = tab.item(i, j)
-                if tab.item(i, j) is not None:
-                    #row.append(itm.text())
-                    #self.up01[f'lrn{s[0]}0{i + 1}'] = itm.text()
-                    # Поле: Виды работы
-                    self.up01[f'mtd{s[0]}0{i + 1}'] = tab.item(i, 0).text()
-                    # Поле: Трудоёмкость в часах
-                    labour = tab.item(i, 1).text().split()[0]
-                    self.up01[f'mtd{s[2]}0{i + 1}'] = labour
-                    # Поле: Срок выполнения
-                    # tab.cellWidget(i, 3).currentText() - смотрим содержимое
-                    # ячеек поля "Срок выполнения" - это названия месяцев
-                    self.up01[f'mtd{s[3]}0{i + 1}'] = tab.cellWidget(i, 3).currentText()
-                    # Поле: Запланировано
-                    itm = tab.item(i, 4).text()
-                    planned = f'{int(int(itm) / float(labour))}\u2219{labour}={itm}'
-                    self.up01[f'mtd{s[4]}0{i + 1}'] = planned
-                    summ += int(itm)
-                    break
-        # Записываем общую сумму в документ docx
-        self.up01[f'mtdYP'] = summ
+        # Запись данных о внеучебной работе из таблиц интерфейса в файл docx:
+        for t in range(len(tables)):
+            summ = 0
+            for i in range(tables[t].rowCount()):
+                for j in range(tables[t].columnCount()):
+                    if tables[t].item(i, j) is not None:
+                        # Поле: Виды работы
+                        self.up2[f'{d2[t]}{d1[0]}0{i + 1}'] = tables[t].item(i, 0).text()
+                        # Поле: Трудоёмкость в часах
+                        labour = tables[t].item(i, 1).text().split()[0]
+                        self.up2[f'{d2[t]}{d1[2]}0{i + 1}'] = labour
+                        # Поле: Срок выполнения
+                        # tab.cellWidget(i, 3).currentText() - смотрим содержимое
+                        # ячеек поля "Срок выполнения" - названия месяцев учебного года
+                        self.up2[f'{d2[t]}{d1[3]}0{i + 1}'] = tables[t].cellWidget(i, 3).currentText()
+                        # Поле: Запланировано
+                        itm = tables[t].item(i, 4).text()
+                        planned = f'{int(int(itm) / float(labour))}\u2219{labour}={itm}'
+                        self.up2[f'{d2[t]}{d1[4]}0{i + 1}'] = planned
+                        summ += int(itm)
+                        break
+            # Записываем общую сумму по разделу внеучебной работы в документ docx
+            self.up2[f'{d2[t]}YP'] = summ
+
         # Файл шаблона:
         doc = DocxTemplate('iplan-template.dotx')
+        # Начальный словарь для рендеринга
         context = {
             'cathedra': cathedra,
             'deputy': DEPUTY,
@@ -246,9 +253,11 @@ class PlanForm(QMainWindow):
             'hourly': self.hourly_pay,
             'user_rate': self.learn_rate
         }
-        # Объединяем все данные для внесения в документ
+        # Объединяем данные учебной (up1) и внеучебной (up2) работы
+        # в словарь рендеринга для дальнейшего внесения в документ
         context.update(self.up1)
-        context.update(self.up01)
+        context.update(self.up2)
+        # Диалоговое окно сохранения файла docx
         fname = QFileDialog.getSaveFileName(self, 'Сохранить документ', '',
                                             'Word 2007–365 (.docx)(*.docx)')[0]
         self.statusBar().showMessage('Идёт формирование документа...')
