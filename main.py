@@ -1,4 +1,4 @@
-# Полуавтоматическая генерация индивидуального плана преподавателя
+# Автоматическая генерация индивидуального плана преподавателя
 # motor1n develop PyQt5 - 2020 year
 
 
@@ -44,12 +44,23 @@ class PlanForm(QMainWindow):
         self.de.setCalendarPopup(True)
         # Сигнал --> слот: pb1 --> pb_open
         self.pb1.clicked.connect(self.pb_open)
-        # Сигнал --> слот: pb2 --> pb_start
-        #self.pb2.clicked.connect(self.pb_start)
-        # Сигнал --> слот: pb3 --> pb_save
+        # Сигнал pb3 --> слот pb_save
         self.pb3.clicked.connect(lambda checked, tab=self.tw1: self.pb_save(tab))
-        # Сигнал --> слот: pb01 --> pb_load
-        self.pb01.clicked.connect(lambda checked, tree=self.tree1, tab=self.tw1: self.load(tree, tab))
+        # Учебно-методическая работа - сигнал pb01 --> слот load_in_tab
+        self.pb01.clicked.connect(lambda checked, tree=self.tree1,
+                                         tab=self.tw1: self.load_in_tab(tree, tab))
+        # Организационная работа - сигнал pb02 --> слот load_in_tab
+        self.pb02.clicked.connect(lambda checked, tree=self.tree2,
+                                         tab=self.tw2: self.load_in_tab(tree, tab))
+        # Научно-исследовательская работа - сигнал pb03 --> слот load_in_tab
+        self.pb03.clicked.connect(lambda checked, tree=self.tree3,
+                                         tab=self.tw3: self.load_in_tab(tree, tab))
+        # Воспитательная работа - сигнал pb04 --> слот load_in_tab
+        self.pb04.clicked.connect(lambda checked, tree=self.tree4,
+                                         tab=self.tw4: self.load_in_tab(tree, tab))
+        # Повышение квалификации - сигнал pb05 --> слот load_in_tab
+        self.pb05.clicked.connect(lambda checked, tree=self.tree5,
+                                         tab=self.tw5: self.load_in_tab(tree, tab))
 
     def pb_open(self):
         fname = QFileDialog.getOpenFileName(self, 'Выбрать файл', '',
@@ -138,7 +149,7 @@ class PlanForm(QMainWindow):
         self.up1['dy4'] = tmp4 = as4 + cs4
         self.up1['lrnYP'] = tmp1 + tmp2 + tmp3 + tmp4
 
-    def load(self, tree, tab):
+    def load_in_tab(self, tree, tab):
         """Загрузка отмеченных элементов QTreeWidgetItem в таблицу QTableWidget"""
         checklist = list()  # Список для найденых выделенных check
         iter = QTreeWidgetItemIterator(tree, QTreeWidgetItemIterator.Checked)
@@ -221,7 +232,6 @@ class PlanForm(QMainWindow):
                     break
         # Записываем общую сумму в документ docx
         self.up01[f'mtdYP'] = summ
-
         # Файл шаблона:
         doc = DocxTemplate('iplan-template.dotx')
         context = {
@@ -241,26 +251,32 @@ class PlanForm(QMainWindow):
         context.update(self.up01)
         fname = QFileDialog.getSaveFileName(self, 'Сохранить документ', '',
                                             'Word 2007–365 (.docx)(*.docx)')[0]
-        doc.render(context)
-        doc.save(fname)
         self.statusBar().showMessage('Идёт формирование документа...')
+        # Рендерим инфу в шаблон
+        doc.render(context)
+        # Сохраняем конечный документ
+        doc.save(fname)
+        # Используем progressBar
         TIME_LIMIT = 100
         count = 0
         while count < TIME_LIMIT:
             count += 1
             time.sleep(0.1)
             self.progress.setValue(count)
+        # Выводим сообщение в статус-бар
         self.statusBar().showMessage(f'Документ {fname} сформирован')
+        # Обнуляем progressBar после операции
         self.progress.setValue(0)
 
 
-# Отслеживаем ошибки PyQt5
 def except_hook(cls, exception, traceback):
+    """Функция для отслеживания ошибок PyQt5"""
     sys.__excepthook__(cls, exception, traceback)
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     ex = PlanForm()
     ex.show()
+    # Ловим и показываем ошибки PyQt5 в терминале
     sys.excepthook = except_hook
     sys.exit(app.exec_())
