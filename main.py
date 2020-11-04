@@ -167,7 +167,7 @@ class PlanForm(QMainWindow):
         # Если ничего не выбрано,
         # то выведем сообщение об этом в статус-бар и вернём пустой return
         if not checklist:
-            self.statusBar().showMessage('Внеучебная работа: ничего не выбрано')
+            self.statusBar().showMessage('Внеучебная работа: не выбрано')
             return
         else:
             # Задаём размер первого столбца пошире
@@ -178,7 +178,8 @@ class PlanForm(QMainWindow):
             for i, elem in enumerate(checklist):
                 for j, val in enumerate(elem):
                     tab.setItem(i, j, QTableWidgetItem(val))
-            self.statusBar().showMessage(f'Таблица сформирована')
+            msg = f'Внеучебная работа: выбрано позиций: {len(checklist)}'
+            self.statusBar().showMessage(msg)
         # Помещаем кнопки QComboBox
         # в поле "Срок выполнения" на таблицу QTableWidget
         i = 0
