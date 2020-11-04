@@ -27,37 +27,6 @@
        </sizepolicy>
       </property>
       <layout class="QGridLayout" name="gridLayout">
-       <item row="4" column="0">
-        <widget class="QPushButton" name="pb3">
-         <property name="text">
-          <string>Сохранить</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="0">
-        <widget class="QLabel" name="lbl_title1">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="font">
-          <font>
-           <family>Trebuchet MS</family>
-           <pointsize>12</pointsize>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
-         </property>
-         <property name="text">
-          <string>Учебная работа</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
        <item row="1" column="1" rowspan="5" colspan="2">
         <widget class="QTabWidget" name="tabs">
          <property name="sizePolicy">
@@ -67,7 +36,7 @@
           </sizepolicy>
          </property>
          <property name="currentIndex">
-          <number>0</number>
+          <number>1</number>
          </property>
          <widget class="QWidget" name="tab1">
           <attribute name="title">
@@ -2416,10 +2385,10 @@
          </widget>
         </widget>
        </item>
-       <item row="0" column="1" colspan="2">
-        <widget class="QLabel" name="lbl_title2">
+       <item row="0" column="0">
+        <widget class="QLabel" name="lbl_title1">
          <property name="sizePolicy">
-          <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+          <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
@@ -2433,7 +2402,10 @@
           </font>
          </property>
          <property name="text">
-          <string>Внеучебная работа</string>
+          <string>Учебная работа</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
          </property>
         </widget>
        </item>
@@ -2705,21 +2677,6 @@
             </property>
            </widget>
           </item>
-          <item row="5" column="1">
-           <widget class="QLineEdit" name="le">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="font">
-             <font>
-              <pointsize>11</pointsize>
-             </font>
-            </property>
-           </widget>
-          </item>
           <item row="6" column="0">
            <widget class="QLabel" name="lbl7">
             <property name="text">
@@ -2737,26 +2694,71 @@
             </property>
            </widget>
           </item>
+          <item row="5" column="1">
+           <widget class="QComboBox" name="cb5"/>
+          </item>
          </layout>
         </widget>
        </item>
-       <item row="3" column="0">
-        <widget class="QPushButton" name="pb2">
+       <item row="0" column="1" colspan="2">
+        <widget class="QLabel" name="lbl_title2">
          <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
          <property name="font">
           <font>
+           <family>Trebuchet MS</family>
            <pointsize>12</pointsize>
            <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
          <property name="text">
-          <string>Старт!</string>
+          <string>Внеучебная работа</string>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="0">
+        <widget class="QProgressBar" name="progress">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>402</width>
+           <height>26</height>
+          </size>
+         </property>
+         <property name="value">
+          <number>0</number>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0">
+        <widget class="QPushButton" name="pb3">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>402</width>
+           <height>34</height>
+          </size>
+         </property>
+         <property name="layoutDirection">
+          <enum>Qt::LeftToRight</enum>
+         </property>
+         <property name="text">
+          <string>Сохранить...</string>
          </property>
         </widget>
        </item>
