@@ -96,6 +96,11 @@
                <string>Трудоёмкость</string>
               </property>
              </column>
+             <column>
+              <property name="text">
+               <string>Форма отчётности</string>
+              </property>
+             </column>
              <item>
               <property name="text">
                <string>Разработка УМК</string>
@@ -113,6 +118,12 @@
                <property name="text">
                 <string>40 часов за одну программу всем авторам</string>
                </property>
+               <property name="toolTip">
+                <string>40</string>
+               </property>
+               <property name="text">
+                <string>Наличие разработок на кафедре</string>
+               </property>
               </item>
               <item>
                <property name="text">
@@ -123,6 +134,9 @@
                </property>
                <property name="text">
                 <string>2 часа за аннотацию 1 программы</string>
+               </property>
+               <property name="text">
+                <string>Наличие разработок на кафедре</string>
                </property>
               </item>
               <item>
@@ -135,6 +149,9 @@
                <property name="text">
                 <string>2 часа за 1 час лекций</string>
                </property>
+               <property name="text">
+                <string>Наличие разработок на кафедре</string>
+               </property>
               </item>
               <item>
                <property name="text">
@@ -145,6 +162,9 @@
                </property>
                <property name="text">
                 <string>4 часа на одно занятие (за 2 часа ауд. занятий)</string>
+               </property>
+               <property name="text">
+                <string>Наличие разработок на кафедре</string>
                </property>
               </item>
               <item>
@@ -157,6 +177,9 @@
                <property name="text">
                 <string>10 часов за одну форму текущего и/или промежуточного контроля</string>
                </property>
+               <property name="text">
+                <string>Наличие разработок на кафедре</string>
+               </property>
               </item>
               <item>
                <property name="text">
@@ -167,6 +190,9 @@
                </property>
                <property name="text">
                 <string>0.25 часа за каждые четыре часа самостоятельной работы обучающихся (согласно учебному плану)</string>
+               </property>
+               <property name="text">
+                <string>Наличие разработок на кафедре</string>
                </property>
               </item>
              </item>
@@ -184,6 +210,9 @@
                <property name="text">
                 <string>4 часа за программу</string>
                </property>
+               <property name="text">
+                <string>Наличие разработок на кафедре</string>
+               </property>
               </item>
               <item>
                <property name="text">
@@ -194,6 +223,9 @@
                </property>
                <property name="text">
                 <string>10 часов за одну программу</string>
+               </property>
+               <property name="text">
+                <string>Наличие разработок на кафедре</string>
                </property>
               </item>
               <item>
@@ -206,6 +238,9 @@
                <property name="text">
                 <string>1 час за аннотацию 1 программы</string>
                </property>
+               <property name="text">
+                <string>Наличие разработок на кафедре</string>
+               </property>
               </item>
               <item>
                <property name="text">
@@ -216,6 +251,9 @@
                </property>
                <property name="text">
                 <string>1 час на одно занятие (за 2 часа ауд. занятий)</string>
+               </property>
+               <property name="text">
+                <string>Наличие разработок на кафедре</string>
                </property>
               </item>
               <item>
@@ -228,6 +266,9 @@
                <property name="text">
                 <string>4 часа за одну форму текущего и/или промежуточного контроля</string>
                </property>
+               <property name="text">
+                <string>Наличие разработок на кафедре</string>
+               </property>
               </item>
               <item>
                <property name="text">
@@ -238,6 +279,9 @@
                </property>
                <property name="text">
                 <string>0.25 часа за каждые 10 часов самостоятельной работы обучающихся (согласно учебному плану)</string>
+               </property>
+               <property name="text">
+                <string>Наличие разработок на кафедре</string>
                </property>
               </item>
              </item>
@@ -255,6 +299,9 @@
                <property name="text">
                 <string>0.5 часа за 1 час лекций</string>
                </property>
+               <property name="text">
+                <string>Наличие разработок на кафедре</string>
+               </property>
               </item>
               <item>
                <property name="text">
@@ -265,6 +312,9 @@
                </property>
                <property name="text">
                 <string>0.25 часа за 1 час занятий</string>
+               </property>
+               <property name="text">
+                <string>Наличие разработок на кафедре</string>
                </property>
               </item>
               <item>
@@ -277,6 +327,9 @@
                <property name="text">
                 <string>0.1 часа на 1 обучающегося за 10 часов самостоятельной работы (согласно учебному плану)</string>
                </property>
+               <property name="text">
+                <string>Наличие разработок на кафедре</string>
+               </property>
               </item>
               <item>
                <property name="text">
@@ -287,6 +340,9 @@
                </property>
                <property name="text">
                 <string>4 часа на курс в семестр</string>
+               </property>
+               <property name="text">
+                <string>?</string>
                </property>
               </item>
              </item>
@@ -304,6 +360,9 @@
                <property name="text">
                 <string>30 часов за 1 п.л. всем авторам (в т.ч. учитываются авторы, не являющиеся сотрудниками университета)</string>
                </property>
+               <property name="text">
+                <string>Наличие экземпляра на кафедре</string>
+               </property>
               </item>
               <item>
                <property name="text">
@@ -314,6 +373,9 @@
                </property>
                <property name="text">
                 <string>25 часов за 1 п.л. всем авторам (в т.ч. учитываются авторы, не являющиеся сотрудниками университета)</string>
+               </property>
+               <property name="text">
+                <string>Наличие экземпляра на кафедре</string>
                </property>
               </item>
               <item>
@@ -326,6 +388,9 @@
                <property name="text">
                 <string>10 часов за 1 п.л. всем авторам (в т.ч. учитываются авторы, не являющиеся сотрудниками университета)</string>
                </property>
+               <property name="text">
+                <string>Наличие экземпляра на кафедре</string>
+               </property>
               </item>
               <item>
                <property name="text">
@@ -336,6 +401,9 @@
                </property>
                <property name="text">
                 <string>6 часов за 1 печатный лист</string>
+               </property>
+               <property name="text">
+                <string>Наличие материалов на кафедре</string>
                </property>
               </item>
              </item>
@@ -353,6 +421,9 @@
                <property name="text">
                 <string>4 часа на одно занятие (на 2 аудиторных часа)</string>
                </property>
+               <property name="text">
+                <string>Наличие разработок на кафедре</string>
+               </property>
               </item>
               <item>
                <property name="text">
@@ -364,6 +435,9 @@
                <property name="text">
                 <string>1 час на одно занятие (на 2 аудиторных часа)</string>
                </property>
+               <property name="text">
+                <string>Наличие разработок на кафедре</string>
+               </property>
               </item>
               <item>
                <property name="text">
@@ -374,6 +448,9 @@
                </property>
                <property name="text">
                 <string>20 часов</string>
+               </property>
+               <property name="text">
+                <string>Регистрационное свидетельсво </string>
                </property>
               </item>
               <item>
@@ -386,6 +463,9 @@
                <property name="text">
                 <string>20 часов</string>
                </property>
+               <property name="text">
+                <string>Личный кабинет преподавателей на сайте НГПУ</string>
+               </property>
               </item>
               <item>
                <property name="text">
@@ -397,6 +477,9 @@
                <property name="text">
                 <string>10 часов</string>
                </property>
+               <property name="text">
+                <string>Личный кабинет преподавателей на сайте НГПУ</string>
+               </property>
               </item>
               <item>
                <property name="text">
@@ -407,6 +490,9 @@
                </property>
                <property name="text">
                 <string>40 часов за 1 фильм</string>
+               </property>
+               <property name="text">
+                <string>Наличие видеоматериалов на кафедре</string>
                </property>
               </item>
              </item>
@@ -424,6 +510,9 @@
                <property name="text">
                 <string>0.5 часа за 1 час лекций</string>
                </property>
+               <property name="text">
+                <string>Наличие разработок на кафедре</string>
+               </property>
               </item>
               <item>
                <property name="text">
@@ -434,6 +523,9 @@
                </property>
                <property name="text">
                 <string>0.25 часа за 1 час занятий</string>
+               </property>
+               <property name="text">
+                <string>Наличие разработок на кафедре</string>
                </property>
               </item>
               <item>
@@ -446,6 +538,9 @@
                <property name="text">
                 <string>0.1 часа на 1 обучающегося за 10 часов самостоятельной работы (согласно учебному плану)</string>
                </property>
+               <property name="text">
+                <string>?</string>
+               </property>
               </item>
               <item>
                <property name="text">
@@ -456,6 +551,9 @@
                </property>
                <property name="text">
                 <string>4 часа на курс в семестр</string>
+               </property>
+               <property name="text">
+                <string>?</string>
                </property>
               </item>
              </item>
@@ -473,6 +571,9 @@
                <property name="text">
                 <string>30 часов за 1 п.л. всем авторам (в т.ч. учитываются авторы, не являющиеся сотрудниками университета)</string>
                </property>
+               <property name="text">
+                <string>Наличие экземпляра на кафедре</string>
+               </property>
               </item>
               <item>
                <property name="text">
@@ -483,6 +584,9 @@
                </property>
                <property name="text">
                 <string>25 часов за 1 п.л. всем авторам (в т.ч. учитываются авторы, не являющиеся сотрудниками университета)</string>
+               </property>
+               <property name="text">
+                <string>Наличие экземпляра на кафедре</string>
                </property>
               </item>
               <item>
@@ -495,6 +599,9 @@
                <property name="text">
                 <string>10 часов за 1 п.л. всем авторам (в т.ч. учитываются авторы, не являющиеся сотрудниками университета)</string>
                </property>
+               <property name="text">
+                <string>Наличие экземпляра на кафедре</string>
+               </property>
               </item>
               <item>
                <property name="text">
@@ -506,76 +613,8 @@
                <property name="text">
                 <string>6 часов за 1 печатный лист</string>
                </property>
-              </item>
-             </item>
-             <item>
-              <property name="text">
-               <string>Создание цифровых образовательных ресурсов</string>
-              </property>
-              <item>
                <property name="text">
-                <string>Создание презентаций по дисциплине впервые</string>
-               </property>
-               <property name="checkState">
-                <enum>Unchecked</enum>
-               </property>
-               <property name="text">
-                <string>4 часа на одно занятие (на 2 аудиторных часа)</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Актуализация презентаций</string>
-               </property>
-               <property name="checkState">
-                <enum>Unchecked</enum>
-               </property>
-               <property name="text">
-                <string>1 час на одно занятие (на 2 аудиторных часа)</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Регистрация образовательного электронного ресурса в Информрегистре Роскомнадзора с получением свидетельства</string>
-               </property>
-               <property name="checkState">
-                <enum>Unchecked</enum>
-               </property>
-               <property name="text">
-                <string>20 часов</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Создание личной страницы преподавателя на сайте НГПУ и её насыщение учебными и учебно-методическими материалами</string>
-               </property>
-               <property name="checkState">
-                <enum>Unchecked</enum>
-               </property>
-               <property name="text">
-                <string>20 часов</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Обновление материала личной страницы преподавателя на сайте НГПУ</string>
-               </property>
-               <property name="checkState">
-                <enum>Unchecked</enum>
-               </property>
-               <property name="text">
-                <string>10 часов</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Создание учебных видеофильмов</string>
-               </property>
-               <property name="checkState">
-                <enum>Unchecked</enum>
-               </property>
-               <property name="text">
-                <string>40 часов за 1 фильм</string>
+                <string>Наличие рецензии на кафедре</string>
                </property>
               </item>
              </item>
@@ -593,6 +632,9 @@
                <property name="text">
                 <string>20 часов на одну ОПОП</string>
                </property>
+               <property name="text">
+                <string>Наличие разработок на кафедре</string>
+               </property>
               </item>
               <item>
                <property name="text">
@@ -603,6 +645,9 @@
                </property>
                <property name="text">
                 <string>10 часов на одну ОПОП</string>
+               </property>
+               <property name="text">
+                <string>Наличие разработок на кафедре</string>
                </property>
               </item>
              </item>
@@ -801,6 +846,11 @@
                <string>Трудоёмкость</string>
               </property>
              </column>
+             <column>
+              <property name="text">
+               <string>Форма отчётности</string>
+              </property>
+             </column>
              <item>
               <property name="text">
                <string>Выполнение административных функций</string>
@@ -818,6 +868,9 @@
                <property name="text">
                 <string>1474 – 1494 часа</string>
                </property>
+               <property name="text">
+                <string>?</string>
+               </property>
               </item>
               <item>
                <property name="text">
@@ -828,6 +881,9 @@
                </property>
                <property name="text">
                 <string>1224 часа</string>
+               </property>
+               <property name="text">
+                <string>?</string>
                </property>
               </item>
               <item>
@@ -840,6 +896,9 @@
                <property name="text">
                 <string>350 часов – при учебной нагрузке кафедры до 10 000 часов; 400 часов – при учебной нагрузке кафедры от 10 000 до 15 000 часов; 450 часов – при учебной нагрузке кафедры от 15 000 до 20 000 часов; 500 часов – при учебной нагрузке кафедры свыше 20 000 часов</string>
                </property>
+               <property name="text">
+                <string>?</string>
+               </property>
               </item>
               <item>
                <property name="text">
@@ -850,6 +909,9 @@
                </property>
                <property name="text">
                 <string>до 100 часов в год</string>
+               </property>
+               <property name="text">
+                <string>?</string>
                </property>
               </item>
               <item>
@@ -862,6 +924,9 @@
                <property name="text">
                 <string>20 – 30 часов в год</string>
                </property>
+               <property name="text">
+                <string>?</string>
+               </property>
               </item>
               <item>
                <property name="text">
@@ -872,6 +937,9 @@
                </property>
                <property name="text">
                 <string>до 100 часов в год</string>
+               </property>
+               <property name="text">
+                <string>?</string>
                </property>
               </item>
              </item>
@@ -889,6 +957,9 @@
                <property name="text">
                 <string>до 30 часов в год</string>
                </property>
+               <property name="text">
+                <string>Факт участия (в протоколе заседания)</string>
+               </property>
               </item>
               <item>
                <property name="text">
@@ -899,6 +970,9 @@
                </property>
                <property name="text">
                 <string>до 30 часов в год</string>
+               </property>
+               <property name="text">
+                <string>Факт участия (в протоколе заседания)</string>
                </property>
               </item>
               <item>
@@ -911,6 +985,9 @@
                <property name="text">
                 <string>до 20 часов в год</string>
                </property>
+               <property name="text">
+                <string>Факт участия (в протоколе заседания)</string>
+               </property>
               </item>
               <item>
                <property name="text">
@@ -922,6 +999,9 @@
                <property name="text">
                 <string>до 10 часов в год</string>
                </property>
+               <property name="text">
+                <string>Факт участия (в протоколе заседания)</string>
+               </property>
               </item>
               <item>
                <property name="text">
@@ -931,8 +1011,10 @@
                 <enum>Unchecked</enum>
                </property>
                <property name="text">
-                <string>до 30 часов в год (членам совета),
-до 60 часов в год (секретарю совета)</string>
+                <string>до 30 часов в год (членам совета), до 60 часов в год (секретарю совета)</string>
+               </property>
+               <property name="text">
+                <string>Факт участия (в протоколе заседания)</string>
                </property>
               </item>
               <item>
@@ -945,6 +1027,9 @@
                <property name="text">
                 <string>до 60 часов в год (членам совета)</string>
                </property>
+               <property name="text">
+                <string>Факт участия (в протоколе заседания)</string>
+               </property>
               </item>
               <item>
                <property name="text">
@@ -956,6 +1041,9 @@
                <property name="text">
                 <string>до 60 часов в год</string>
                </property>
+               <property name="text">
+                <string>Факт участия (в протоколе заседания)</string>
+               </property>
               </item>
               <item>
                <property name="text">
@@ -966,6 +1054,9 @@
                </property>
                <property name="text">
                 <string>60 часов в год</string>
+               </property>
+               <property name="text">
+                <string>Факт участия (в протоколе заседания)</string>
                </property>
               </item>
              </item>
@@ -983,6 +1074,9 @@
                <property name="text">
                 <string>4 часа за одного обучающегося в год</string>
                </property>
+               <property name="text">
+                <string>?</string>
+               </property>
               </item>
               <item>
                <property name="text">
@@ -994,6 +1088,9 @@
                <property name="text">
                 <string>30 часов на обучающегося-инвалида в год (на основании личного заявления обучающегося об организации тьюторского сопровождения)</string>
                </property>
+               <property name="text">
+                <string>?</string>
+               </property>
               </item>
               <item>
                <property name="text">
@@ -1004,6 +1101,9 @@
                </property>
                <property name="text">
                 <string>до 200 часов на всех участников</string>
+               </property>
+               <property name="text">
+                <string>Наличие материалов на кафедре</string>
                </property>
               </item>
              </item>
@@ -1091,6 +1191,9 @@
                </property>
                <property name="text">
                 <string>4 часа на одно занятие</string>
+               </property>
+               <property name="text">
+                <string>Отчётные материалы в журнале посещений</string>
                </property>
               </item>
               <item>
@@ -1309,6 +1412,11 @@
              <column>
               <property name="text">
                <string>Трудоёмкость</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Форма отчётности</string>
               </property>
              </column>
              <item>
@@ -1909,6 +2017,11 @@
                <string>Трудоёмкость</string>
               </property>
              </column>
+             <column>
+              <property name="text">
+               <string>Форма отчётности</string>
+              </property>
+             </column>
              <item>
               <property name="text">
                <string>Воспитательная работа</string>
@@ -2222,6 +2335,11 @@
                <string>Трудоёмкость</string>
               </property>
              </column>
+             <column>
+              <property name="text">
+               <string>Форма отчётности</string>
+              </property>
+             </column>
              <item>
               <property name="text">
                <string>Повышение профессионального уровня</string>
@@ -2238,6 +2356,9 @@
                </property>
                <property name="text">
                 <string>16 – 72 часа</string>
+               </property>
+               <property name="text">
+                <string>Свидетельство</string>
                </property>
               </item>
              </item>
@@ -2728,12 +2849,17 @@ p, li { white-space: pre-wrap; }
             </item>
             <item>
              <property name="text">
-              <string>каф</string>
+              <string>МИиМП</string>
              </property>
             </item>
             <item>
              <property name="text">
-              <string>МИиМП</string>
+              <string>ПиП</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>ФиМО</string>
              </property>
             </item>
            </widget>

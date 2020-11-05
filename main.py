@@ -161,8 +161,11 @@ class PlanForm(QMainWindow):
         # Создаём итератор для прохода по элементам QTreeWidget
         iter = QTreeWidgetItemIterator(tree, QTreeWidgetItemIterator.Checked)
         while iter.value():
+            # Читаем строку QTreeWidgetItem
             currentItem = iter.value()
-            checklist.append((currentItem.text(0), currentItem.text(1)))
+            # Значение toolTip ячейки "Трудоёмкость"
+            print('Трудоёмкость:', currentItem.toolTip(1))
+            checklist.append((currentItem.text(0), currentItem.text(1), currentItem.text(2)))
             iter += 1
         # Если ничего не выбрано,
         # то выведем сообщение об этом в статус-бар и вернём пустой return
@@ -178,6 +181,12 @@ class PlanForm(QMainWindow):
             for i, elem in enumerate(checklist):
                 for j, val in enumerate(elem):
                     tab.setItem(i, j, QTableWidgetItem(val))
+
+                    #QTableWidgetItem(val).setToolTip('100')
+                    #print(QTableWidgetItem(val).text())
+                    print(QTableWidgetItem(val).toolTip())
+                    #print(QTableWidgetItem(val).statusTip())
+                    #print(QTableWidgetItem(val).whatsThis())
             msg = f'Внеучебная работа: выбрано позиций: {len(checklist)}'
             self.statusBar().showMessage(msg)
         # Помещаем кнопки QComboBox
