@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1024</width>
+    <width>1551</width>
     <height>768</height>
    </rect>
   </property>
@@ -135,6 +135,9 @@
                <property name="text">
                 <string>2 часа за аннотацию 1 программы</string>
                </property>
+               <property name="toolTip">
+                <string>2</string>
+               </property>
                <property name="text">
                 <string>Наличие разработок на кафедре</string>
                </property>
@@ -148,6 +151,9 @@
                </property>
                <property name="text">
                 <string>2 часа за 1 час лекций</string>
+               </property>
+               <property name="toolTip">
+                <string>2</string>
                </property>
                <property name="text">
                 <string>Наличие разработок на кафедре</string>
@@ -163,6 +169,9 @@
                <property name="text">
                 <string>4 часа на одно занятие (за 2 часа ауд. занятий)</string>
                </property>
+               <property name="toolTip">
+                <string>4</string>
+               </property>
                <property name="text">
                 <string>Наличие разработок на кафедре</string>
                </property>
@@ -177,6 +186,9 @@
                <property name="text">
                 <string>10 часов за одну форму текущего и/или промежуточного контроля</string>
                </property>
+               <property name="toolTip">
+                <string>10</string>
+               </property>
                <property name="text">
                 <string>Наличие разработок на кафедре</string>
                </property>
@@ -190,6 +202,9 @@
                </property>
                <property name="text">
                 <string>0.25 часа за каждые четыре часа самостоятельной работы обучающихся (согласно учебному плану)</string>
+               </property>
+               <property name="toolTip">
+                <string>0.25</string>
                </property>
                <property name="text">
                 <string>Наличие разработок на кафедре</string>
@@ -210,6 +225,9 @@
                <property name="text">
                 <string>4 часа за программу</string>
                </property>
+               <property name="toolTip">
+                <string>4</string>
+               </property>
                <property name="text">
                 <string>Наличие разработок на кафедре</string>
                </property>
@@ -223,6 +241,9 @@
                </property>
                <property name="text">
                 <string>10 часов за одну программу</string>
+               </property>
+               <property name="toolTip">
+                <string>10</string>
                </property>
                <property name="text">
                 <string>Наличие разработок на кафедре</string>
@@ -238,6 +259,9 @@
                <property name="text">
                 <string>1 час за аннотацию 1 программы</string>
                </property>
+               <property name="toolTip">
+                <string>1</string>
+               </property>
                <property name="text">
                 <string>Наличие разработок на кафедре</string>
                </property>
@@ -251,6 +275,9 @@
                </property>
                <property name="text">
                 <string>1 час на одно занятие (за 2 часа ауд. занятий)</string>
+               </property>
+               <property name="toolTip">
+                <string>1</string>
                </property>
                <property name="text">
                 <string>Наличие разработок на кафедре</string>
@@ -266,6 +293,9 @@
                <property name="text">
                 <string>4 часа за одну форму текущего и/или промежуточного контроля</string>
                </property>
+               <property name="toolTip">
+                <string>4</string>
+               </property>
                <property name="text">
                 <string>Наличие разработок на кафедре</string>
                </property>
@@ -279,6 +309,9 @@
                </property>
                <property name="text">
                 <string>0.25 часа за каждые 10 часов самостоятельной работы обучающихся (согласно учебному плану)</string>
+               </property>
+               <property name="toolTip">
+                <string>0.25</string>
                </property>
                <property name="text">
                 <string>Наличие разработок на кафедре</string>
@@ -299,6 +332,9 @@
                <property name="text">
                 <string>0.5 часа за 1 час лекций</string>
                </property>
+               <property name="toolTip">
+                <string>0.5</string>
+               </property>
                <property name="text">
                 <string>Наличие разработок на кафедре</string>
                </property>
@@ -312,6 +348,9 @@
                </property>
                <property name="text">
                 <string>0.25 часа за 1 час занятий</string>
+               </property>
+               <property name="toolTip">
+                <string>0.25</string>
                </property>
                <property name="text">
                 <string>Наличие разработок на кафедре</string>
@@ -327,6 +366,9 @@
                <property name="text">
                 <string>0.1 часа на 1 обучающегося за 10 часов самостоятельной работы (согласно учебному плану)</string>
                </property>
+               <property name="toolTip">
+                <string>0.1</string>
+               </property>
                <property name="text">
                 <string>Наличие разработок на кафедре</string>
                </property>
@@ -340,6 +382,9 @@
                </property>
                <property name="text">
                 <string>4 часа на курс в семестр</string>
+               </property>
+               <property name="toolTip">
+                <string>4</string>
                </property>
                <property name="text">
                 <string>?</string>
@@ -360,6 +405,9 @@
                <property name="text">
                 <string>30 часов за 1 п.л. всем авторам (в т.ч. учитываются авторы, не являющиеся сотрудниками университета)</string>
                </property>
+               <property name="toolTip">
+                <string>30</string>
+               </property>
                <property name="text">
                 <string>Наличие экземпляра на кафедре</string>
                </property>
@@ -373,6 +421,9 @@
                </property>
                <property name="text">
                 <string>25 часов за 1 п.л. всем авторам (в т.ч. учитываются авторы, не являющиеся сотрудниками университета)</string>
+               </property>
+               <property name="toolTip">
+                <string>25</string>
                </property>
                <property name="text">
                 <string>Наличие экземпляра на кафедре</string>
@@ -388,6 +439,9 @@
                <property name="text">
                 <string>10 часов за 1 п.л. всем авторам (в т.ч. учитываются авторы, не являющиеся сотрудниками университета)</string>
                </property>
+               <property name="toolTip">
+                <string>10</string>
+               </property>
                <property name="text">
                 <string>Наличие экземпляра на кафедре</string>
                </property>
@@ -401,6 +455,9 @@
                </property>
                <property name="text">
                 <string>6 часов за 1 печатный лист</string>
+               </property>
+               <property name="toolTip">
+                <string>6</string>
                </property>
                <property name="text">
                 <string>Наличие материалов на кафедре</string>
@@ -421,6 +478,9 @@
                <property name="text">
                 <string>4 часа на одно занятие (на 2 аудиторных часа)</string>
                </property>
+               <property name="toolTip">
+                <string>4</string>
+               </property>
                <property name="text">
                 <string>Наличие разработок на кафедре</string>
                </property>
@@ -434,6 +494,9 @@
                </property>
                <property name="text">
                 <string>1 час на одно занятие (на 2 аудиторных часа)</string>
+               </property>
+               <property name="toolTip">
+                <string>1</string>
                </property>
                <property name="text">
                 <string>Наличие разработок на кафедре</string>
@@ -449,6 +512,9 @@
                <property name="text">
                 <string>20 часов</string>
                </property>
+               <property name="toolTip">
+                <string>20</string>
+               </property>
                <property name="text">
                 <string>Регистрационное свидетельсво </string>
                </property>
@@ -462,6 +528,9 @@
                </property>
                <property name="text">
                 <string>20 часов</string>
+               </property>
+               <property name="toolTip">
+                <string>20</string>
                </property>
                <property name="text">
                 <string>Личный кабинет преподавателей на сайте НГПУ</string>
@@ -477,6 +546,9 @@
                <property name="text">
                 <string>10 часов</string>
                </property>
+               <property name="toolTip">
+                <string>10</string>
+               </property>
                <property name="text">
                 <string>Личный кабинет преподавателей на сайте НГПУ</string>
                </property>
@@ -490,6 +562,9 @@
                </property>
                <property name="text">
                 <string>40 часов за 1 фильм</string>
+               </property>
+               <property name="toolTip">
+                <string>40</string>
                </property>
                <property name="text">
                 <string>Наличие видеоматериалов на кафедре</string>
@@ -510,6 +585,9 @@
                <property name="text">
                 <string>0.5 часа за 1 час лекций</string>
                </property>
+               <property name="toolTip">
+                <string>0.5</string>
+               </property>
                <property name="text">
                 <string>Наличие разработок на кафедре</string>
                </property>
@@ -523,6 +601,9 @@
                </property>
                <property name="text">
                 <string>0.25 часа за 1 час занятий</string>
+               </property>
+               <property name="toolTip">
+                <string>0.25</string>
                </property>
                <property name="text">
                 <string>Наличие разработок на кафедре</string>
@@ -538,6 +619,9 @@
                <property name="text">
                 <string>0.1 часа на 1 обучающегося за 10 часов самостоятельной работы (согласно учебному плану)</string>
                </property>
+               <property name="toolTip">
+                <string>0.1</string>
+               </property>
                <property name="text">
                 <string>?</string>
                </property>
@@ -551,6 +635,9 @@
                </property>
                <property name="text">
                 <string>4 часа на курс в семестр</string>
+               </property>
+               <property name="toolTip">
+                <string>4</string>
                </property>
                <property name="text">
                 <string>?</string>
@@ -571,6 +658,9 @@
                <property name="text">
                 <string>30 часов за 1 п.л. всем авторам (в т.ч. учитываются авторы, не являющиеся сотрудниками университета)</string>
                </property>
+               <property name="toolTip">
+                <string>30</string>
+               </property>
                <property name="text">
                 <string>Наличие экземпляра на кафедре</string>
                </property>
@@ -584,6 +674,9 @@
                </property>
                <property name="text">
                 <string>25 часов за 1 п.л. всем авторам (в т.ч. учитываются авторы, не являющиеся сотрудниками университета)</string>
+               </property>
+               <property name="toolTip">
+                <string>25</string>
                </property>
                <property name="text">
                 <string>Наличие экземпляра на кафедре</string>
@@ -599,6 +692,9 @@
                <property name="text">
                 <string>10 часов за 1 п.л. всем авторам (в т.ч. учитываются авторы, не являющиеся сотрудниками университета)</string>
                </property>
+               <property name="toolTip">
+                <string>10</string>
+               </property>
                <property name="text">
                 <string>Наличие экземпляра на кафедре</string>
                </property>
@@ -612,6 +708,9 @@
                </property>
                <property name="text">
                 <string>6 часов за 1 печатный лист</string>
+               </property>
+               <property name="toolTip">
+                <string>6</string>
                </property>
                <property name="text">
                 <string>Наличие рецензии на кафедре</string>
@@ -632,6 +731,9 @@
                <property name="text">
                 <string>20 часов на одну ОПОП</string>
                </property>
+               <property name="toolTip">
+                <string>20</string>
+               </property>
                <property name="text">
                 <string>Наличие разработок на кафедре</string>
                </property>
@@ -645,6 +747,9 @@
                </property>
                <property name="text">
                 <string>10 часов на одну ОПОП</string>
+               </property>
+               <property name="toolTip">
+                <string>10</string>
                </property>
                <property name="text">
                 <string>Наличие разработок на кафедре</string>
@@ -868,6 +973,9 @@
                <property name="text">
                 <string>1474 – 1494 часа</string>
                </property>
+               <property name="toolTip">
+                <string>1474 - 1494</string>
+               </property>
                <property name="text">
                 <string>?</string>
                </property>
@@ -881,6 +989,9 @@
                </property>
                <property name="text">
                 <string>1224 часа</string>
+               </property>
+               <property name="toolTip">
+                <string>1224</string>
                </property>
                <property name="text">
                 <string>?</string>
@@ -896,6 +1007,9 @@
                <property name="text">
                 <string>350 часов – при учебной нагрузке кафедры до 10 000 часов; 400 часов – при учебной нагрузке кафедры от 10 000 до 15 000 часов; 450 часов – при учебной нагрузке кафедры от 15 000 до 20 000 часов; 500 часов – при учебной нагрузке кафедры свыше 20 000 часов</string>
                </property>
+               <property name="toolTip">
+                <string>350 400 450 500</string>
+               </property>
                <property name="text">
                 <string>?</string>
                </property>
@@ -909,6 +1023,9 @@
                </property>
                <property name="text">
                 <string>до 100 часов в год</string>
+               </property>
+               <property name="toolTip">
+                <string>до 100</string>
                </property>
                <property name="text">
                 <string>?</string>
@@ -924,6 +1041,9 @@
                <property name="text">
                 <string>20 – 30 часов в год</string>
                </property>
+               <property name="toolTip">
+                <string>20 - 30</string>
+               </property>
                <property name="text">
                 <string>?</string>
                </property>
@@ -937,6 +1057,9 @@
                </property>
                <property name="text">
                 <string>до 100 часов в год</string>
+               </property>
+               <property name="toolTip">
+                <string>до 100</string>
                </property>
                <property name="text">
                 <string>?</string>
@@ -957,6 +1080,9 @@
                <property name="text">
                 <string>до 30 часов в год</string>
                </property>
+               <property name="toolTip">
+                <string>до 30</string>
+               </property>
                <property name="text">
                 <string>Факт участия (в протоколе заседания)</string>
                </property>
@@ -970,6 +1096,9 @@
                </property>
                <property name="text">
                 <string>до 30 часов в год</string>
+               </property>
+               <property name="toolTip">
+                <string>до 30</string>
                </property>
                <property name="text">
                 <string>Факт участия (в протоколе заседания)</string>
@@ -985,6 +1114,9 @@
                <property name="text">
                 <string>до 20 часов в год</string>
                </property>
+               <property name="toolTip">
+                <string>до 20</string>
+               </property>
                <property name="text">
                 <string>Факт участия (в протоколе заседания)</string>
                </property>
@@ -998,6 +1130,9 @@
                </property>
                <property name="text">
                 <string>до 10 часов в год</string>
+               </property>
+               <property name="toolTip">
+                <string>до 10</string>
                </property>
                <property name="text">
                 <string>Факт участия (в протоколе заседания)</string>
@@ -1013,6 +1148,9 @@
                <property name="text">
                 <string>до 30 часов в год (членам совета), до 60 часов в год (секретарю совета)</string>
                </property>
+               <property name="toolTip">
+                <string>до 30, до 60</string>
+               </property>
                <property name="text">
                 <string>Факт участия (в протоколе заседания)</string>
                </property>
@@ -1026,6 +1164,9 @@
                </property>
                <property name="text">
                 <string>до 60 часов в год (членам совета)</string>
+               </property>
+               <property name="toolTip">
+                <string>до 60</string>
                </property>
                <property name="text">
                 <string>Факт участия (в протоколе заседания)</string>
@@ -1041,6 +1182,9 @@
                <property name="text">
                 <string>до 60 часов в год</string>
                </property>
+               <property name="toolTip">
+                <string>до 60</string>
+               </property>
                <property name="text">
                 <string>Факт участия (в протоколе заседания)</string>
                </property>
@@ -1054,6 +1198,9 @@
                </property>
                <property name="text">
                 <string>60 часов в год</string>
+               </property>
+               <property name="toolTip">
+                <string>60</string>
                </property>
                <property name="text">
                 <string>Факт участия (в протоколе заседания)</string>
@@ -1074,6 +1221,9 @@
                <property name="text">
                 <string>4 часа за одного обучающегося в год</string>
                </property>
+               <property name="toolTip">
+                <string>4</string>
+               </property>
                <property name="text">
                 <string>?</string>
                </property>
@@ -1088,6 +1238,9 @@
                <property name="text">
                 <string>30 часов на обучающегося-инвалида в год (на основании личного заявления обучающегося об организации тьюторского сопровождения)</string>
                </property>
+               <property name="toolTip">
+                <string>30</string>
+               </property>
                <property name="text">
                 <string>?</string>
                </property>
@@ -1101,6 +1254,9 @@
                </property>
                <property name="text">
                 <string>до 200 часов на всех участников</string>
+               </property>
+               <property name="toolTip">
+                <string>до 200</string>
                </property>
                <property name="text">
                 <string>Наличие материалов на кафедре</string>
@@ -1121,6 +1277,12 @@
                <property name="text">
                 <string>до 50 часов в год (устанавливает заведующий кафедрой в зависимости от объёмов работ и результатов деятельности)</string>
                </property>
+               <property name="toolTip">
+                <string>до 50</string>
+               </property>
+               <property name="text">
+                <string>?</string>
+               </property>
               </item>
               <item>
                <property name="text">
@@ -1131,6 +1293,12 @@
                </property>
                <property name="text">
                 <string>до 50 часов в год (устанавливает заведующий кафедрой в зависимости от объемов работ и результатов деятельности)</string>
+               </property>
+               <property name="toolTip">
+                <string>до 50</string>
+               </property>
+               <property name="text">
+                <string>Наличие материалов на кафедре</string>
                </property>
               </item>
               <item>
@@ -1143,6 +1311,12 @@
                <property name="text">
                 <string>до 6 часов на выступление каждому преподавателю</string>
                </property>
+               <property name="toolTip">
+                <string>до 6</string>
+               </property>
+               <property name="text">
+                <string>Наличие материалов на кафедре</string>
+               </property>
               </item>
               <item>
                <property name="text">
@@ -1153,6 +1327,12 @@
                </property>
                <property name="text">
                 <string>6 часов на одно мероприятие каждому преподавателю</string>
+               </property>
+               <property name="toolTip">
+                <string>6</string>
+               </property>
+               <property name="text">
+                <string>Наличие материалов на кафедре</string>
                </property>
               </item>
               <item>
@@ -1165,6 +1345,12 @@
                <property name="text">
                 <string>до 80 часов за одно мероприятие на всех исполнителей</string>
                </property>
+               <property name="toolTip">
+                <string>до 80</string>
+               </property>
+               <property name="text">
+                <string>Наличие материалов на кафедре</string>
+               </property>
               </item>
               <item>
                <property name="text">
@@ -1175,6 +1361,12 @@
                </property>
                <property name="text">
                 <string>до 20 часов на одно положение</string>
+               </property>
+               <property name="toolTip">
+                <string>до 20</string>
+               </property>
+               <property name="text">
+                <string>Наличие материалов на кафедре</string>
                </property>
               </item>
              </item>
@@ -1192,6 +1384,9 @@
                <property name="text">
                 <string>4 часа на одно занятие</string>
                </property>
+               <property name="toolTip">
+                <string>4</string>
+               </property>
                <property name="text">
                 <string>Отчётные материалы в журнале посещений</string>
                </property>
@@ -1206,6 +1401,12 @@
                <property name="text">
                 <string>20 часов</string>
                </property>
+               <property name="toolTip">
+                <string>20</string>
+               </property>
+               <property name="text">
+                <string>Наличие материалов на кафедре</string>
+               </property>
               </item>
               <item>
                <property name="text">
@@ -1216,6 +1417,12 @@
                </property>
                <property name="text">
                 <string>6 часов в день</string>
+               </property>
+               <property name="toolTip">
+                <string>6</string>
+               </property>
+               <property name="text">
+                <string>Положение о проведении соревнований</string>
                </property>
               </item>
              </item>
@@ -1436,6 +1643,12 @@
                <property name="text">
                 <string>до 70 часов</string>
                </property>
+               <property name="statusTip">
+                <string>до 70</string>
+               </property>
+               <property name="text">
+                <string>Наличие материалов на кафедре</string>
+               </property>
               </item>
               <item>
                <property name="text">
@@ -1446,6 +1659,12 @@
                </property>
                <property name="text">
                 <string>до 120 часов</string>
+               </property>
+               <property name="statusTip">
+                <string>до 120</string>
+               </property>
+               <property name="text">
+                <string>Наличие материалов на кафедре</string>
                </property>
               </item>
               <item>
@@ -1458,6 +1677,12 @@
                <property name="text">
                 <string>до 50 часов за один печатный лист всем авторам</string>
                </property>
+               <property name="statusTip">
+                <string>до 50</string>
+               </property>
+               <property name="text">
+                <string>Наличие материалов в библиотеке</string>
+               </property>
               </item>
               <item>
                <property name="text">
@@ -1468,6 +1693,12 @@
                </property>
                <property name="text">
                 <string>Мероприятие международного и всероссийского уровня – до 20 часов; регионального и городского уровня – до 10 часов</string>
+               </property>
+               <property name="statusTip">
+                <string>до 20, до 10</string>
+               </property>
+               <property name="text">
+                <string>Наличие информационного письма</string>
                </property>
               </item>
               <item>
@@ -1480,6 +1711,12 @@
                <property name="text">
                 <string>6 часов</string>
                </property>
+               <property name="statusTip">
+                <string>6</string>
+               </property>
+               <property name="text">
+                <string>Наличие материалов на кафедре</string>
+               </property>
               </item>
               <item>
                <property name="text">
@@ -1490,6 +1727,12 @@
                </property>
                <property name="text">
                 <string>6 часов за один печатный лист монографии</string>
+               </property>
+               <property name="statusTip">
+                <string>6</string>
+               </property>
+               <property name="text">
+                <string>Наличие материалов на кафедре</string>
                </property>
               </item>
               <item>
@@ -1502,6 +1745,12 @@
                <property name="text">
                 <string>до 80 часов на всех авторов</string>
                </property>
+               <property name="statusTip">
+                <string>до 80</string>
+               </property>
+               <property name="text">
+                <string>Наличие публикации в профиле автора (ResearcherID)</string>
+               </property>
               </item>
               <item>
                <property name="text">
@@ -1512,6 +1761,12 @@
                </property>
                <property name="text">
                 <string>до 60 часов на всех авторов</string>
+               </property>
+               <property name="statusTip">
+                <string>до 60</string>
+               </property>
+               <property name="text">
+                <string>Наличие публикации в профиле автора (ResearcherID)</string>
                </property>
               </item>
               <item>
@@ -1524,6 +1779,12 @@
                <property name="text">
                 <string>до 40 часов на всех авторов</string>
                </property>
+               <property name="statusTip">
+                <string>до 40</string>
+               </property>
+               <property name="text">
+                <string>Публикация статьи на сайте e-library</string>
+               </property>
               </item>
               <item>
                <property name="text">
@@ -1534,6 +1795,12 @@
                </property>
                <property name="text">
                 <string>до 20 часов на всех авторов</string>
+               </property>
+               <property name="statusTip">
+                <string>до 20</string>
+               </property>
+               <property name="text">
+                <string>Наличие публикации в профиле автора (ResearcherID)</string>
                </property>
               </item>
               <item>
@@ -1546,6 +1813,12 @@
                <property name="text">
                 <string>до 15 часов на всех авторов</string>
                </property>
+               <property name="statusTip">
+                <string>до 15</string>
+               </property>
+               <property name="text">
+                <string>Публикация статьи на сайте e-library</string>
+               </property>
               </item>
               <item>
                <property name="text">
@@ -1556,6 +1829,12 @@
                </property>
                <property name="text">
                 <string>до 100 часов</string>
+               </property>
+               <property name="statusTip">
+                <string>до 100</string>
+               </property>
+               <property name="text">
+                <string>Наличие сертификата участника</string>
                </property>
               </item>
               <item>
@@ -1568,6 +1847,12 @@
                <property name="text">
                 <string>до 50 часов</string>
                </property>
+               <property name="statusTip">
+                <string>до 50</string>
+               </property>
+               <property name="text">
+                <string>Наличие сертификата участника</string>
+               </property>
               </item>
               <item>
                <property name="text">
@@ -1578,6 +1863,12 @@
                </property>
                <property name="text">
                 <string>до 6 часов за один печатный лист монографии / одну статью</string>
+               </property>
+               <property name="statusTip">
+                <string>до 6</string>
+               </property>
+               <property name="text">
+                <string>Наличие материалов на кафедре</string>
                </property>
               </item>
               <item>
@@ -1590,6 +1881,12 @@
                <property name="text">
                 <string>до 40 часов (на всех авторов); до 20 часов (на всех авторов)</string>
                </property>
+               <property name="statusTip">
+                <string>до 40, до 20</string>
+               </property>
+               <property name="text">
+                <string>Наличие патента </string>
+               </property>
               </item>
               <item>
                <property name="text">
@@ -1600,6 +1897,12 @@
                </property>
                <property name="text">
                 <string>до 30 часов (на всех авторов); до 15 часов (на всех авторов)</string>
+               </property>
+               <property name="statusTip">
+                <string>до 30, до15</string>
+               </property>
+               <property name="text">
+                <string>Наличие патента </string>
                </property>
               </item>
               <item>
@@ -1612,6 +1915,12 @@
                <property name="text">
                 <string>до 30 часов (на всех авторов); до 15 часов (на всех авторов)</string>
                </property>
+               <property name="statusTip">
+                <string>до30, до 15</string>
+               </property>
+               <property name="text">
+                <string>Наличие свидетельства</string>
+               </property>
               </item>
               <item>
                <property name="text">
@@ -1622,6 +1931,12 @@
                </property>
                <property name="text">
                 <string>до 200 часов на одного исполнителя</string>
+               </property>
+               <property name="statusTip">
+                <string>до 200</string>
+               </property>
+               <property name="text">
+                <string>Наличие отчётной документации о проведении исследования</string>
                </property>
               </item>
               <item>
@@ -1634,6 +1949,12 @@
                <property name="text">
                 <string>до 100 часов – за кандидатскую диссертацию, до 200 часов – за докторскую диссертацию</string>
                </property>
+               <property name="statusTip">
+                <string>до 100, до 200</string>
+               </property>
+               <property name="text">
+                <string>Наличие диплома</string>
+               </property>
               </item>
               <item>
                <property name="text">
@@ -1645,11 +1966,23 @@
                <property name="text">
                 <string>а) международного уровня – до 100 часов на всех участников; б) федерального уровня – до 80 часов на всех участников; в) регионального и городского уровня – до 50 часов на всех участников; г) внутривузовского – до 20 часов на всех участников</string>
                </property>
+               <property name="statusTip">
+                <string>до 100, до 80, до 50, до 20</string>
+               </property>
+               <property name="text">
+                <string>Наличие материалов на кафедре</string>
+               </property>
               </item>
              </item>
              <item>
               <property name="text">
                <string>Руководство и консультирование</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="text">
+               <string/>
               </property>
               <item>
                <property name="text">
@@ -1660,6 +1993,12 @@
                </property>
                <property name="text">
                 <string>20 часов на один проект</string>
+               </property>
+               <property name="statusTip">
+                <string>20</string>
+               </property>
+               <property name="text">
+                <string>Наличие материалов проекта</string>
                </property>
               </item>
               <item>
@@ -1672,6 +2011,12 @@
                <property name="text">
                 <string>10 часов на одну публикацию</string>
                </property>
+               <property name="statusTip">
+                <string>10</string>
+               </property>
+               <property name="text">
+                <string>Наличие публикаций</string>
+               </property>
               </item>
               <item>
                <property name="text">
@@ -1682,6 +2027,12 @@
                </property>
                <property name="text">
                 <string>до 50 часов на одну структуру (с учётом реальных затрат рабочего времени)</string>
+               </property>
+               <property name="statusTip">
+                <string>до 50</string>
+               </property>
+               <property name="text">
+                <string>Наличие плана и отчёта на кафедре</string>
                </property>
               </item>
               <item>
@@ -1694,6 +2045,12 @@
                <property name="text">
                 <string>10 часов на одного студента-участника</string>
                </property>
+               <property name="statusTip">
+                <string>10</string>
+               </property>
+               <property name="text">
+                <string>Наличие сертификата участника</string>
+               </property>
               </item>
               <item>
                <property name="text">
@@ -1704,6 +2061,12 @@
                </property>
                <property name="text">
                 <string>до 20 часов на одну структуру (с учётом реальных затрат рабочего времени)</string>
+               </property>
+               <property name="statusTip">
+                <string>до 20</string>
+               </property>
+               <property name="text">
+                <string>Наличие в списке участников </string>
                </property>
               </item>
               <item>
@@ -1716,6 +2079,12 @@
                <property name="text">
                 <string>до 30 часов на одну структуру (с учётом реальных затрат рабочего времени)</string>
                </property>
+               <property name="statusTip">
+                <string>до 30</string>
+               </property>
+               <property name="text">
+                <string>Наличие в списке участников </string>
+               </property>
               </item>
               <item>
                <property name="text">
@@ -1726,6 +2095,12 @@
                </property>
                <property name="text">
                 <string>до 100 часов руководителю научного направления</string>
+               </property>
+               <property name="statusTip">
+                <string>до 100</string>
+               </property>
+               <property name="text">
+                <string>Наличие плана и отчётной документации о проведении исследования</string>
                </property>
               </item>
              </item>
@@ -1743,6 +2118,12 @@
                <property name="text">
                 <string>до 20 часов на одного преподавателя, но не более 100 часов на одно мероприятие</string>
                </property>
+               <property name="statusTip">
+                <string>до 20</string>
+               </property>
+               <property name="text">
+                <string>Наличие приказа </string>
+               </property>
               </item>
               <item>
                <property name="text">
@@ -1753,6 +2134,12 @@
                </property>
                <property name="text">
                 <string>до 20 часов на одного преподавателя, но не более 80 часов на одно мероприятие</string>
+               </property>
+               <property name="statusTip">
+                <string>до 20</string>
+               </property>
+               <property name="text">
+                <string>Наличие приказа</string>
                </property>
               </item>
               <item>
@@ -1765,6 +2152,12 @@
                <property name="text">
                 <string>до 20 часов на преподавателя, но не более 120 часов на одно мероприятие</string>
                </property>
+               <property name="statusTip">
+                <string>до 20</string>
+               </property>
+               <property name="text">
+                <string>Наличие приказа</string>
+               </property>
               </item>
               <item>
                <property name="text">
@@ -1775,6 +2168,12 @@
                </property>
                <property name="text">
                 <string>до 30 часов на одно издание</string>
+               </property>
+               <property name="statusTip">
+                <string>до 30</string>
+               </property>
+               <property name="text">
+                <string>Выписка о составев в редакционной коллегии</string>
                </property>
               </item>
               <item>
@@ -1787,6 +2186,12 @@
                <property name="text">
                 <string>до 30 часов в одном совете (учитываются реальные затраты рабочего времени)</string>
                </property>
+               <property name="statusTip">
+                <string>до 30</string>
+               </property>
+               <property name="text">
+                <string>Выписка о составе в действующих диссертационных советах</string>
+               </property>
               </item>
               <item>
                <property name="text">
@@ -1797,6 +2202,12 @@
                </property>
                <property name="text">
                 <string>20 часов; 30 часов</string>
+               </property>
+               <property name="statusTip">
+                <string>20 30</string>
+               </property>
+               <property name="text">
+                <string>Наличие копии отзыва на кафедре</string>
                </property>
               </item>
               <item>
@@ -1809,6 +2220,12 @@
                <property name="text">
                 <string>до 6 часов; до 10 часов</string>
                </property>
+               <property name="statusTip">
+                <string>до 6, до 10</string>
+               </property>
+               <property name="text">
+                <string>Наличие копии отзыва на кафедре</string>
+               </property>
               </item>
               <item>
                <property name="text">
@@ -1819,6 +2236,12 @@
                </property>
                <property name="text">
                 <string>до 100 часов</string>
+               </property>
+               <property name="statusTip">
+                <string>до 100</string>
+               </property>
+               <property name="text">
+                <string>Наличие фото или видео отчёта</string>
                </property>
               </item>
              </item>
@@ -2026,6 +2449,9 @@
               <property name="text">
                <string>Воспитательная работа</string>
               </property>
+              <property name="toolTip">
+               <string>до 75, до 50</string>
+              </property>
               <property name="text">
                <string/>
               </property>
@@ -2039,6 +2465,9 @@
                <property name="text">
                 <string>1 курса – до 75 часов; 2 – 5 курсов до 50 часов</string>
                </property>
+               <property name="text">
+                <string>Наличие плана и отчёта </string>
+               </property>
               </item>
               <item>
                <property name="text">
@@ -2049,6 +2478,12 @@
                </property>
                <property name="text">
                 <string>от 20 до 40 часов в год</string>
+               </property>
+               <property name="toolTip">
+                <string>20-40</string>
+               </property>
+               <property name="text">
+                <string>Наличие плана и отчёта </string>
                </property>
               </item>
               <item>
@@ -2061,6 +2496,12 @@
                <property name="text">
                 <string>до 10 часов на мероприятие</string>
                </property>
+               <property name="toolTip">
+                <string>до 10</string>
+               </property>
+               <property name="text">
+                <string>Наличие отчётных документов</string>
+               </property>
               </item>
               <item>
                <property name="text">
@@ -2071,6 +2512,12 @@
                </property>
                <property name="text">
                 <string>до 20 часов в год</string>
+               </property>
+               <property name="toolTip">
+                <string>до 20</string>
+               </property>
+               <property name="text">
+                <string>Наличие отчётных документов</string>
                </property>
               </item>
               <item>
@@ -2083,6 +2530,12 @@
                <property name="text">
                 <string>до 40 часов за одно мероприятие</string>
                </property>
+               <property name="toolTip">
+                <string>до 40</string>
+               </property>
+               <property name="text">
+                <string>Наличие отчётных документов</string>
+               </property>
               </item>
               <item>
                <property name="text">
@@ -2093,6 +2546,12 @@
                </property>
                <property name="text">
                 <string>до 50 часов в год</string>
+               </property>
+               <property name="toolTip">
+                <string>до 50</string>
+               </property>
+               <property name="text">
+                <string>Наличие плана и отчётных документов</string>
                </property>
               </item>
               <item>
@@ -2105,6 +2564,12 @@
                <property name="text">
                 <string>до 20 часов в год</string>
                </property>
+               <property name="toolTip">
+                <string>до 20</string>
+               </property>
+               <property name="text">
+                <string>Наличие отчётных документов</string>
+               </property>
               </item>
               <item>
                <property name="text">
@@ -2115,6 +2580,12 @@
                </property>
                <property name="text">
                 <string>до 50 часов</string>
+               </property>
+               <property name="toolTip">
+                <string>до 50</string>
+               </property>
+               <property name="text">
+                <string>Наличие отчётных документов</string>
                </property>
               </item>
               <item>
@@ -2127,6 +2598,12 @@
                <property name="text">
                 <string>10 часов на одного студента</string>
                </property>
+               <property name="toolTip">
+                <string>10</string>
+               </property>
+               <property name="text">
+                <string>Наличие диплома </string>
+               </property>
               </item>
               <item>
                <property name="text">
@@ -2137,6 +2614,12 @@
                </property>
                <property name="text">
                 <string>20 часов на одно мероприятие</string>
+               </property>
+               <property name="toolTip">
+                <string>20</string>
+               </property>
+               <property name="text">
+                <string>Наличие фото или видео материалов</string>
                </property>
               </item>
              </item>
@@ -2360,6 +2843,9 @@
                <property name="text">
                 <string>Свидетельство</string>
                </property>
+               <property name="toolTip">
+                <string>16 - 72</string>
+               </property>
               </item>
              </item>
             </widget>
@@ -2545,23 +3031,23 @@
           <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Noto Sans'; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;1.&lt;/span&gt; Заполните данные в разделе &lt;span style=&quot; font-weight:600;&quot;&gt;Учебная работа&lt;/span&gt;:&lt;/p&gt;
-&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot;&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Ф.И.О.;&lt;/li&gt;
-&lt;li style=&quot;&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;учёная степень, звание;&lt;/li&gt;
-&lt;li style=&quot;&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;должность;&lt;/li&gt;
-&lt;li style=&quot;&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;кафедра;&lt;/li&gt;
-&lt;li style=&quot;&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;дата избрания по конкурсу;&lt;/li&gt;
-&lt;li style=&quot;&quot; style=&quot; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;учебный год.&lt;/li&gt;&lt;/ul&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;2.&lt;/span&gt; Откройте файл учебной нагрузки → &lt;span style=&quot; font-weight:600;&quot;&gt;Открыть&lt;/span&gt;...&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;3.&lt;/span&gt; Заполните данные в разделе &lt;span style=&quot; font-weight:600;&quot;&gt;Внеучебная работа&lt;/span&gt;:&lt;/p&gt;
-&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot;&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;в каждой вкладке выберите необходимые вам виды работы;&lt;/li&gt;&lt;/ul&gt;
-&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-size:11pt;&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;нажмите кнопку &lt;/span&gt;&lt;span style=&quot; font-size:10pt; font-weight:600;&quot;&gt;Записать в таблицу&lt;/span&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;;&lt;/span&gt;&lt;/li&gt;
-&lt;li style=&quot;&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;в кажой строке таблицы задайте &lt;span style=&quot; font-weight:600;&quot;&gt;Срок выполнения&lt;/span&gt;;&lt;/li&gt;&lt;/ul&gt;
-&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot;&quot; style=&quot; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;исходя из трудоёмкости, заполните вручную количество запланированных часов (оно должно быть кратно трулоёмкости).&lt;/li&gt;&lt;/ul&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;4.&lt;/span&gt; Сохраните результат → &lt;span style=&quot; font-weight:600;&quot;&gt;Сохранить&lt;/span&gt;...&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Cantarell'; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Noto Sans'; font-weight:600;&quot;&gt;1.&lt;/span&gt;&lt;span style=&quot; font-family:'Noto Sans';&quot;&gt; Заполните данные в разделе &lt;/span&gt;&lt;span style=&quot; font-family:'Noto Sans'; font-weight:600;&quot;&gt;Учебная работа&lt;/span&gt;&lt;span style=&quot; font-family:'Noto Sans';&quot;&gt;:&lt;/span&gt;&lt;/p&gt;
+&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-family:'Noto Sans';&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Ф.И.О.;&lt;/li&gt;
+&lt;li style=&quot; font-family:'Noto Sans';&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;учёная степень, звание;&lt;/li&gt;
+&lt;li style=&quot; font-family:'Noto Sans';&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;должность;&lt;/li&gt;
+&lt;li style=&quot; font-family:'Noto Sans';&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;кафедра;&lt;/li&gt;
+&lt;li style=&quot; font-family:'Noto Sans';&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;дата избрания по конкурсу;&lt;/li&gt;
+&lt;li style=&quot; font-family:'Noto Sans';&quot; style=&quot; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;учебный год.&lt;/li&gt;&lt;/ul&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Noto Sans'; font-weight:600;&quot;&gt;2.&lt;/span&gt;&lt;span style=&quot; font-family:'Noto Sans';&quot;&gt; Откройте файл учебной нагрузки → &lt;/span&gt;&lt;span style=&quot; font-family:'Noto Sans'; font-weight:600;&quot;&gt;Открыть&lt;/span&gt;&lt;span style=&quot; font-family:'Noto Sans';&quot;&gt;...&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Noto Sans'; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Noto Sans'; font-weight:600;&quot;&gt;3.&lt;/span&gt;&lt;span style=&quot; font-family:'Noto Sans';&quot;&gt; Заполните данные в разделе &lt;/span&gt;&lt;span style=&quot; font-family:'Noto Sans'; font-weight:600;&quot;&gt;Внеучебная работа&lt;/span&gt;&lt;span style=&quot; font-family:'Noto Sans';&quot;&gt;:&lt;/span&gt;&lt;/p&gt;
+&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-family:'Noto Sans';&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;в каждой вкладке выберите необходимые вам виды работы;&lt;/li&gt;&lt;/ul&gt;
+&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-family:'Noto Sans'; font-size:11pt;&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;нажмите кнопку &lt;/span&gt;&lt;span style=&quot; font-size:10pt; font-weight:600;&quot;&gt;Записать в таблицу&lt;/span&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;;&lt;/span&gt;&lt;/li&gt;
+&lt;li style=&quot; font-family:'Noto Sans';&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;в кажой строке таблицы задайте &lt;span style=&quot; font-weight:600;&quot;&gt;Срок выполнения&lt;/span&gt;;&lt;/li&gt;&lt;/ul&gt;
+&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-family:'Noto Sans';&quot; style=&quot; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;исходя из трудоёмкости, заполните вручную количество запланированных часов (оно должно быть кратно трулоёмкости).&lt;/li&gt;&lt;/ul&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Noto Sans'; font-weight:600;&quot;&gt;4.&lt;/span&gt;&lt;span style=&quot; font-family:'Noto Sans';&quot;&gt; Сохраните результат → &lt;/span&gt;&lt;span style=&quot; font-family:'Noto Sans'; font-weight:600;&quot;&gt;Сохранить&lt;/span&gt;&lt;span style=&quot; font-family:'Noto Sans';&quot;&gt;...&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Noto Sans'; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
         </widget>
        </item>
@@ -2993,8 +3479,8 @@ p, li { white-space: pre-wrap; }
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1024</width>
-     <height>30</height>
+     <width>1551</width>
+     <height>22</height>
     </rect>
    </property>
   </widget>
