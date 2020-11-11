@@ -1,17 +1,16 @@
-# iPlan 0.0.2
+# iPlan 0.0.3
 # Автоматическая генерация индивидуального плана преподавателя
 # motor1n develop PyQt5 - 2020 year
 
 
-import sys
-import xlrd
-import time
+import sys, xlrd
 import datetime as dt
 from PyQt5 import uic
 from docxtpl import DocxTemplate
+from PyQt5.QtCore import Qt, QThread, pyqtSignal
 from PyQt5.QtWidgets import (QApplication, QMainWindow, QFileDialog,
                              QTreeWidgetItemIterator, QTableWidgetItem,
-                             QComboBox, QProgressBar)
+                             QComboBox, QMessageBox)
 
 
 # Текущий год:
@@ -28,9 +27,53 @@ DEPUTY = 'О.А. Тарасова'
 RATE = 1524
 
 
+class Thread1(QThread):
+    """Поток для рендеринга и сохранения файла"""
+    # Создаём собственный сигнал,
+    # принимающий параметр типа str:
+    signal = pyqtSignal(str)
+    # Инициализация потока
+    # fname - имя сохраняемого файла
+    # content - дянные для рендеринга
+    def __init__(self, fname, contect, parent=None):
+        QThread.__init__(self, parent)
+        self.fname = fname
+        self.context = contect
+
+    # Обязательный для любого потока метод run,
+    # в котором происходит основной процесс:
+    def run(self):
+        # Подключаем файл шаблона .dotx:
+        doc = DocxTemplate('iplan-template.dotx')
+        # Рендерим инфу в шаблон
+        self.signal.emit('Рендерим инфу в шаблон')
+        doc.render(self.context)
+        # Сохраняем конечный документ
+        self.signal.emit('Сохраняем конечный документ')
+        doc.save(self.fname)
+
+
+class Thread2(QThread):
+    # Создаём собственный сигнал,
+    # передающий параметр типа int:
+    signal = pyqtSignal(int)
+    # Инициализация потока
+    def __init__(self,  parent=None):
+        QThread.__init__(self, parent)
+
+    # Счётчик для прогресс-бара
+    def run(self):
+        for i in range(101):
+            i += 1
+            QThread.msleep(30)
+            self.signal.emit(i)
+
+
 class PlanForm(QMainWindow):
     def __init__(self):
         super().__init__()
+        # Флаг: файл учебной нагрузки ещё не открыт
+        self.fileopen = False
         uic.loadUi('iplan-design.ui', self)
         # Заполняем выбор учебного года (плюс-минус год)
         self.cb5.addItems([f'{CURRENT_YEAR - 1} - {CURRENT_YEAR}',
@@ -69,6 +112,10 @@ class PlanForm(QMainWindow):
         """Заполнение данных по учебной работе"""
         fname = QFileDialog.getOpenFileName(self, 'Выбрать файл', '',
                                             'Excel 2007–365 (.xlsx)(*.xlsx)')[0]
+        # Флаг: файл учебной нагрузки открыт
+        self.fileopen = True
+        msg = QMessageBox.information(self, 'Инфо',
+                                      '<h4>Файл учебной нагрузки открыт,<br>можно продолжить работу.</h4>')
         workbook = xlrd.open_workbook(fname)
         sh = workbook.sheet_by_index(0)
         # Учебная работа (вся):
@@ -163,9 +210,10 @@ class PlanForm(QMainWindow):
         while iter.value():
             # Читаем строку QTreeWidgetItem
             currentItem = iter.value()
-            # Значение toolTip ячейки "Трудоёмкость"
-            print('Трудоёмкость:', currentItem.toolTip(1))
-            checklist.append((currentItem.text(0), currentItem.text(1), currentItem.text(2)))
+            # currentItem.text(0) - текст в ячейке "Виды работы"
+            # currentItem.toolTip(1) - всплывающая подсказка ячейки "Трудоёмкость"
+            # currentItem.text(0) - текст в ячейке "Форма отчётности"
+            checklist.append((currentItem.text(0), currentItem.toolTip(1), currentItem.text(2)))
             iter += 1
         # Если ничего не выбрано,
         # то выведем сообщение об этом в статус-бар и вернём пустой return
@@ -181,13 +229,7 @@ class PlanForm(QMainWindow):
             for i, elem in enumerate(checklist):
                 for j, val in enumerate(elem):
                     tab.setItem(i, j, QTableWidgetItem(val))
-
-                    #QTableWidgetItem(val).setToolTip('100')
-                    #print(QTableWidgetItem(val).text())
-                    print(QTableWidgetItem(val).toolTip())
-                    #print(QTableWidgetItem(val).statusTip())
-                    #print(QTableWidgetItem(val).whatsThis())
-            msg = f'Внеучебная работа: выбрано позиций: {len(checklist)}'
+            msg = f'Внеучебная работа - выбрано позиций: {len(checklist)}'
             self.statusBar().showMessage(msg)
         # Помещаем кнопки QComboBox
         # в поле "Срок выполнения" на таблицу QTableWidget
@@ -223,11 +265,19 @@ class PlanForm(QMainWindow):
         d1 = {0: 'A', 1: 'B', 2: 'C', 3: 'D', 4: 'E', 5: 'F'}
         # Словарь соответствия номеров вкладок разделам внеучебной работы
         d2 = {0: 'mtd', 1: 'org', 2:'sci', 3: 'edu', 4: 'upg'}
-        # Получение списка элементов заголовка таблицы:
-        # lst = [tab.horizontalHeaderItem(i).text() for i in range(tab.columnCount())]
+        # Строка "Всего" в таблице "Распределение времени по семестрам и основным видам работы,
+        # общие суммы по плану внеучебной работы (осенний, весенний, год)
+        AP = 0
+        SP = 0
+        YP = 0
         # Запись данных о внеучебной работе из таблиц интерфейса в файл docx:
         for t in range(len(tables)):
+            # Общая сумма по разделу внеучебной работы
             summ = 0
+            # Осенний семестр
+            autumn = 0
+            # Весенний семестр
+            spring = 0
             for i in range(tables[t].rowCount()):
                 for j in range(tables[t].columnCount()):
                     if tables[t].item(i, j) is not None:
@@ -239,21 +289,45 @@ class PlanForm(QMainWindow):
                         # Поле: Срок выполнения
                         # tab.cellWidget(i, 3).currentText() - смотрим содержимое
                         # ячеек поля "Срок выполнения" - названия месяцев учебного года
-                        self.up2[f'{d2[t]}{d1[3]}0{i + 1}'] = tables[t].cellWidget(i, 3).currentText()
+                        period = tables[t].cellWidget(i, 3).currentText()
+                        self.up2[f'{d2[t]}{d1[3]}0{i + 1}'] = period
+                        # TODO: Try ... Except на пустые ячейки Запланировано
+                        #  - AttributeError: 'NoneType' object has no attribute 'text'
                         # Поле: Запланировано
                         itm = tables[t].item(i, 4).text()
+                        # TODO: составить алгоритм формирования арифметического выражения
+                        # Заполнение поля "Запланировано" в виде арифметического выражения
                         # Проверяем - первые символы в трудоёмкости цифры?
                         if labour.isnumeric():
                             planned = f'{int(int(itm) / float(labour))}\u2219{labour}={itm}'
                             self.up2[f'{d2[t]}{d1[4]}0{i + 1}'] = planned
+
+                        # Учёт часов осеннего и весеннего семестра
+                        if period in ('сентябрь', 'октябрь', 'ноябрь',
+                                      'декабрь', 'январь', '1 семестр'):
+                            autumn += int(itm)
+                        elif period in ('февраль', 'март', 'апрель',
+                                        'май', 'июнь', '2 семестр'):
+                            spring += int(itm)
+                        elif period == 'в течение года':
+                            autumn += int(itm) // 2
+                            spring += int(itm) - int(itm) // 2
                         summ += int(itm)
                         break
-            # Записываем общую сумму по разделу внеучебной работы в документ docx
+            # Записываем общую сумму по разделу внеучебной работы в документ .docx
             self.up2[f'{d2[t]}YP'] = summ
-
-        # Файл шаблона:
-        doc = DocxTemplate('iplan-template.dotx')
-        # Начальный словарь для рендеринга
+            # Записываем суммы по осеннему и весеннему семестру
+            self.up2[f'{d2[t]}AP'] = autumn
+            self.up2[f'{d2[t]}SP'] = spring
+            # Суммируем "Всего":
+            AP += autumn
+            SP += spring
+            YP += summ
+        # Записываем "Всего" = <учебная_работа> + <внеучебная_работа>:
+        self.up2['AP'] = self.up1['lrnAP'] + AP
+        self.up2['SP'] = self.up1['lrnSP'] + SP
+        self.up2['YP'] = self.up1['lrnYP'] + YP
+        # Словарь для рендеринга:
         context = {
             'cathedra': cathedra,
             'deputy': DEPUTY,
@@ -274,21 +348,58 @@ class PlanForm(QMainWindow):
         fname = QFileDialog.getSaveFileName(self, 'Сохранить документ', '',
                                             'Word 2007–365 (.docx)(*.docx)')[0]
         self.statusBar().showMessage('Идёт формирование документа...')
-        # Рендерим инфу в шаблон
-        doc.render(context)
-        # Сохраняем конечный документ
-        doc.save(fname)
-        # Используем progressBar
-        TIME_LIMIT = 100
-        count = 0
-        while count < TIME_LIMIT:
-            count += 1
-            time.sleep(0.1)
-            self.progress.setValue(count)
+        # Создаём поток thread1 и передаём туда имя файла и данные для рендеринга:
+        self.thread1 = Thread1(fname, context)
+        # Создаём поток thread2 для счётчика прогресс-бара:
+        self.thread2 = Thread2()
+        # Сигнал запуска потока hread1 отправляем на слот thread1_start
+        self.thread1.started.connect(self.thread1_start)
+        # Сигнал завершения потока thread1 отправляем на слот thread1_stop
+        self.thread1.finished.connect(self.thread1_stop)
+        # Сигнал завершения потока thread2 отправляем на слот thread2_stop
+        self.thread2.finished.connect(self.thread2_stop)
+        # Cигнал из потока thread1 отправляем в основную программу на слот thread_process
+        # Qt.QueuedConnection - сигнал помещается в очередь обработки событий интерфейса Qt.
+        self.thread1.signal.connect(self.thread1_process, Qt.QueuedConnection)
+        self.thread2.signal.connect(self.thread2_process, Qt.QueuedConnection)
+        # Делаем кнопки неактивными
+        self.pb_lrn.setDisabled(True)
+        self.pb_save.setDisabled(True)
+        # Запускаем поток рендеринга
+        # IdlePriority - самый низкий приоритет
+        self.thread1.start(priority=QThread.IdlePriority)
+
+    def thread1_start(self):
+        """Вызывается при запуске потока"""
+        # Запускаем поток прогресс-бара
+        # InheritPriority - автоматический приоритет
+        self.thread2.start(priority=QThread.InheritPriority)
+
+    def thread1_process(self, s):
+        """Вызывается сигналами которые отправляет поток"""
+        # Параметр s - это сигнал полученный из потока thread1
+        self.statusBar().showMessage(s)
+
+    def thread1_stop(self):
+        """Вызывается при завершении потока"""
+        self.statusBar().showMessage('Рендеринг выполняется...')
+
+    def thread2_process(self, i):
+        """Вызывается сигналами которые отправляет поток"""
+        # Счётчик из потока thread2 увеличивает прогресс-бар
+        self.progress.setValue(i)
+
+    def thread2_stop(self):
         # Выводим сообщение в статус-бар
-        self.statusBar().showMessage(f'Документ {fname} сформирован')
-        # Обнуляем progressBar после операции
+        self.statusBar().showMessage('Документ сформирован')
+        # Делаем кнопки "Открыть..." и "Сохранить..." активными:
+        self.pb_lrn.setDisabled(False)
+        self.pb_save.setDisabled(False)
+        # Обнуляем прогресс-бар
         self.progress.setValue(0)
+        # Выводим информационное сообщение
+        msg = QMessageBox.information(self, 'Инфо',
+                                      '<h4>Индивидуальный план<br>работы преподавателя сохранён.</h4>')
 
 
 def except_hook(cls, exception, traceback):
