@@ -212,7 +212,7 @@ class PlanForm(QMainWindow):
             currentItem = iter.value()
             # currentItem.text(0) - текст в ячейке "Виды работы"
             # currentItem.toolTip(1) - всплывающая подсказка ячейки "Трудоёмкость"
-            # currentItem.text(0) - текст в ячейке "Форма отчётности"
+            # currentItem.text(2) - текст в ячейке "Форма отчётности"
             checklist.append((currentItem.text(0), currentItem.toolTip(1), currentItem.text(2)))
             iter += 1
         # Если ничего не выбрано,
