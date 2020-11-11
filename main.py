@@ -117,6 +117,7 @@ class PlanForm(QMainWindow):
         msg = QMessageBox.information(self, 'Инфо',
                                       '<h4>Файл учебной нагрузки открыт,<br>можно продолжить работу.</h4>')
         workbook = xlrd.open_workbook(fname)
+        # Читаем первый лист:
         sh = workbook.sheet_by_index(0)
         # Учебная работа (вся):
         self.learn_work = round(sh.cell(sh.nrows - 3, 1).value)
