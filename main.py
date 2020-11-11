@@ -3,15 +3,15 @@
 # motor1n develop PyQt5 - 2020 year
 
 
-import sys
-import xlrd
-import time
+import sys, xlrd, time
 import datetime as dt
+from threading import Thread
 from PyQt5 import uic
 from docxtpl import DocxTemplate
+from PyQt5.QtCore import QTimer, QObject, QThread, pyqtSignal, pyqtSlot, Qt
 from PyQt5.QtWidgets import (QApplication, QMainWindow, QFileDialog,
                              QTreeWidgetItemIterator, QTableWidgetItem,
-                             QComboBox, QProgressBar)
+                             QComboBox, QMessageBox, QProgressBar, QProgressDialog)
 
 
 # Текущий год:
@@ -28,9 +28,24 @@ DEPUTY = 'О.А. Тарасова'
 RATE = 1524
 
 
+class Thread1(Thread):
+    """A threading example"""
+    def __init__(self, name):
+        """Инициализация потока"""
+        Thread.__init__(self)
+        self.name = name
+
+    def run(self):
+        """Запуск потока"""
+        time.sleep(5)
+        print(f'{self.name} is running')
+
+
 class PlanForm(QMainWindow):
     def __init__(self):
         super().__init__()
+        # Флаг: файл учебной нагрузки ещё не открыт
+        self.fileopen = False
         uic.loadUi('iplan-design.ui', self)
         # Заполняем выбор учебного года (плюс-минус год)
         self.cb5.addItems([f'{CURRENT_YEAR - 1} - {CURRENT_YEAR}',
@@ -69,6 +84,10 @@ class PlanForm(QMainWindow):
         """Заполнение данных по учебной работе"""
         fname = QFileDialog.getOpenFileName(self, 'Выбрать файл', '',
                                             'Excel 2007–365 (.xlsx)(*.xlsx)')[0]
+        # Флаг: файл учебной нагрузки открыт
+        self.fileopen = True
+        msg = QMessageBox.information(self, 'Инфо',
+                                      '<h3>Файл учебной нагрузки открыт<br>можно продолжить работу.</h3>')
         workbook = xlrd.open_workbook(fname)
         sh = workbook.sheet_by_index(0)
         # Учебная работа (вся):
@@ -163,9 +182,10 @@ class PlanForm(QMainWindow):
         while iter.value():
             # Читаем строку QTreeWidgetItem
             currentItem = iter.value()
-            # Значение toolTip ячейки "Трудоёмкость"
-            print('Трудоёмкость:', currentItem.toolTip(1))
-            checklist.append((currentItem.text(0), currentItem.text(1), currentItem.text(2)))
+            # currentItem.text(0) - текст в ячейке "Виды работы"
+            # currentItem.toolTip(1) - всплывающая подсказка ячейки "Трудоёмкость"
+            # currentItem.text(0) - текст в ячейке "Форма отчётности"
+            checklist.append((currentItem.text(0), currentItem.toolTip(1), currentItem.text(2)))
             iter += 1
         # Если ничего не выбрано,
         # то выведем сообщение об этом в статус-бар и вернём пустой return
@@ -181,13 +201,7 @@ class PlanForm(QMainWindow):
             for i, elem in enumerate(checklist):
                 for j, val in enumerate(elem):
                     tab.setItem(i, j, QTableWidgetItem(val))
-
-                    #QTableWidgetItem(val).setToolTip('100')
-                    #print(QTableWidgetItem(val).text())
-                    print(QTableWidgetItem(val).toolTip())
-                    #print(QTableWidgetItem(val).statusTip())
-                    #print(QTableWidgetItem(val).whatsThis())
-            msg = f'Внеучебная работа: выбрано позиций: {len(checklist)}'
+            msg = f'Внеучебная работа - выбрано позиций: {len(checklist)}'
             self.statusBar().showMessage(msg)
         # Помещаем кнопки QComboBox
         # в поле "Срок выполнения" на таблицу QTableWidget
@@ -253,6 +267,7 @@ class PlanForm(QMainWindow):
 
         # Файл шаблона:
         doc = DocxTemplate('iplan-template.dotx')
+
         # Начальный словарь для рендеринга
         context = {
             'cathedra': cathedra,
@@ -274,21 +289,18 @@ class PlanForm(QMainWindow):
         fname = QFileDialog.getSaveFileName(self, 'Сохранить документ', '',
                                             'Word 2007–365 (.docx)(*.docx)')[0]
         self.statusBar().showMessage('Идёт формирование документа...')
+        '''
+        progress = QProgressDialog('Work in progress', 'Отмена', 0, 0, self)
+        progress.setWindowTitle("Generating files...")
+        progress.setWindowModality(Qt.WindowModal)
+        progress.setValue(0)
+        doGenerate(progress.setValue)
+        '''
+
         # Рендерим инфу в шаблон
         doc.render(context)
         # Сохраняем конечный документ
         doc.save(fname)
-        # Используем progressBar
-        TIME_LIMIT = 100
-        count = 0
-        while count < TIME_LIMIT:
-            count += 1
-            time.sleep(0.1)
-            self.progress.setValue(count)
-        # Выводим сообщение в статус-бар
-        self.statusBar().showMessage(f'Документ {fname} сформирован')
-        # Обнуляем progressBar после операции
-        self.progress.setValue(0)
 
 
 def except_hook(cls, exception, traceback):
