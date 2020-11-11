@@ -2322,8 +2322,11 @@
                <property name="text">
                 <string>до 6 часов; до 10 часов</string>
                </property>
-               <property name="statusTip">
+               <property name="toolTip">
                 <string>до 6, до 10</string>
+               </property>
+               <property name="statusTip">
+                <string/>
                </property>
                <property name="text">
                 <string>Наличие копии отзыва на кафедре</string>
@@ -2342,8 +2345,11 @@
                <property name="text">
                 <string>до 100 часов</string>
                </property>
-               <property name="statusTip">
+               <property name="toolTip">
                 <string>до 100</string>
+               </property>
+               <property name="statusTip">
+                <string/>
                </property>
                <property name="text">
                 <string>Наличие фото или видео отчёта</string>
@@ -2572,6 +2578,9 @@
                </property>
                <property name="text">
                 <string>1 курса – до 75 часов; 2 – 5 курсов до 50 часов</string>
+               </property>
+               <property name="toolTip">
+                <string>до 75, до 50</string>
                </property>
                <property name="text">
                 <string>Наличие плана и отчёта </string>
@@ -2951,11 +2960,14 @@
                <property name="text">
                 <string>16 – 72 часа</string>
                </property>
+               <property name="toolTip">
+                <string>16 - 72</string>
+               </property>
                <property name="text">
                 <string>Свидетельство</string>
                </property>
                <property name="toolTip">
-                <string>16 - 72</string>
+                <string/>
                </property>
               </item>
              </item>
@@ -3165,7 +3177,7 @@ p, li { white-space: pre-wrap; }
        <item row="5" column="0">
         <widget class="QProgressBar" name="progress">
          <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
@@ -3173,7 +3185,7 @@ p, li { white-space: pre-wrap; }
          <property name="maximumSize">
           <size>
            <width>402</width>
-           <height>26</height>
+           <height>32</height>
           </size>
          </property>
          <property name="value">
