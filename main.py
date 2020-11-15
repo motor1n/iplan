@@ -1,4 +1,4 @@
-# iPlan 0.0.3
+# iPlan 0.0.4
 # Автоматическая генерация индивидуального плана преподавателя
 # motor1n develop PyQt5 - 2020 year
 
@@ -72,9 +72,31 @@ class Thread2(QThread):
 class PlanForm(QMainWindow):
     def __init__(self):
         super().__init__()
-        # Флаг: файл учебной нагрузки ещё не открыт
-        self.fileopen = False
         uic.loadUi('iplan-design.ui', self)
+        # Кнопка "Открыть..." дезактивирована,
+        # сначала пользователь должен ввести свои данные:
+        self.pb_lrn.setDisabled(True)
+        # Интерфейс внеучебной работы дезактивирован изначально,
+        # чтобы пользователь сначала заполнил учебную работу:
+        self.tabs.setDisabled(True)
+        # Кнопка pb_save также дезактивирована,
+        # поскольку на данный момент ещё нечего сохранять:
+        self.pb_save.setDisabled(True)
+        # Таблицы QTableWidget ещё не заполнениы:
+        self.compete_tabs = False
+        # Словарь - состояние заполненности таблиц QTableWidget:
+        self.condition_tabs = dict()
+        # Кортеж кнопок QComboBox на заполнение данных пользователя:
+        self.cbX = (self.cb1, self.cb2, self.cb3, self.cb4)
+        # Кортеж объектов QTreeWidget
+        self.treeX = (self.tree1, self.tree2, self.tree3, self.tree4, self.tree5)
+        # Экспандинг древовидной структуры объектов QTreeWidget:
+        for tree in self.treeX:
+            tree.expandAll()
+        # Кортеж кнопок "Записать в таблицу"
+        self.pb0X = (self.pb01, self.pb02, self.pb03, self.pb04, self.pb05)
+        # Кортеж таблиц интерфейса для сохранения в документ
+        self.tables = (self.tw1, self.tw2, self.tw3, self.tw4, self.tw5)
         # Заполняем выбор учебного года (плюс-минус год)
         self.cb5.addItems([f'{CURRENT_YEAR - 1} - {CURRENT_YEAR}',
                            f'{CURRENT_YEAR} - {CURRENT_YEAR + 1}',
@@ -82,38 +104,39 @@ class PlanForm(QMainWindow):
         # По-умолчанию задаём среднее значение,
         # как наиболее вероятное при заполнении индивидуального плана
         self.cb5.setCurrentIndex(1)
-        # Задаём дату на 1,5 года ранее текущей даты для избрвния по конкурсу на QDateEdit:
+        # Задаём дату на 1,5 года ранее текущей даты для избрания по конкурсу на QDateEdit:
         self.de.setDate(dt.date.today() - dt.timedelta(days=548))
         # Включаем возможность выбирать дату при помощи PopUp-календаря:
         self.de.setCalendarPopup(True)
         # Учебная работа - сигнал pb_lrn --> слот learn
         self.pb_lrn.clicked.connect(self.learn)
-        # Учебно-методическая работа - сигнал pb01 --> слот extra
-        self.pb01.clicked.connect(lambda checked, tree=self.tree1,
-                                         tab=self.tw1: self.extra(tree, tab))
-        # Организационная работа - сигнал pb02 --> слот extra
-        self.pb02.clicked.connect(lambda checked, tree=self.tree2,
-                                         tab=self.tw2: self.extra(tree, tab))
-        # Научно-исследовательская работа - сигнал pb03 --> слот extra
-        self.pb03.clicked.connect(lambda checked, tree=self.tree3,
-                                         tab=self.tw3: self.extra(tree, tab))
-        # Воспитательная работа - сигнал pb04 --> слот extra
-        self.pb04.clicked.connect(lambda checked, tree=self.tree4,
-                                         tab=self.tw4: self.extra(tree, tab))
-        # Повышение квалификации - сигнал pb05 --> слот extra
-        self.pb05.clicked.connect(lambda checked, tree=self.tree5,
-                                         tab=self.tw5: self.extra(tree, tab))
+        # Связываем сигналы от кнопок "Записать в таблицу" с сответствующими слотами:
+        for i in range(len(self.pb0X)):
+            self.pb0X[i].clicked.connect(lambda checked, tree=self.treeX[i],
+                                                tab=self.tables[i]: self.extra(tree, tab))
         # Сигнал pb3 --> слот savedocx
-        self.pb_save.clicked.connect(lambda checked,
-                                        tables=(self.tw1, self.tw2, self.tw3,
-                                                self.tw4, self.tw5): self.savedocx(tables))
+        self.pb_save.clicked.connect(lambda checked, tables=self.tables: self.savedocx(tables))
+        # Сигналы отслеживания изменений таблиц QTableWidget (кортеж tables)
+        for tab in self.tables:
+            tab.cellChanged.connect(self.comlete_alltabs)
+            # И попутно заполнение словаря self.condition_tabs значениями False,
+            # т.е. пока ещё ни одна таблица не заполнена полностью
+            self.condition_tabs[tab.objectName()] = False
+        # Сигналы отслеживания изменений QComboBox на заполнение данных пользователя:
+        for cb in self.cbX:
+            cb.currentTextChanged.connect(self.user)
+
+    def user(self):
+        """Контроль заполнения данных о пользователе"""
+        if '---' not in [cb.currentText() for cb in self.cbX]:
+            # Если данные заполнены, активируем кнопку "Открыть..."
+            self.pb_lrn.setDisabled(False)
 
     def learn(self):
         """Заполнение данных по учебной работе"""
         fname = QFileDialog.getOpenFileName(self, 'Выбрать файл', '',
                                             'Excel 2007–365 (.xlsx)(*.xlsx)')[0]
         # Флаг: файл учебной нагрузки открыт
-        self.fileopen = True
         msg = QMessageBox.information(self, 'Инфо',
                                       '<h4>Файл учебной нагрузки открыт,<br>можно продолжить работу.</h4>')
         workbook = xlrd.open_workbook(fname)
@@ -127,6 +150,8 @@ class PlanForm(QMainWindow):
         self.learn_rate = self.learn_work - self.hourly_pay
         # Внеучебная работа:
         self.extra_work = round(sh.cell(sh.nrows - 1, 1).value)
+        # Расчёт долей процентов: учебная работа
+        self.percent_user_rate = round(self.learn_rate / (RATE * sh.cell(sh.nrows - 3, 0).value) * 100, 1)
         # Словарь для дополнения в context и дальнейшего внесения данных в шаблон документа:
         self.up1 = dict()
         # Словарь соответствия столбцов исходной таблицы столбцам итоговой
@@ -200,12 +225,15 @@ class PlanForm(QMainWindow):
         self.up1['dy3'] = tmp3 = as3 + cs3
         self.up1['dy4'] = tmp4 = as4 + cs4
         self.up1['lrnYP'] = tmp1 + tmp2 + tmp3 + tmp4
+        # Учебная работа заполнена,
+        # делаем активной для заполнеия внеучебную работу
+        self.tabs.setDisabled(False)
 
     def extra(self, tree, tab):
         """Заполнение данных по внеучебной работе"""
         # Загрузка отмеченных элементов QTreeWidgetItem в таблицу QTableWidget
         # Список для найденых выделенных check
-        checklist = list()
+        self.checklist = list()
         # Создаём итератор для прохода по элементам QTreeWidget
         iter = QTreeWidgetItemIterator(tree, QTreeWidgetItemIterator.Checked)
         while iter.value():
@@ -213,12 +241,12 @@ class PlanForm(QMainWindow):
             currentItem = iter.value()
             # currentItem.text(0) - текст в ячейке "Виды работы"
             # currentItem.toolTip(1) - всплывающая подсказка ячейки "Трудоёмкость"
-            # currentItem.text(0) - текст в ячейке "Форма отчётности"
-            checklist.append((currentItem.text(0), currentItem.toolTip(1), currentItem.text(2)))
+            # currentItem.text(2) - текст в ячейке "Форма отчётности"
+            self.checklist.append((currentItem.text(0), currentItem.toolTip(1), currentItem.text(2)))
             iter += 1
         # Если ничего не выбрано,
         # то выведем сообщение об этом в статус-бар и вернём пустой return
-        if not checklist:
+        if not self.checklist:
             self.statusBar().showMessage('Внеучебная работа: не выбрано')
             return
         else:
@@ -227,15 +255,15 @@ class PlanForm(QMainWindow):
             # Очищаем содержимое таблицы
             tab.clearContents()
             # Заполняем QTableWidget данными из QTreeWidget
-            for i, elem in enumerate(checklist):
+            for i, elem in enumerate(self.checklist):
                 for j, val in enumerate(elem):
                     tab.setItem(i, j, QTableWidgetItem(val))
-            msg = f'Внеучебная работа - выбрано позиций: {len(checklist)}'
+            msg = f'Внеучебная работа - выбрано позиций: {len(self.checklist)}'
             self.statusBar().showMessage(msg)
         # Помещаем кнопки QComboBox
         # в поле "Срок выполнения" на таблицу QTableWidget
         i = 0
-        for j in range(len(checklist)):
+        for j in range(len(self.checklist)):
             # Создаём объект QComboBox
             cbox = QComboBox()
             # Задаём его содержимое
@@ -245,6 +273,24 @@ class PlanForm(QMainWindow):
             # Помещаем cbox в ячейку таблицы
             tab.setCellWidget(i, 3, cbox)
             i += 1
+
+    def is_tabfull(self, tab):
+        """Проверка заполненности одной таблицы QTableWidget"""
+        for i in range(len(self.checklist)):
+        #for i in range(tab.rowCount()):
+            for j in range(tab.columnCount()):
+                # Проверяем все ячейки кроме столбца "Срок выполнения"
+                if j != 3 and tab.item(i, j) is None:
+                    return False
+        return True
+
+    def comlete_alltabs(self):
+        """Проверка заполненности всех таблиц QTableWidget"""
+        if self.is_tabfull(self.sender()):
+            self.condition_tabs[self.sender().objectName()] = True
+        # Если всё заполнено, активируем кнопку "Сохранить..."
+        if all(self.condition_tabs.values()):
+            self.pb_save.setDisabled(False)
 
     def savedocx(self, tables):
         """Сбор данных из интерфейса и запись в docx"""
@@ -271,6 +317,8 @@ class PlanForm(QMainWindow):
         AP = 0
         SP = 0
         YP = 0
+        # Список для записи часов по внеучебной работе на титульный лист:
+        perext = list()
         # Запись данных о внеучебной работе из таблиц интерфейса в файл docx:
         for t in range(len(tables)):
             # Общая сумма по разделу внеучебной работы
@@ -284,39 +332,41 @@ class PlanForm(QMainWindow):
                     if tables[t].item(i, j) is not None:
                         # Поле: Виды работы
                         self.up2[f'{d2[t]}{d1[0]}0{i + 1}'] = tables[t].item(i, 0).text()
+                        # Поле: Форма отчётности
+                        self.up2[f'{d2[t]}{d1[1]}0{i + 1}'] = tables[t].item(i, 2).text()
                         # Поле: Трудоёмкость в часах
-                        labour = tables[t].item(i, 1).text().split()[0]
-                        self.up2[f'{d2[t]}{d1[2]}0{i + 1}'] = labour
+                        self.up2[f'{d2[t]}{d1[2]}0{i + 1}'] = tables[t].item(i, 1).text()
                         # Поле: Срок выполнения
                         # tab.cellWidget(i, 3).currentText() - смотрим содержимое
                         # ячеек поля "Срок выполнения" - названия месяцев учебного года
                         period = tables[t].cellWidget(i, 3).currentText()
                         self.up2[f'{d2[t]}{d1[3]}0{i + 1}'] = period
-                        # TODO: Try ... Except на пустые ячейки Запланировано
-                        #  - AttributeError: 'NoneType' object has no attribute 'text'
                         # Поле: Запланировано
                         itm = tables[t].item(i, 4).text()
-                        # TODO: составить алгоритм формирования арифметического выражения
-                        # Заполнение поля "Запланировано" в виде арифметического выражения
-                        # Проверяем - первые символы в трудоёмкости цифры?
-                        if labour.isnumeric():
-                            planned = f'{int(int(itm) / float(labour))}\u2219{labour}={itm}'
-                            self.up2[f'{d2[t]}{d1[4]}0{i + 1}'] = planned
-
-                        # Учёт часов осеннего и весеннего семестра
+                        self.up2[f'{d2[t]}{d1[4]}0{i + 1}'] = int(itm)
+                        # Распределение часов по осеннему и весеннему семестрам:
                         if period in ('сентябрь', 'октябрь', 'ноябрь',
                                       'декабрь', 'январь', '1 семестр'):
                             autumn += int(itm)
                         elif period in ('февраль', 'март', 'апрель',
                                         'май', 'июнь', '2 семестр'):
                             spring += int(itm)
+                        # Если пользователь выбирает "в течение года",
+                        # то в этом случае часы рспределяются пополам на оба семестра:
                         elif period == 'в течение года':
                             autumn += int(itm) // 2
                             spring += int(itm) - int(itm) // 2
                         summ += int(itm)
                         break
-            # Записываем общую сумму по разделу внеучебной работы в документ .docx
+            # Записываем общую сумму по внеучебной работе
             self.up2[f'{d2[t]}YP'] = summ
+            # Список часов по внеучебной работе на титульный лист. Индексы:
+            # 0 - учебно-методическая
+            # 1 - организационная
+            # 2 - научно-исследовательская
+            # 3 - воспитательная
+            # 4 - повышение квалификации
+            perext.append(summ)
             # Записываем суммы по осеннему и весеннему семестру
             self.up2[f'{d2[t]}AP'] = autumn
             self.up2[f'{d2[t]}SP'] = spring
@@ -328,6 +378,15 @@ class PlanForm(QMainWindow):
         self.up2['AP'] = self.up1['lrnAP'] + AP
         self.up2['SP'] = self.up1['lrnSP'] + SP
         self.up2['YP'] = self.up1['lrnYP'] + YP
+        print(perext)
+        # Записываем проценты долей: учебно-методическая работа
+        self.up2['per_mtd'] = round(perext[0] / sum(perext[:-1]) * 100, 1)
+        # Записываем проценты долей: организационная
+        self.up2['per_org'] = round(perext[1] / sum(perext[:-1]) * 100, 1)
+        # Записываем проценты долей: научно-исследовательская
+        self.up2['per_sci'] = round(perext[2] / sum(perext[:-1]) * 100, 1)
+        # Записываем проценты долей: воспитательная
+        self.up2['per_edu'] = round(perext[3] / sum(perext[:-1]) * 100, 1)
         # Словарь для рендеринга:
         context = {
             'cathedra': cathedra,
@@ -339,7 +398,8 @@ class PlanForm(QMainWindow):
             'year_one': str(self.current_year),
             'year_two': str(self.current_year + 1),
             'hourly': self.hourly_pay,
-            'user_rate': self.learn_rate
+            'user_rate': self.learn_rate,
+            'per_ur': self.percent_user_rate
         }
         # Объединяем данные учебной (up1) и внеучебной (up2) работы
         # в словарь рендеринга для дальнейшего внесения в документ
@@ -369,6 +429,15 @@ class PlanForm(QMainWindow):
         # Запускаем поток рендеринга
         # IdlePriority - самый низкий приоритет
         self.thread1.start(priority=QThread.IdlePriority)
+
+    def percheck(self):
+        # TODO: проверка правильности соотношения процентов
+        #  с рекомендациями по исправлению. Возможно,
+        #  оформить в виде отдельного класса
+        pass
+        # Учебная работа --- не более 60%
+        # Научная и учебно-методическая --- 30% и более
+        # Организационная и воспитательная --- не более 20%
 
     def thread1_start(self):
         """Вызывается при запуске потока"""
