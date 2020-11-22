@@ -965,7 +965,7 @@
               </property>
               <item>
                <property name="text">
-                <string>Директор института*</string>
+                <string>Директор института</string>
                </property>
                <property name="checkState">
                 <enum>Unchecked</enum>
@@ -982,7 +982,7 @@
               </item>
               <item>
                <property name="text">
-                <string>Декан факультета*</string>
+                <string>Декан факультета</string>
                </property>
                <property name="checkState">
                 <enum>Unchecked</enum>
@@ -999,7 +999,7 @@
               </item>
               <item>
                <property name="text">
-                <string>Заведующий кафедрой*</string>
+                <string>Заведующий кафедрой</string>
                </property>
                <property name="checkState">
                 <enum>Unchecked</enum>
@@ -1016,7 +1016,7 @@
               </item>
               <item>
                <property name="text">
-                <string>Руководство методической работой факультета/института*</string>
+                <string>Руководство методической работой факультета/института</string>
                </property>
                <property name="checkState">
                 <enum>Unchecked</enum>
@@ -1033,7 +1033,7 @@
               </item>
               <item>
                <property name="text">
-                <string>Руководство методическим семинаром кафедры*</string>
+                <string>Руководство методическим семинаром кафедры</string>
                </property>
                <property name="checkState">
                 <enum>Unchecked</enum>
@@ -1050,7 +1050,7 @@
               </item>
               <item>
                <property name="text">
-                <string>Работа в качестве секретаря Учёного совета университета*</string>
+                <string>Работа в качестве секретаря Учёного совета университета</string>
                </property>
                <property name="checkState">
                 <enum>Unchecked</enum>
@@ -1704,7 +1704,7 @@
                 <string>Мероприятие международного и всероссийского уровня – до 20 часов; регионального и городского уровня – до 10 часов</string>
                </property>
                <property name="toolTip">
-                <string>до 20, до 10</string>
+                <string>до 20</string>
                </property>
                <property name="statusTip">
                 <string/>
@@ -2004,7 +2004,7 @@
                 <string>до 100 часов – за кандидатскую диссертацию, до 200 часов – за докторскую диссертацию</string>
                </property>
                <property name="toolTip">
-                <string>до 100, до 200</string>
+                <string>до 200</string>
                </property>
                <property name="statusTip">
                 <string/>
@@ -2024,7 +2024,7 @@
                 <string>а) международного уровня – до 100 часов на всех участников; б) федерального уровня – до 80 часов на всех участников; в) регионального и городского уровня – до 50 часов на всех участников; г) внутривузовского – до 20 часов на всех участников</string>
                </property>
                <property name="toolTip">
-                <string>до 100, до 80, до 50, до 20</string>
+                <string>до 100</string>
                </property>
                <property name="statusTip">
                 <string/>
@@ -2323,7 +2323,7 @@
                 <string>до 6 часов; до 10 часов</string>
                </property>
                <property name="toolTip">
-                <string>до 6, до 10</string>
+                <string>до 10</string>
                </property>
                <property name="statusTip">
                 <string/>
@@ -2498,6 +2498,11 @@
              <column>
               <property name="text">
                <string>Форма отчётности</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Объем п.л. или стр.</string>
               </property>
              </column>
              <column>
