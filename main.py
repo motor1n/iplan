@@ -1,4 +1,4 @@
-# iPlan 0.0.4
+# iPlan 0.0.5
 # Автоматическая генерация индивидуального плана преподавателя
 # motor1n develop PyQt5 - 2020 year
 
@@ -116,8 +116,9 @@ class PlanForm(QMainWindow):
                                                 tab=self.tables[i]: self.extra(tree, tab))
         # Сигнал pb3 --> слот savedocx
         self.pb_save.clicked.connect(lambda checked, tables=self.tables: self.savedocx(tables))
-        # Сигналы отслеживания изменений таблиц QTableWidget (кортеж tables)
-        for tab in self.tables:
+        # Сигналы отслеживания изменений таблиц QTableWidget (кортеж tables),
+        # но без "Повышения квалификации", поскольку она не обязательна
+        for tab in self.tables[:-1]:
             tab.cellChanged.connect(self.comlete_alltabs)
             # И попутно заполнение словаря self.condition_tabs значениями False,
             # т.е. пока ещё ни одна таблица не заполнена полностью
@@ -242,7 +243,11 @@ class PlanForm(QMainWindow):
             # currentItem.text(0) - текст в ячейке "Виды работы"
             # currentItem.toolTip(1) - всплывающая подсказка ячейки "Трудоёмкость"
             # currentItem.text(2) - текст в ячейке "Форма отчётности"
-            self.checklist.append((currentItem.text(0), currentItem.toolTip(1), currentItem.text(2)))
+            if tab.objectName() == 'tw3':
+                # Если таблица "Научная работа", то дополняется столбец "Объём п.л. или стр."
+                self.checklist.append((currentItem.text(0), currentItem.toolTip(1), currentItem.text(2), currentItem.text(3)))
+            else:
+                self.checklist.append((currentItem.text(0), currentItem.toolTip(1), currentItem.text(2)))
             iter += 1
         # Если ничего не выбрано,
         # то выведем сообщение об этом в статус-бар и вернём пустой return
@@ -271,17 +276,23 @@ class PlanForm(QMainWindow):
                            'февраль', 'март', 'апрель', 'май', 'июнь',
                            '1 семестр', '2 семестр', 'в течение года'))
             # Помещаем cbox в ячейку таблицы
-            tab.setCellWidget(i, 3, cbox)
+            if tab == self.tw3:
+                tab.setCellWidget(i, 4, cbox)
+            else:
+                tab.setCellWidget(i, 3, cbox)
             i += 1
 
     def is_tabfull(self, tab):
         """Проверка заполненности одной таблицы QTableWidget"""
         for i in range(len(self.checklist)):
-        #for i in range(tab.rowCount()):
             for j in range(tab.columnCount()):
                 # Проверяем все ячейки кроме столбца "Срок выполнения"
-                if j != 3 and tab.item(i, j) is None:
-                    return False
+                if tab == self.tw3:
+                    if j != 4 and tab.item(i, j) is None:
+                        return False
+                else:
+                    if j != 3 and tab.item(i, j) is None:
+                        return False
         return True
 
     def comlete_alltabs(self):
@@ -334,16 +345,30 @@ class PlanForm(QMainWindow):
                         self.up2[f'{d2[t]}{d1[0]}0{i + 1}'] = tables[t].item(i, 0).text()
                         # Поле: Форма отчётности
                         self.up2[f'{d2[t]}{d1[1]}0{i + 1}'] = tables[t].item(i, 2).text()
-                        # Поле: Трудоёмкость в часах
-                        self.up2[f'{d2[t]}{d1[2]}0{i + 1}'] = tables[t].item(i, 1).text()
-                        # Поле: Срок выполнения
-                        # tab.cellWidget(i, 3).currentText() - смотрим содержимое
-                        # ячеек поля "Срок выполнения" - названия месяцев учебного года
-                        period = tables[t].cellWidget(i, 3).currentText()
-                        self.up2[f'{d2[t]}{d1[3]}0{i + 1}'] = period
-                        # Поле: Запланировано
-                        itm = tables[t].item(i, 4).text()
-                        self.up2[f'{d2[t]}{d1[4]}0{i + 1}'] = int(itm)
+                        if tables[t] != self.tw3:
+                            # Поле: Трудоёмкость в часах
+                            self.up2[f'{d2[t]}{d1[2]}0{i + 1}'] = tables[t].item(i, 1).text()
+                            # Поле: Срок выполнения
+                            # tab.cellWidget(i, 3).currentText() - смотрим содержимое
+                            # ячеек поля "Срок выполнения" - названия месяцев учебного года
+                            period = tables[t].cellWidget(i, 3).currentText()
+                            self.up2[f'{d2[t]}{d1[3]}0{i + 1}'] = period
+                            # Поле: Запланировано
+                            itm = tables[t].item(i, 4).text()
+                            self.up2[f'{d2[t]}{d1[4]}0{i + 1}'] = int(itm)
+                        else:
+                            # Поле: Объём п.л. или стр.
+                            self.up2[f'{d2[t]}{d1[2]}0{i + 1}'] = tables[t].item(i, 3).text()
+                            # Поле: Трудоёмкость в часах
+                            self.up2[f'{d2[t]}{d1[4]}0{i + 1}'] = tables[t].item(i, 1).text()
+                            # Поле: Срок выполнения
+                            # tab.cellWidget(i, 3).currentText() - смотрим содержимое
+                            # ячеек поля "Срок выполнения" - названия месяцев учебного года
+                            period = tables[t].cellWidget(i, 4).currentText()
+                            self.up2[f'{d2[t]}{d1[3]}0{i + 1}'] = period
+                            # Поле: Запланировано
+                            itm = tables[t].item(i, 5).text()
+                            self.up2[f'{d2[t]}{d1[5]}0{i + 1}'] = int(itm)
                         # Распределение часов по осеннему и весеннему семестрам:
                         if period in ('сентябрь', 'октябрь', 'ноябрь',
                                       'декабрь', 'январь', '1 семестр'):
@@ -378,7 +403,6 @@ class PlanForm(QMainWindow):
         self.up2['AP'] = self.up1['lrnAP'] + AP
         self.up2['SP'] = self.up1['lrnSP'] + SP
         self.up2['YP'] = self.up1['lrnYP'] + YP
-        print(perext)
         # Записываем проценты долей: учебно-методическая работа
         self.up2['per_mtd'] = round(perext[0] / sum(perext[:-1]) * 100, 1)
         # Записываем проценты долей: организационная
@@ -387,6 +411,13 @@ class PlanForm(QMainWindow):
         self.up2['per_sci'] = round(perext[2] / sum(perext[:-1]) * 100, 1)
         # Записываем проценты долей: воспитательная
         self.up2['per_edu'] = round(perext[3] / sum(perext[:-1]) * 100, 1)
+        # Предупреждающее сообщение о неправильном распределении часов:
+        '''
+        if not self.percheck(self.percent_user_rate, self.up2['per_mtd'],
+                             self.up2['per_org'], self.up2['per_sci'], self.up2['per_edu']):
+            msg = QMessageBox.warning(self, 'Внимание!',
+                                      '<h4>Ошибка.<br>Распределение часов неправильное.</h4>')
+        '''
         # Словарь для рендеринга:
         context = {
             'cathedra': cathedra,
@@ -430,14 +461,15 @@ class PlanForm(QMainWindow):
         # IdlePriority - самый низкий приоритет
         self.thread1.start(priority=QThread.IdlePriority)
 
-    def percheck(self):
-        # TODO: проверка правильности соотношения процентов
-        #  с рекомендациями по исправлению. Возможно,
-        #  оформить в виде отдельного класса
-        pass
+    def percheck(self, lrn, mtd, org, sci, edu):
+        """Проверка правильности соотношения процентов"""
         # Учебная работа --- не более 60%
         # Научная и учебно-методическая --- 30% и более
         # Организационная и воспитательная --- не более 20%
+        if lrn <= 60 and org <= 20 and edu <= 20 and mtd >= 30 and sci >= 30:
+            return True
+        else:
+            return False
 
     def thread1_start(self):
         """Вызывается при запуске потока"""
@@ -469,7 +501,7 @@ class PlanForm(QMainWindow):
         self.progress.setValue(0)
         # Выводим информационное сообщение
         msg = QMessageBox.information(self, 'Инфо',
-                                      '<h4>Индивидуальный план<br>работы преподавателя сохранён.</h4>')
+                                      '<h4>Индивидуальный план готов.</h4>')
 
 
 def except_hook(cls, exception, traceback):
