@@ -1,6 +1,7 @@
-# iPlan 0.0.5
+# iPlan 0.1.1
 # Автоматическая генерация индивидуального плана преподавателя
-# motor1n develop PyQt5 - 2020 year
+# develop on PyQt5
+# 2020 year
 
 
 import sys
@@ -18,7 +19,7 @@ from PyQt5.QtWidgets import (QApplication, QMainWindow, QFileDialog,
 CURRENT_YEAR = int(dt.datetime.today().strftime('%Y'))
 # Текущий месяц:
 CURRENT_MONTH = int(dt.datetime.today().strftime('%m'))
-# Если пользователь воспользовался приложением во втором семестре,
+# Если вдруг преподаватель воспользовался приложением во втором семестре,
 # то для корректности уменьшим CURRENT_YEAR на единицу:
 if CURRENT_MONTH in range(1, 7):
     CURRENT_YEAR -= 1
@@ -36,14 +37,13 @@ class Thread1(QThread):
     # Инициализация потока
     # fname - имя сохраняемого файла
     # content - дянные для рендеринга
-    def __init__(self, fname, contect, parent=None):
+    def __init__(self, fname, context, parent=None):
         QThread.__init__(self, parent)
         self.fname = fname
-        self.context = contect
+        self.context = context
 
-    # Обязательный для любого потока метод run,
-    # в котором происходит основной процесс:
     def run(self):
+        """Рендеринг и сохраниение докумнета"""
         # Подключаем файл шаблона .dotx:
         doc = DocxTemplate('iplan-template.dotx')
         # Рендерим инфу в шаблон
@@ -55,6 +55,7 @@ class Thread1(QThread):
 
 
 class Thread2(QThread):
+    """Поток для прогресс-бара"""
     # Создаём собственный сигнал,
     # передающий параметр типа int:
     signal = pyqtSignal(int)
@@ -62,11 +63,12 @@ class Thread2(QThread):
     def __init__(self,  parent=None):
         QThread.__init__(self, parent)
 
-    # Счётчик для прогресс-бара
     def run(self):
+        """Счётчик для прогресс-бара"""
         for i in range(101):
             i += 1
             QThread.msleep(30)
+            # Передаём счёт в основной класс:
             self.signal.emit(i)
 
 
@@ -473,18 +475,18 @@ class PlanForm(QMainWindow):
             return False
 
     def thread1_start(self):
-        """Вызывается при запуске потока"""
+        """Вызывается при запуске потока thread1"""
         # Запускаем поток прогресс-бара
         # InheritPriority - автоматический приоритет
         self.thread2.start(priority=QThread.InheritPriority)
 
     def thread1_process(self, s):
-        """Вызывается сигналами которые отправляет поток"""
+        """Вызывается сигналами которые отправляет поток thread1"""
         # Параметр s - это сигнал полученный из потока thread1
         self.statusBar().showMessage(s)
 
     def thread1_stop(self):
-        """Вызывается при завершении потока"""
+        """Вызывается при завершении потока thread1"""
         self.statusBar().showMessage('Рендеринг выполняется...')
 
     def thread2_process(self, i):
@@ -493,6 +495,7 @@ class PlanForm(QMainWindow):
         self.progress.setValue(i)
 
     def thread2_stop(self):
+        """Вызывается при завершении потока thread1"""
         # Выводим сообщение в статус-бар
         self.statusBar().showMessage('Документ сформирован')
         # Делаем кнопки "Открыть..." и "Сохранить..." активными:
