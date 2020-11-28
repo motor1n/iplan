@@ -3,7 +3,8 @@
 # motor1n develop PyQt5 - 2020 year
 
 
-import sys, xlrd
+import sys
+import xlrd
 import datetime as dt
 from PyQt5 import uic
 from docxtpl import DocxTemplate

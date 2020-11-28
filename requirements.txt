@@ -1,4 +1,4 @@
 python==3.8.6
-PyQt5==5.15.1
+PyQt5==5.15.2
 docxtpl==0.10.0
 xlrd==1.2.0
