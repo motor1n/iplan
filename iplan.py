@@ -14,7 +14,6 @@ from PyQt5.QtWidgets import (QApplication, QMainWindow, QFileDialog,
                              QTreeWidgetItemIterator, QTableWidgetItem,
                              QComboBox, QMessageBox)
 
-
 # Текущий год:
 CURRENT_YEAR = int(dt.datetime.today().strftime('%Y'))
 # Текущий месяц:
@@ -34,10 +33,11 @@ class Thread1(QThread):
     # Создаём собственный сигнал,
     # принимающий параметр типа str:
     signal = pyqtSignal(str)
-    # Инициализация потока
-    # fname - имя сохраняемого файла
-    # content - дянные для рендеринга
+
     def __init__(self, fname, context, parent=None):
+        """Инициализация потока"""
+        # fname - имя сохраняемого файла
+        # content - дянные для рендеринга
         QThread.__init__(self, parent)
         self.fname = fname
         self.context = context
@@ -59,8 +59,9 @@ class Thread2(QThread):
     # Создаём собственный сигнал,
     # передающий параметр типа int:
     signal = pyqtSignal(int)
-    # Инициализация потока
-    def __init__(self,  parent=None):
+
+    def __init__(self, parent=None):
+        """Инициализация потока"""
         QThread.__init__(self, parent)
 
     def run(self):
@@ -92,7 +93,8 @@ class PlanForm(QMainWindow):
         # Кортеж кнопок QComboBox на заполнение данных пользователя:
         self.cbX = (self.cb1, self.cb2, self.cb3, self.cb4)
         # Кортеж объектов QTreeWidget
-        self.treeX = (self.tree1, self.tree2, self.tree3, self.tree4, self.tree5)
+        self.treeX = (self.tree1, self.tree2,
+                      self.tree3, self.tree4, self.tree5)
         # Экспандинг древовидной структуры объектов QTreeWidget:
         for tree in self.treeX:
             tree.expandAll()
@@ -115,10 +117,12 @@ class PlanForm(QMainWindow):
         self.pb_lrn.clicked.connect(self.learn)
         # Связываем сигналы от кнопок "Записать в таблицу" с сответствующими слотами:
         for i in range(len(self.pb0X)):
-            self.pb0X[i].clicked.connect(lambda checked, tree=self.treeX[i],
+            self.pb0X[i].clicked.connect(lambda checked,
+                                                tree=self.treeX[i],
                                                 tab=self.tables[i]: self.extra(tree, tab))
         # Сигнал pb3 --> слот savedocx
-        self.pb_save.clicked.connect(lambda checked, tables=self.tables: self.savedocx(tables))
+        self.pb_save.clicked.connect(lambda checked,
+                                            tables=self.tables: self.savedocx(tables))
         # Сигналы отслеживания изменений таблиц QTableWidget (кортеж tables),
         # но без "Повышения квалификации", поскольку она не обязательна
         for tab in self.tables[:-1]:
@@ -142,7 +146,8 @@ class PlanForm(QMainWindow):
                                             'Excel 2007–365 (.xlsx)(*.xlsx)')[0]
         # Флаг: файл учебной нагрузки открыт
         msg = QMessageBox.information(self, 'Инфо',
-                                      '<h4>Файл учебной нагрузки открыт,<br>можно продолжить работу.</h4>')
+                                      '<h4>Файл учебной нагрузки открыт,'
+                                      '<br>можно продолжить работу.</h4>')
         workbook = xlrd.open_workbook(fname)
         # Читаем первый лист:
         sh = workbook.sheet_by_index(0)
@@ -155,7 +160,8 @@ class PlanForm(QMainWindow):
         # Внеучебная работа:
         self.extra_work = round(sh.cell(sh.nrows - 1, 1).value)
         # Расчёт долей процентов: учебная работа
-        self.percent_user_rate = round(self.learn_rate / (RATE * sh.cell(sh.nrows - 3, 0).value) * 100, 1)
+        self.percent_user_rate = round(self.learn_rate /
+                                       (RATE * sh.cell(sh.nrows - 3, 0).value) * 100, 1)
         # Словарь для дополнения в context и дальнейшего внесения данных в шаблон документа:
         self.up1 = dict()
         # Словарь соответствия столбцов исходной таблицы столбцам итоговой
@@ -235,6 +241,12 @@ class PlanForm(QMainWindow):
 
     def extra(self, tree, tab):
         """Заполнение данных по внеучебной работе"""
+        # Выбраная вкладка во внеученой работе
+        current_worktype = self.tabs.tabText(int(tree.objectName()[-1]) - 1)
+        if current_worktype != 'Повышение квалификации':
+            worktype = f'{current_worktype} работа'
+        else:
+            worktype = 'Повышение квалификации'
         # Загрузка отмеченных элементов QTreeWidgetItem в таблицу QTableWidget
         # Список для найденых выделенных check
         self.checklist = list()
@@ -248,14 +260,17 @@ class PlanForm(QMainWindow):
             # currentItem.text(2) - текст в ячейке "Форма отчётности"
             if tab.objectName() == 'tw3':
                 # Если таблица "Научная работа", то дополняется столбец "Объём п.л. или стр."
-                self.checklist.append((currentItem.text(0), currentItem.toolTip(1), currentItem.text(2), currentItem.text(3)))
+                self.checklist.append((currentItem.text(0), currentItem.toolTip(1),
+                                       currentItem.text(2), currentItem.text(3)))
             else:
-                self.checklist.append((currentItem.text(0), currentItem.toolTip(1), currentItem.text(2)))
+                self.checklist.append((currentItem.text(0), currentItem.toolTip(1),
+                                       currentItem.text(2)))
             iter += 1
         # Если ничего не выбрано,
         # то выведем сообщение об этом в статус-бар и вернём пустой return
         if not self.checklist:
-            self.statusBar().showMessage('Внеучебная работа: не выбрано')
+            self.statusBar().showMessage(f'{worktype}: ничего не выбрано')
+            tab.clearContents()
             return
         else:
             # Задаём размер первого столбца пошире
@@ -266,10 +281,9 @@ class PlanForm(QMainWindow):
             for i, elem in enumerate(self.checklist):
                 for j, val in enumerate(elem):
                     tab.setItem(i, j, QTableWidgetItem(val))
-            msg = f'Внеучебная работа - выбрано позиций: {len(self.checklist)}'
-            self.statusBar().showMessage(msg)
-        # Помещаем кнопки QComboBox
-        # в поле "Срок выполнения" на таблицу QTableWidget
+        # Выводим текущую инфу в статус бар
+        self.statusBar().showMessage(f'{worktype} | Выбрано позиций: {len(self.checklist)}')
+        # Помещаем кнопки QComboBox в поле "Срок выполнения" на таблицу QTableWidget
         i = 0
         for j in range(len(self.checklist)):
             # Создаём объект QComboBox
@@ -325,7 +339,7 @@ class PlanForm(QMainWindow):
         # Словарь соответствия столбцов исходной таблицы столбцам итоговой
         d1 = {0: 'A', 1: 'B', 2: 'C', 3: 'D', 4: 'E', 5: 'F'}
         # Словарь соответствия номеров вкладок разделам внеучебной работы
-        d2 = {0: 'mtd', 1: 'org', 2:'sci', 3: 'edu', 4: 'upg'}
+        d2 = {0: 'mtd', 1: 'org', 2: 'sci', 3: 'edu', 4: 'upg'}
         # Строка "Всего" в таблице "Распределение времени по семестрам и основным видам работы,
         # общие суммы по плану внеучебной работы (осенний, весенний, год)
         AP = 0
@@ -441,7 +455,8 @@ class PlanForm(QMainWindow):
         context.update(self.up2)
         # Диалоговое окно сохранения файла docx
         fname = QFileDialog.getSaveFileName(self, 'Сохранить документ', '',
-                                            'Word 2007–365 (.docx)(*.docx)')[0]
+                                            'Word 2007–365 (.docx)(*.docx)',
+                                            options=None)[0]
         self.statusBar().showMessage('Идёт формирование документа...')
         # Создаём поток thread1 и передаём туда имя файла и данные для рендеринга:
         self.thread1 = Thread1(fname, context)
@@ -511,6 +526,7 @@ class PlanForm(QMainWindow):
 def except_hook(cls, exception, traceback):
     """Функция для отслеживания ошибок PyQt5"""
     sys.__excepthook__(cls, exception, traceback)
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
