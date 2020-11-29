@@ -10,11 +10,15 @@
     <x>0</x>
     <y>0</y>
     <width>1280</width>
-    <height>773</height>
+    <height>770</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>iPlan - Индивидуальный план работы преподавателя</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>pic/iplan-icon.png</normaloff>pic/iplan-icon.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QHBoxLayout" name="horizontalLayout">

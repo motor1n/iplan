@@ -1,6 +1,6 @@
-# iPlan 0.1.1
+# iPlan 0.1.3
 # Автоматическая генерация индивидуального плана преподавателя
-# develop on PyQt5
+# developed on PyQt5
 # 2020 year
 
 
@@ -13,6 +13,7 @@ from PyQt5.QtCore import Qt, QThread, pyqtSignal
 from PyQt5.QtWidgets import (QApplication, QMainWindow, QFileDialog,
                              QTreeWidgetItemIterator, QTableWidgetItem,
                              QComboBox, QMessageBox)
+
 
 # Текущий год:
 CURRENT_YEAR = int(dt.datetime.today().strftime('%Y'))
@@ -77,6 +78,10 @@ class PlanForm(QMainWindow):
     def __init__(self):
         super().__init__()
         uic.loadUi('iplan-design.ui', self)
+        # Файл нагрузки ещё не открыт:
+        self.fileopen = False
+        # Ошибок открытия файла ещё не было:
+        self.errorOpen = False
         # Кнопка "Открыть..." дезактивирована,
         # сначала пользователь должен ввести свои данные:
         self.pb_lrn.setDisabled(True)
@@ -142,102 +147,120 @@ class PlanForm(QMainWindow):
 
     def learn(self):
         """Заполнение данных по учебной работе"""
-        fname = QFileDialog.getOpenFileName(self, 'Выбрать файл', '',
-                                            'Excel 2007–365 (.xlsx)(*.xlsx)')[0]
-        # Флаг: файл учебной нагрузки открыт
-        msg = QMessageBox.information(self, 'Инфо',
-                                      '<h4>Файл учебной нагрузки открыт,'
-                                      '<br>можно продолжить работу.</h4>')
-        workbook = xlrd.open_workbook(fname)
-        # Читаем первый лист:
-        sh = workbook.sheet_by_index(0)
-        # Учебная работа (вся):
-        self.learn_work = round(sh.cell(sh.nrows - 3, 1).value)
-        # Почасовая оплата:
-        self.hourly_pay = round(sh.cell(sh.nrows - 3, 2).value)
-        # Учебная работа (ставка):
-        self.learn_rate = self.learn_work - self.hourly_pay
-        # Внеучебная работа:
-        self.extra_work = round(sh.cell(sh.nrows - 1, 1).value)
-        # Расчёт долей процентов: учебная работа
-        self.percent_user_rate = round(self.learn_rate /
-                                       (RATE * sh.cell(sh.nrows - 3, 0).value) * 100, 1)
-        # Словарь для дополнения в context и дальнейшего внесения данных в шаблон документа:
-        self.up1 = dict()
-        # Словарь соответствия столбцов исходной таблицы столбцам итоговой
-        s = {1: 'm', 2: 'a', 3: 'b', 5: 'd', 6: 'c', 7: 'e', 9: 'f', 14: 'g', 16: 'h'}
-        m1 = 1  # Счётчик отфильтрованных по нечётному семестру строк
-        m2 = 1  # Счётчик отфильтрованных по чётному семестру строк
-        # Суммы часов за семестры по раздичным видам учебной работы:
-        as1, as2, as3, as4 = 0, 0, 0, 0  # Осенний семестр
-        cs1, cs2, cs3, cs4 = 0, 0, 0, 0  # Весенний семестр
-        # Пробегаем по строкам таблицы с нужными данными
-        for rownum in range(1, sh.nrows - 3):
-            # Считываем строку из исходной таблицы
-            row = sh.row_values(rownum)
-            # Считаем, что данные в строку нечётного семестра не вносились
-            ok1 = False
-            # Считаем, что данные в строку чётного семестра не вносились
-            ok2 = False
-            # Заходим в цикл по элементам строки
-            for col in range(len(row)):
-                # Округляем все вещественные до целых,
-                # строки оставляем без изменения
-                if row[col].__class__.__name__ == 'float':
-                    tmp = round(row[col])
-                else:
-                    tmp = row[col]
-                if col in s.keys():
-                    if int(row[4]) % 2 == 1:  # Нечётный семестр
-                        # Вносим данные в строку
-                        self.up1[f'a{s[col]}0{m1}'] = tmp
-                        if col == 7:
-                            as1 += tmp  # Сумма за семестр: лекции
-                        elif col == 9:
-                            as2 += tmp  # Сумма за семестр: практика
-                        elif col == 14:
-                            as3 += tmp  # Сумма за семестр: экзамены
-                        elif col == 16:
-                            as4 += tmp  # Сумма за семестр: зачёты
-                        ok1 = True  # В строку внесены данные
-                    elif int(row[4]) % 2 == 0:  # Чётный семестр
-                        # Вносим данные в строку
-                        self.up1[f'c{s[col]}0{m2}'] = tmp
-                        if col == 7:
-                            cs1 += tmp  # Сумма за семестр: лекции
-                        elif col == 9:
-                            cs2 += tmp  # Сумма за семестр: практика
-                        elif col == 14:
-                            cs3 += tmp  # Сумма за семестр: экзамены
-                        elif col == 16:
-                            cs4 += tmp  # Сумма за семестр: зачёты
-                        ok2 = True  # В строку внесены данные
-            # Если строка была внесена, то переключаемся на следующую
-            if ok1:
-                m1 += 1
-            if ok2:
-                m2 += 1
-        # Всего по плану за осенний семестр
-        self.up1['as1'] = as1
-        self.up1['as2'] = as2
-        self.up1['as3'] = as3
-        self.up1['as4'] = as4
-        self.up1['lrnAP'] = as1 + as2 + as3 + as4
-        # Всего по плану за весенний семестр
-        self.up1['cs1'] = cs1
-        self.up1['cs2'] = cs2
-        self.up1['cs3'] = cs3
-        self.up1['cs4'] = cs4
-        self.up1['lrnSP'] = cs1 + cs2 + cs3 + cs4
-        # План на год
-        self.up1['dy1'] = tmp1 = as1 + cs1
-        self.up1['dy2'] = tmp2 = as2 + cs2
-        self.up1['dy3'] = tmp3 = as3 + cs3
-        self.up1['dy4'] = tmp4 = as4 + cs4
-        self.up1['lrnYP'] = tmp1 + tmp2 + tmp3 + tmp4
-        # Учебная работа заполнена,
-        # делаем активной для заполнеия внеучебную работу
-        self.tabs.setDisabled(False)
+        if self.fileopen:
+            msg = QMessageBox.information(self, 'Инфо', '<h4>Файл уже был открыт,'
+                                                        '<br>но можно выбрать другой.</h4>')
+            fname = QFileDialog.getOpenFileName(self,
+                                                'Выбрать файл', None,
+                                                'Microsoft Excel 2007–365 (*.xlsx)', None)
+        else:
+            fname = QFileDialog.getOpenFileName(self,
+                                                'Выбрать файл', None,
+                                                'Microsoft Excel 2007–365 (*.xlsx)', None)
+        try:
+            workbook = xlrd.open_workbook(fname[0])
+            # Читаем первый лист:
+            sh = workbook.sheet_by_index(0)
+            # Учебная работа (вся):
+            self.learn_work = round(sh.cell(sh.nrows - 3, 1).value)
+            # Почасовая оплата:
+            self.hourly_pay = round(sh.cell(sh.nrows - 3, 2).value)
+            # Учебная работа (ставка):
+            self.learn_rate = self.learn_work - self.hourly_pay
+            # Внеучебная работа:
+            self.extra_work = round(sh.cell(sh.nrows - 1, 1).value)
+            # Расчёт долей процентов: учебная работа
+            self.percent_user_rate = round(self.learn_rate /
+                                           (RATE * sh.cell(sh.nrows - 3, 0).value) * 100, 1)
+            # Словарь для дополнения в context и дальнейшего внесения данных в шаблон документа:
+            self.up1 = dict()
+            # Словарь соответствия столбцов исходной таблицы столбцам итоговой
+            s = {1: 'm', 2: 'a', 3: 'b', 5: 'd', 6: 'c', 7: 'e', 9: 'f', 14: 'g', 16: 'h'}
+            m1 = 1  # Счётчик отфильтрованных по нечётному семестру строк
+            m2 = 1  # Счётчик отфильтрованных по чётному семестру строк
+            # Суммы часов за семестры по раздичным видам учебной работы:
+            as1, as2, as3, as4 = 0, 0, 0, 0  # Осенний семестр
+            cs1, cs2, cs3, cs4 = 0, 0, 0, 0  # Весенний семестр
+            # Пробегаем по строкам таблицы с нужными данными
+            for rownum in range(1, sh.nrows - 3):
+                # Считываем строку из исходной таблицы
+                row = sh.row_values(rownum)
+                # Считаем, что данные в строку нечётного семестра не вносились
+                ok1 = False
+                # Считаем, что данные в строку чётного семестра не вносились
+                ok2 = False
+                # Заходим в цикл по элементам строки
+                for col in range(len(row)):
+                    # Округляем все вещественные до целых,
+                    # строки оставляем без изменения
+                    if row[col].__class__.__name__ == 'float':
+                        tmp = round(row[col])
+                    else:
+                        tmp = row[col]
+                    if col in s.keys():
+                        if int(row[4]) % 2 == 1:  # Нечётный семестр
+                            # Вносим данные в строку
+                            self.up1[f'a{s[col]}0{m1}'] = tmp
+                            if col == 7:
+                                as1 += tmp  # Сумма за семестр: лекции
+                            elif col == 9:
+                                as2 += tmp  # Сумма за семестр: практика
+                            elif col == 14:
+                                as3 += tmp  # Сумма за семестр: экзамены
+                            elif col == 16:
+                                as4 += tmp  # Сумма за семестр: зачёты
+                            ok1 = True  # В строку внесены данные
+                        elif int(row[4]) % 2 == 0:  # Чётный семестр
+                            # Вносим данные в строку
+                            self.up1[f'c{s[col]}0{m2}'] = tmp
+                            if col == 7:
+                                cs1 += tmp  # Сумма за семестр: лекции
+                            elif col == 9:
+                                cs2 += tmp  # Сумма за семестр: практика
+                            elif col == 14:
+                                cs3 += tmp  # Сумма за семестр: экзамены
+                            elif col == 16:
+                                cs4 += tmp  # Сумма за семестр: зачёты
+                            ok2 = True  # В строку внесены данные
+                # Если строка была внесена, то переключаемся на следующую
+                if ok1:
+                    m1 += 1
+                if ok2:
+                    m2 += 1
+            # Всего по плану за осенний семестр
+            self.up1['as1'] = as1
+            self.up1['as2'] = as2
+            self.up1['as3'] = as3
+            self.up1['as4'] = as4
+            self.up1['lrnAP'] = as1 + as2 + as3 + as4
+            # Всего по плану за весенний семестр
+            self.up1['cs1'] = cs1
+            self.up1['cs2'] = cs2
+            self.up1['cs3'] = cs3
+            self.up1['cs4'] = cs4
+            self.up1['lrnSP'] = cs1 + cs2 + cs3 + cs4
+            # План на год
+            self.up1['dy1'] = tmp1 = as1 + cs1
+            self.up1['dy2'] = tmp2 = as2 + cs2
+            self.up1['dy3'] = tmp3 = as3 + cs3
+            self.up1['dy4'] = tmp4 = as4 + cs4
+            self.up1['lrnYP'] = tmp1 + tmp2 + tmp3 + tmp4
+            # Флаг: файл открыт
+            self.fileopen = True
+            # Сообщение: файл учебной нагрузки открыт
+            msg = QMessageBox.information(self, 'Инфо',
+                                          '<h4>Файл учебной нагрузки открыт,'
+                                          '<br>можно продолжить работу.</h4>')
+            # Учебная работа заполнена,
+            # делаем активной для заполнеия внеучебную работу
+            self.tabs.setDisabled(False)
+        except FileNotFoundError:
+            if self.fileopen and self.errorOpen == False:
+                message = '<h4>Вы уже открыли файл</h4>'
+            else:
+                message = '<h4>Вы не открыли файл,<br>попробуйте ещё раз.</h4>'
+            msg = QMessageBox.information(self, 'Инфо', message)
+            self.errorOpen = True
 
     def extra(self, tree, tab):
         """Заполнение данных по внеучебной работе"""
@@ -454,12 +477,11 @@ class PlanForm(QMainWindow):
         context.update(self.up1)
         context.update(self.up2)
         # Диалоговое окно сохранения файла docx
-        fname = QFileDialog.getSaveFileName(self, 'Сохранить документ', '',
-                                            'Word 2007–365 (.docx)(*.docx)',
-                                            options=None)[0]
+        fname = QFileDialog.getSaveFileName(self, 'Сохранить документ', None,
+                                            'Microsoft Word 2007–365 (*.docx)', None)
         self.statusBar().showMessage('Идёт формирование документа...')
         # Создаём поток thread1 и передаём туда имя файла и данные для рендеринга:
-        self.thread1 = Thread1(fname, context)
+        self.thread1 = Thread1(fname[0], context)
         # Создаём поток thread2 для счётчика прогресс-бара:
         self.thread2 = Thread2()
         # Сигнал запуска потока hread1 отправляем на слот thread1_start
@@ -526,7 +548,6 @@ class PlanForm(QMainWindow):
 def except_hook(cls, exception, traceback):
     """Функция для отслеживания ошибок PyQt5"""
     sys.__excepthook__(cls, exception, traceback)
-
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
