@@ -1,4 +1,4 @@
-# iPlan 0.1.3
+# iPlan 0.1.4
 # Автоматическая генерация индивидуального плана преподавателя
 # developed on PyQt5
 # 2020 year
@@ -92,7 +92,7 @@ class PlanForm(QMainWindow):
         # поскольку на данный момент ещё нечего сохранять:
         self.pb_save.setDisabled(True)
         # Таблицы QTableWidget ещё не заполнениы:
-        self.compete_tabs = False
+        self.complete_tabs = False
         # Словарь - состояние заполненности таблиц QTableWidget:
         self.condition_tabs = dict()
         # Кортеж кнопок QComboBox на заполнение данных пользователя:
@@ -131,7 +131,7 @@ class PlanForm(QMainWindow):
         # Сигналы отслеживания изменений таблиц QTableWidget (кортеж tables),
         # но без "Повышения квалификации", поскольку она не обязательна
         for tab in self.tables[:-1]:
-            tab.cellChanged.connect(self.comlete_alltabs)
+            tab.cellChanged.connect(self.complete_alltabs)
             # И попутно заполнение словаря self.condition_tabs значениями False,
             # т.е. пока ещё ни одна таблица не заполнена полностью
             self.condition_tabs[tab.objectName()] = False
@@ -322,26 +322,46 @@ class PlanForm(QMainWindow):
                 tab.setCellWidget(i, 3, cbox)
             i += 1
 
+    def count_fill_rows(self, tab):
+        """Количество заполненых строк в таблице"""
+        count = 0
+        for i in range(tab.rowCount()):
+            for j in range(tab.columnCount()):
+                if tab.item(i, j):
+                    count += 1
+                    break
+        return count
+
     def is_tabfull(self, tab):
         """Проверка заполненности одной таблицы QTableWidget"""
-        for i in range(len(self.checklist)):
+        for i in range(self.count_fill_rows(tab)):
             for j in range(tab.columnCount()):
                 # Проверяем все ячейки кроме столбца "Срок выполнения"
                 if tab == self.tw3:
-                    if j != 4 and tab.item(i, j) is None:
+                    if j != 4 and (tab.item(i, j) is None
+                                   or tab.item(i, j).text() == str()):
                         return False
                 else:
-                    if j != 3 and tab.item(i, j) is None:
+                    if j != 3 and (tab.item(i, j) is None
+                                   or tab.item(i, j).text() == str()):
                         return False
         return True
 
-    def comlete_alltabs(self):
-        """Проверка заполненности всех таблиц QTableWidget"""
-        if self.is_tabfull(self.sender()):
-            self.condition_tabs[self.sender().objectName()] = True
+    def complete_alltabs(self):
+        """Проверка заполненности таблиц QTableWidget"""
+        # Проверяем все, кроме "Повышения квалификации"
+        for tab in self.tables[:-1]:
+            if self.is_tabfull(tab):
+                self.condition_tabs[tab.objectName()] = True
+            else:
+                self.condition_tabs[tab.objectName()] = False
         # Если всё заполнено, активируем кнопку "Сохранить..."
         if all(self.condition_tabs.values()):
+            self.complete_tabs = True
             self.pb_save.setDisabled(False)
+        else:
+            self.complete_tabs = False
+            self.pb_save.setDisabled(True)
 
     def savedocx(self, tables):
         """Сбор данных из интерфейса и запись в docx"""
