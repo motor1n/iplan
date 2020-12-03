@@ -478,8 +478,10 @@ class PlanForm(QMainWindow):
         context.update(self.up1)
         context.update(self.up2)
         # Диалоговое окно сохранения файла docx
-        fname = QFileDialog.getSaveFileName(self, 'Сохранить документ', None,
-                                            'Microsoft Word 2007–365 (*.docx)', None)
+        saveDialog = QFileDialog()
+        saveDialog.setDefaultSuffix('docx')
+        fname = saveDialog.getSaveFileName(self, 'Сохранить документ', '',
+                                              'Microsoft Word 2007–365 (*.docx)', None)
         self.statusBar().showMessage('Идёт формирование документа...')
         # Создаём поток thread1 и передаём туда имя файла и данные для рендеринга:
         self.thread1 = Thread1(fname[0], context)

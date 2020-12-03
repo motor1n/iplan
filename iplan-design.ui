@@ -42,7 +42,7 @@
          <property name="font">
           <font>
            <family>Trebuchet MS</family>
-           <pointsize>12</pointsize>
+           <pointsize>11</pointsize>
            <weight>75</weight>
            <bold>true</bold>
           </font>
@@ -3543,18 +3543,30 @@ p, li { white-space: pre-wrap; }
          </layout>
         </widget>
        </item>
-       <item row="0" column="0">
+       <item row="0" column="0" alignment="Qt::AlignRight">
         <widget class="QLabel" name="lbl_title1">
          <property name="sizePolicy">
-          <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
+         <property name="minimumSize">
+          <size>
+           <width>270</width>
+           <height>20</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>200</width>
+           <height>20</height>
+          </size>
+         </property>
          <property name="font">
           <font>
            <family>Trebuchet MS</family>
-           <pointsize>12</pointsize>
+           <pointsize>11</pointsize>
            <weight>75</weight>
            <bold>true</bold>
           </font>
@@ -3563,7 +3575,7 @@ p, li { white-space: pre-wrap; }
           <string>Учебная работа</string>
          </property>
          <property name="alignment">
-          <set>Qt::AlignCenter</set>
+          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
          </property>
         </widget>
        </item>
@@ -3578,13 +3590,13 @@ p, li { white-space: pre-wrap; }
          <property name="font">
           <font>
            <family>Trebuchet MS</family>
-           <pointsize>12</pointsize>
+           <pointsize>11</pointsize>
            <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
          <property name="text">
-          <string>Порядок заполнения индивидуального плана</string>
+          <string>Порядок заполнения плана</string>
          </property>
         </widget>
        </item>
