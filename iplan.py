@@ -12,7 +12,7 @@ from docxtpl import DocxTemplate
 from PyQt5.QtCore import Qt, QThread, pyqtSignal
 from PyQt5.QtWidgets import (QApplication, QMainWindow, QFileDialog,
                              QTreeWidgetItemIterator, QTableWidgetItem,
-                             QComboBox, QMessageBox)
+                             QComboBox, QMessageBox, QProgressDialog)
 
 
 # Текущий год:
@@ -53,25 +53,6 @@ class Thread1(QThread):
         # Сохраняем конечный документ
         self.signal.emit('Сохраняем конечный документ')
         doc.save(self.fname)
-
-
-class Thread2(QThread):
-    """Поток для прогресс-бара"""
-    # Создаём собственный сигнал,
-    # передающий параметр типа int:
-    signal = pyqtSignal(int)
-
-    def __init__(self, parent=None):
-        """Инициализация потока"""
-        QThread.__init__(self, parent)
-
-    def run(self):
-        """Счётчик для прогресс-бара"""
-        for i in range(101):
-            i += 1
-            QThread.msleep(30)
-            # Передаём счёт в основной класс:
-            self.signal.emit(i)
 
 
 class PlanForm(QMainWindow):
@@ -129,11 +110,11 @@ class PlanForm(QMainWindow):
         self.pb_save.clicked.connect(lambda checked,
                                             tables=self.tables: self.savedocx(tables))
         # Сигналы отслеживания изменений таблиц QTableWidget (кортеж tables),
-        # но без "Повышения квалификации", поскольку она не обязательна
+        # но без "Повышения квалификации", поскольку она не обязательна.
         for tab in self.tables[:-1]:
             tab.cellChanged.connect(self.complete_alltabs)
             # И попутно заполнение словаря self.condition_tabs значениями False,
-            # т.е. пока ещё ни одна таблица не заполнена полностью
+            # т.е. пока ещё ни одна таблица не заполнена полностью.
             self.condition_tabs[tab.objectName()] = False
         # Сигналы отслеживания изменений QComboBox на заполнение данных пользователя:
         for cb in self.cbX:
@@ -502,23 +483,18 @@ class PlanForm(QMainWindow):
         self.statusBar().showMessage('Идёт формирование документа...')
         # Создаём поток thread1 и передаём туда имя файла и данные для рендеринга:
         self.thread1 = Thread1(fname[0], context)
-        # Создаём поток thread2 для счётчика прогресс-бара:
-        self.thread2 = Thread2()
         # Сигнал запуска потока hread1 отправляем на слот thread1_start
         self.thread1.started.connect(self.thread1_start)
         # Сигнал завершения потока thread1 отправляем на слот thread1_stop
         self.thread1.finished.connect(self.thread1_stop)
         # Сигнал завершения потока thread2 отправляем на слот thread2_stop
-        self.thread2.finished.connect(self.thread2_stop)
         # Cигнал из потока thread1 отправляем в основную программу на слот thread_process
         # Qt.QueuedConnection - сигнал помещается в очередь обработки событий интерфейса Qt.
         self.thread1.signal.connect(self.thread1_process, Qt.QueuedConnection)
-        self.thread2.signal.connect(self.thread2_process, Qt.QueuedConnection)
         # Делаем кнопки неактивными
         self.pb_lrn.setDisabled(True)
         self.pb_save.setDisabled(True)
         # Запускаем поток рендеринга
-        # IdlePriority - самый низкий приоритет
         self.thread1.start(priority=QThread.IdlePriority)
 
     def percheck(self, lrn, mtd, org, sci, edu):
@@ -533,9 +509,17 @@ class PlanForm(QMainWindow):
 
     def thread1_start(self):
         """Вызывается при запуске потока thread1"""
-        # Запускаем поток прогресс-бара
-        # InheritPriority - автоматический приоритет
-        self.thread2.start(priority=QThread.InheritPriority)
+        # Выводим окно QProgressDialog на ожидание рендеринга
+        # HTML-сообщение:
+        msg = '<table border = "0"> <tbody> <tr>' \
+              '<td> <img src = "pic/save-icon.png"> </td>' \
+              '<td> <h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Идёт сохранение документа,<br>' \
+              '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;подождите пожалуйста.</h4> </td>'
+        self.dialog = QProgressDialog(msg, None, 0, 0, self)
+        self.dialog.setModal(True)
+        self.dialog.setWindowTitle('Инфо')
+        self.dialog.setRange(0, 0)
+        self.dialog.show()
 
     def thread1_process(self, s):
         """Вызывается сигналами которые отправляет поток thread1"""
@@ -544,22 +528,11 @@ class PlanForm(QMainWindow):
 
     def thread1_stop(self):
         """Вызывается при завершении потока thread1"""
-        self.statusBar().showMessage('Рендеринг выполняется...')
-
-    def thread2_process(self, i):
-        """Вызывается сигналами которые отправляет поток"""
-        # Счётчик из потока thread2 увеличивает прогресс-бар
-        self.progress.setValue(i)
-
-    def thread2_stop(self):
-        """Вызывается при завершении потока thread1"""
-        # Выводим сообщение в статус-бар
-        self.statusBar().showMessage('Документ сформирован')
-        # Делаем кнопки "Открыть..." и "Сохранить..." активными:
+        self.dialog.close()
+        self.statusBar().showMessage('Документ сохранён')
+        # Делаем кнопки "Открыть..." и "Сохранить..." активными
         self.pb_lrn.setDisabled(False)
         self.pb_save.setDisabled(False)
-        # Обнуляем прогресс-бар
-        self.progress.setValue(0)
         # Выводим информационное сообщение
         msg = QMessageBox.information(self, 'Инфо',
                                       '<h4>Индивидуальный план готов.</h4>')
