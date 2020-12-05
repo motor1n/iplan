@@ -1,7 +1,11 @@
-# iPlan 0.1.4
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+# iPlan 0.1.5.1
 # Автоматическая генерация индивидуального плана преподавателя
 # developed on PyQt5
-# 2020 year
+
+__author__ = 'Vladislav Motorin <motorin@yandexlyceum.ru>'
 
 
 import sys
@@ -27,6 +31,14 @@ if CURRENT_MONTH in range(1, 7):
 DEPUTY = 'О.А. Тарасова'
 # Педагогическая нагрузка на 1 ставку (часов):
 RATE = 1524
+# Виды внеучебной работы:
+TYPES_EXTRAWORK = {
+    0: 'Учебно-методическая работа',
+    1: 'Организационная работа',
+    2: 'Научно-исследовательская',
+    3: 'Воспитательная работа',
+    4: 'Повышение квалификации'
+}
 
 
 class Thread1(QThread):
@@ -40,7 +52,12 @@ class Thread1(QThread):
         # fname - имя сохраняемого файла
         # content - дянные для рендеринга
         QThread.__init__(self, parent)
-        self.fname = fname
+        # Проверяем, имеет ли правильное
+        # расширение сохраняемый файл:
+        if fname.endswith('.docx'):
+            self.fname = fname
+        else:
+            self.fname = f'{fname}.docx'
         self.context = context
 
     def run(self):
@@ -52,7 +69,11 @@ class Thread1(QThread):
         doc.render(self.context)
         # Сохраняем конечный документ
         self.signal.emit('Сохраняем конечный документ')
-        doc.save(self.fname)
+        try:
+            doc.save(self.fname)
+        except FileNotFoundError as error:
+            msg = QMessageBox.warning(self, 'Внимание!',
+                                      '<h4>Не удалось создать файл.</h4>')
 
 
 class PlanForm(QMainWindow):
@@ -119,27 +140,34 @@ class PlanForm(QMainWindow):
         # Сигналы отслеживания изменений QComboBox на заполнение данных пользователя:
         for cb in self.cbX:
             cb.currentTextChanged.connect(self.user)
+        # Сигнал вабранной вкладки QTabWidget:
+        self.tabs.tabBarClicked.connect(self.show_currtab_name)
+        msg = 'Изучите порядок заполнения индивидуального плана и приступайте к работе'
+        self.statusBar().showMessage(msg)
 
     def user(self):
         """Контроль заполнения данных о пользователе"""
         if '---' not in [cb.currentText() for cb in self.cbX]:
             # Если данные заполнены, активируем кнопку "Открыть..."
             self.pb_lrn.setDisabled(False)
+            msg = 'Проверьте дату избрания по конкурсу, ' \
+                  'текущий учебный год и откройте ваш файл учебной нагрузки.'
+            self.statusBar().showMessage(msg)
 
     def learn(self):
         """Заполнение данных по учебной работе"""
         if self.fileopen:
             msg = QMessageBox.information(self, 'Инфо', '<h4>Файл уже был открыт,'
                                                         '<br>но можно выбрать другой.</h4>')
-            fname = QFileDialog.getOpenFileName(self,
+            fname, _ = QFileDialog.getOpenFileName(self,
                                                 'Выбрать файл', None,
-                                                'Microsoft Excel 2007–365 (*.xlsx)', None)
+                                                'Microsoft Excel 2007–365 (*.xlsx)')
         else:
-            fname = QFileDialog.getOpenFileName(self,
+            fname, _ = QFileDialog.getOpenFileName(self,
                                                 'Выбрать файл', None,
-                                                'Microsoft Excel 2007–365 (*.xlsx)', None)
+                                                'Microsoft Excel 2007–365 (*.xlsx)')
         try:
-            workbook = xlrd.open_workbook(fname[0])
+            workbook = xlrd.open_workbook(fname)
             # Читаем первый лист:
             sh = workbook.sheet_by_index(0)
             # Учебная работа (вся):
@@ -232,6 +260,7 @@ class PlanForm(QMainWindow):
             msg = QMessageBox.information(self, 'Инфо',
                                           '<h4>Файл учебной нагрузки открыт,'
                                           '<br>можно продолжить работу.</h4>')
+            self.statusBar().showMessage('Заполните данные по внеучебной работе')
             # Учебная работа заполнена,
             # делаем активной для заполнеия внеучебную работу
             self.tabs.setDisabled(False)
@@ -245,12 +274,6 @@ class PlanForm(QMainWindow):
 
     def extra(self, tree, tab):
         """Заполнение данных по внеучебной работе"""
-        # Выбраная вкладка во внеученой работе
-        current_worktype = self.tabs.tabText(int(tree.objectName()[-1]) - 1)
-        if current_worktype != 'Повышение квалификации':
-            worktype = f'{current_worktype} работа'
-        else:
-            worktype = 'Повышение квалификации'
         # Загрузка отмеченных элементов QTreeWidgetItem в таблицу QTableWidget
         # Список для найденых выделенных check
         self.checklist = list()
@@ -273,7 +296,7 @@ class PlanForm(QMainWindow):
         # Если ничего не выбрано,
         # то выведем сообщение об этом в статус-бар и вернём пустой return
         if not self.checklist:
-            self.statusBar().showMessage(f'{worktype}: ничего не выбрано')
+            self.statusBar().showMessage(f'{self.get_currtab_name()}: ничего не выбрано')
             tab.clearContents()
             return
         else:
@@ -286,7 +309,8 @@ class PlanForm(QMainWindow):
                 for j, val in enumerate(elem):
                     tab.setItem(i, j, QTableWidgetItem(val))
         # Выводим текущую инфу в статус бар
-        self.statusBar().showMessage(f'{worktype} | Выбрано позиций: {len(self.checklist)}')
+        msg = f'{self.get_currtab_name()} | Выбрано позиций: {len(self.checklist)}'
+        self.statusBar().showMessage(msg)
         # Помещаем кнопки QComboBox в поле "Срок выполнения" на таблицу QTableWidget
         i = 0
         for j in range(len(self.checklist)):
@@ -302,6 +326,15 @@ class PlanForm(QMainWindow):
             else:
                 tab.setCellWidget(i, 3, cbox)
             i += 1
+
+    def get_currtab_name(self):
+        """Название текущей внеучебной работы"""
+        current_tab = TYPES_EXTRAWORK[self.tabs.currentIndex()]
+        return current_tab
+
+    def show_currtab_name(self, curr_tab):
+        """Выводим имя текушей внеучебной работы в статус-бар"""
+        self.statusBar().showMessage(TYPES_EXTRAWORK[curr_tab])
 
     def count_fill_rows(self, tab):
         """Количество заполненых строк в таблице"""
@@ -340,6 +373,7 @@ class PlanForm(QMainWindow):
         if all(self.condition_tabs.values()):
             self.complete_tabs = True
             self.pb_save.setDisabled(False)
+            self.statusBar().showMessage('Сохраните документ')
         else:
             self.complete_tabs = False
             self.pb_save.setDisabled(True)
@@ -433,7 +467,7 @@ class PlanForm(QMainWindow):
             # 3 - воспитательная
             # 4 - повышение квалификации
             perext.append(summ)
-            # Записываем суммы по осеннему и весеннему семестру
+            # Записываем суммы по осеннему и весеннему семестру:
             self.up2[f'{d2[t]}AP'] = autumn
             self.up2[f'{d2[t]}SP'] = spring
             # Суммируем "Всего":
@@ -444,13 +478,13 @@ class PlanForm(QMainWindow):
         self.up2['AP'] = self.up1['lrnAP'] + AP
         self.up2['SP'] = self.up1['lrnSP'] + SP
         self.up2['YP'] = self.up1['lrnYP'] + YP
-        # Записываем проценты долей: учебно-методическая работа
+        # Записываем проценты долей: учебно-методическая работа:
         self.up2['per_mtd'] = round(perext[0] / sum(perext[:-1]) * 100, 1)
         # Записываем проценты долей: организационная
         self.up2['per_org'] = round(perext[1] / sum(perext[:-1]) * 100, 1)
-        # Записываем проценты долей: научно-исследовательская
+        # Записываем проценты долей: научно-исследовательская:
         self.up2['per_sci'] = round(perext[2] / sum(perext[:-1]) * 100, 1)
-        # Записываем проценты долей: воспитательная
+        # Записываем проценты долей: воспитательная:
         self.up2['per_edu'] = round(perext[3] / sum(perext[:-1]) * 100, 1)
         # Предупреждающее сообщение о неправильном распределении часов:
         '''
@@ -474,30 +508,32 @@ class PlanForm(QMainWindow):
             'per_ur': self.percent_user_rate
         }
         # Объединяем данные учебной (up1) и внеучебной (up2) работы
-        # в словарь рендеринга для дальнейшего внесения в документ
+        # в словарь рендеринга для дальнейшего внесения в документ:
         context.update(self.up1)
         context.update(self.up2)
-        # Диалоговое окно сохранения файла docx
+        # Диалоговое окно сохранения файла docx:
         saveDialog = QFileDialog()
         saveDialog.setDefaultSuffix('docx')
-        fname = saveDialog.getSaveFileName(self, 'Сохранить документ', '',
-                                              'Microsoft Word 2007–365 (*.docx)', None)
-        self.statusBar().showMessage('Идёт формирование документа...')
-        # Создаём поток thread1 и передаём туда имя файла и данные для рендеринга:
-        self.thread1 = Thread1(fname[0], context)
-        # Сигнал запуска потока hread1 отправляем на слот thread1_start
-        self.thread1.started.connect(self.thread1_start)
-        # Сигнал завершения потока thread1 отправляем на слот thread1_stop
-        self.thread1.finished.connect(self.thread1_stop)
-        # Сигнал завершения потока thread2 отправляем на слот thread2_stop
-        # Cигнал из потока thread1 отправляем в основную программу на слот thread_process
-        # Qt.QueuedConnection - сигнал помещается в очередь обработки событий интерфейса Qt.
-        self.thread1.signal.connect(self.thread1_process, Qt.QueuedConnection)
-        # Делаем кнопки неактивными
-        self.pb_lrn.setDisabled(True)
-        self.pb_save.setDisabled(True)
-        # Запускаем поток рендеринга
-        self.thread1.start(priority=QThread.IdlePriority)
+        fname, _ = saveDialog.getSaveFileName(self, 'Сохранить документ', '',
+                                              'Microsoft Word 2007–365 (*.docx)')
+        if fname != str():
+            self.statusBar().showMessage('Идёт формирование документа...')
+            # Создаём поток thread1 и передаём туда имя файла и данные для рендеринга:
+            self.thread1 = Thread1(fname, context)
+            # Сигнал запуска потока hread1 отправляем на слот thread1_start:
+            self.thread1.started.connect(self.thread1_start)
+            # Сигнал завершения потока thread1 отправляем на слот thread1_stop:
+            self.thread1.finished.connect(self.thread1_stop)
+            # Qt.QueuedConnection - сигнал помещается в очередь обработки событий интерфейса Qt:
+            self.thread1.signal.connect(self.thread1_process, Qt.QueuedConnection)
+            # Делаем кнопки неактивными:
+            self.pb_lrn.setDisabled(True)
+            self.pb_save.setDisabled(True)
+            # Запускаем поток рендеринга:
+            self.thread1.start(priority=QThread.IdlePriority)
+        else:
+            msg = QMessageBox.warning(self, 'Внимание!',
+                                      '<h4>Вы не задали имя файла<br>для сохранения.</h4>')
 
     def percheck(self, lrn, mtd, org, sci, edu):
         """Проверка правильности соотношения процентов"""
@@ -511,8 +547,8 @@ class PlanForm(QMainWindow):
 
     def thread1_start(self):
         """Вызывается при запуске потока thread1"""
-        # Выводим окно QProgressDialog на ожидание рендеринга
-        # HTML-сообщение:
+        # Выводим окно QProgressDialog на ожидание рендеринга.
+        # HTML-сообщение с иконкой:
         msg = '<table border = "0"> <tbody> <tr>' \
               '<td> <img src = "pic/save-icon.png"> </td>' \
               '<td> <h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Идёт сохранение документа,<br>' \
@@ -532,10 +568,10 @@ class PlanForm(QMainWindow):
         """Вызывается при завершении потока thread1"""
         self.dialog.close()
         self.statusBar().showMessage('Документ сохранён')
-        # Делаем кнопки "Открыть..." и "Сохранить..." активными
+        # Делаем кнопки "Открыть..." и "Сохранить..." активными:
         self.pb_lrn.setDisabled(False)
         self.pb_save.setDisabled(False)
-        # Выводим информационное сообщение
+        # Выводим информационное сообщение:
         msg = QMessageBox.information(self, 'Инфо',
                                       '<h4>Индивидуальный план готов.</h4>')
 
@@ -548,6 +584,6 @@ if __name__ == '__main__':
     app = QApplication(sys.argv)
     ex = PlanForm()
     ex.show()
-    # Ловим и показываем ошибки PyQt5 в терминале
+    # Ловим и показываем ошибки PyQt5 в терминале:
     sys.excepthook = except_hook
     sys.exit(app.exec_())
