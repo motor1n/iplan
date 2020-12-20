@@ -786,6 +786,9 @@
                <pointsize>9</pointsize>
               </font>
              </property>
+             <property name="mouseTracking">
+              <bool>false</bool>
+             </property>
              <attribute name="horizontalHeaderDefaultSectionSize">
               <number>150</number>
              </attribute>

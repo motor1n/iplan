@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-# iPlan 0.1.5.1
+# iPlan 0.1.5.3
 # Автоматическая генерация индивидуального плана преподавателя
 # developed on PyQt5
 
@@ -71,9 +71,8 @@ class Thread1(QThread):
         self.signal.emit('Сохраняем конечный документ')
         try:
             doc.save(self.fname)
-        except FileNotFoundError as error:
-            msg = QMessageBox.warning(self, 'Внимание!',
-                                      '<h4>Не удалось создать файл.</h4>')
+        except Exception:
+            self.signal.emit('error')
 
 
 class PlanForm(QMainWindow):
@@ -157,15 +156,16 @@ class PlanForm(QMainWindow):
     def learn(self):
         """Заполнение данных по учебной работе"""
         if self.fileopen:
+            # noinspection PyArgumentList
             msg = QMessageBox.information(self, 'Инфо', '<h4>Файл уже был открыт,'
                                                         '<br>но можно выбрать другой.</h4>')
             fname, _ = QFileDialog.getOpenFileName(self,
-                                                'Выбрать файл', None,
-                                                'Microsoft Excel 2007–365 (*.xlsx)')
+                                                   'Выбрать файл', None,
+                                                   'Microsoft Excel 2007–365 (*.xlsx)')
         else:
             fname, _ = QFileDialog.getOpenFileName(self,
-                                                'Выбрать файл', None,
-                                                'Microsoft Excel 2007–365 (*.xlsx)')
+                                                   'Выбрать файл', None,
+                                                   'Microsoft Excel 2007–365 (*.xlsx)')
         try:
             workbook = xlrd.open_workbook(fname)
             # Читаем первый лист:
@@ -257,6 +257,7 @@ class PlanForm(QMainWindow):
             # Флаг: файл открыт
             self.fileopen = True
             # Сообщение: файл учебной нагрузки открыт
+            # noinspection PyArgumentList
             msg = QMessageBox.information(self, 'Инфо',
                                           '<h4>Файл учебной нагрузки открыт,'
                                           '<br>можно продолжить работу.</h4>')
@@ -265,7 +266,7 @@ class PlanForm(QMainWindow):
             # делаем активной для заполнеия внеучебную работу
             self.tabs.setDisabled(False)
         except FileNotFoundError:
-            if self.fileopen and self.errorOpen == False:
+            if self.fileopen and not self.errorOpen:
                 message = '<h4>Вы уже открыли файл</h4>'
             else:
                 message = '<h4>Вы не открыли файл,<br>попробуйте ещё раз.</h4>'
@@ -278,21 +279,21 @@ class PlanForm(QMainWindow):
         # Список для найденых выделенных check
         self.checklist = list()
         # Создаём итератор для прохода по элементам QTreeWidget
-        iter = QTreeWidgetItemIterator(tree, QTreeWidgetItemIterator.Checked)
-        while iter.value():
+        it = QTreeWidgetItemIterator(tree, QTreeWidgetItemIterator.Checked)
+        while it.value():
             # Читаем строку QTreeWidgetItem
-            currentItem = iter.value()
+            current_item = it.value()
             # currentItem.text(0) - текст в ячейке "Виды работы"
             # currentItem.toolTip(1) - всплывающая подсказка ячейки "Трудоёмкость"
             # currentItem.text(2) - текст в ячейке "Форма отчётности"
             if tab.objectName() == 'tw3':
                 # Если таблица "Научная работа", то дополняется столбец "Объём п.л. или стр."
-                self.checklist.append((currentItem.text(0), currentItem.toolTip(1),
-                                       currentItem.text(2), currentItem.text(3)))
+                self.checklist.append((current_item.text(0), current_item.toolTip(1),
+                                       current_item.text(2), current_item.text(3)))
             else:
-                self.checklist.append((currentItem.text(0), currentItem.toolTip(1),
-                                       currentItem.text(2)))
-            iter += 1
+                self.checklist.append((current_item.text(0), current_item.toolTip(1),
+                                       current_item.text(2)))
+            it += 1
         # Если ничего не выбрано,
         # то выведем сообщение об этом в статус-бар и вернём пустой return
         if not self.checklist:
@@ -361,7 +362,7 @@ class PlanForm(QMainWindow):
                         return False
         return True
 
-    def complete_alltabs(self):
+    def complete_alltabs(self, *args):
         """Проверка заполненности таблиц QTableWidget"""
         # Проверяем все, кроме "Повышения квалификации"
         for tab in self.tables[:-1]:
@@ -405,135 +406,139 @@ class PlanForm(QMainWindow):
         YP = 0
         # Список для записи часов по внеучебной работе на титульный лист:
         perext = list()
-        # Запись данных о внеучебной работе из таблиц интерфейса в файл docx:
-        for t in range(len(tables)):
-            # Общая сумма по разделу внеучебной работы
-            summ = 0
-            # Осенний семестр
-            autumn = 0
-            # Весенний семестр
-            spring = 0
-            for i in range(tables[t].rowCount()):
-                for j in range(tables[t].columnCount()):
-                    if tables[t].item(i, j) is not None:
-                        # Поле: Виды работы
-                        self.up2[f'{d2[t]}{d1[0]}0{i + 1}'] = tables[t].item(i, 0).text()
-                        # Поле: Форма отчётности
-                        self.up2[f'{d2[t]}{d1[1]}0{i + 1}'] = tables[t].item(i, 2).text()
-                        if tables[t] != self.tw3:
-                            # Поле: Трудоёмкость в часах
-                            self.up2[f'{d2[t]}{d1[2]}0{i + 1}'] = tables[t].item(i, 1).text()
-                            # Поле: Срок выполнения
-                            # tab.cellWidget(i, 3).currentText() - смотрим содержимое
-                            # ячеек поля "Срок выполнения" - названия месяцев учебного года
-                            period = tables[t].cellWidget(i, 3).currentText()
-                            self.up2[f'{d2[t]}{d1[3]}0{i + 1}'] = period
-                            # Поле: Запланировано
-                            itm = tables[t].item(i, 4).text()
-                            self.up2[f'{d2[t]}{d1[4]}0{i + 1}'] = int(itm)
-                        else:
-                            # Поле: Объём п.л. или стр.
-                            self.up2[f'{d2[t]}{d1[2]}0{i + 1}'] = tables[t].item(i, 3).text()
-                            # Поле: Трудоёмкость в часах
-                            self.up2[f'{d2[t]}{d1[4]}0{i + 1}'] = tables[t].item(i, 1).text()
-                            # Поле: Срок выполнения
-                            # tab.cellWidget(i, 3).currentText() - смотрим содержимое
-                            # ячеек поля "Срок выполнения" - названия месяцев учебного года
-                            period = tables[t].cellWidget(i, 4).currentText()
-                            self.up2[f'{d2[t]}{d1[3]}0{i + 1}'] = period
-                            # Поле: Запланировано
-                            itm = tables[t].item(i, 5).text()
-                            self.up2[f'{d2[t]}{d1[5]}0{i + 1}'] = int(itm)
-                        # Распределение часов по осеннему и весеннему семестрам:
-                        if period in ('сентябрь', 'октябрь', 'ноябрь',
-                                      'декабрь', 'январь', '1 семестр'):
-                            autumn += int(itm)
-                        elif period in ('февраль', 'март', 'апрель',
-                                        'май', 'июнь', '2 семестр'):
-                            spring += int(itm)
-                        # Если пользователь выбирает "в течение года",
-                        # то в этом случае часы рспределяются пополам на оба семестра:
-                        elif period == 'в течение года':
-                            autumn += int(itm) // 2
-                            spring += int(itm) - int(itm) // 2
-                        summ += int(itm)
-                        break
-            # Записываем общую сумму по внеучебной работе
-            self.up2[f'{d2[t]}YP'] = summ
-            # Список часов по внеучебной работе на титульный лист. Индексы:
-            # 0 - учебно-методическая
-            # 1 - организационная
-            # 2 - научно-исследовательская
-            # 3 - воспитательная
-            # 4 - повышение квалификации
-            perext.append(summ)
-            # Записываем суммы по осеннему и весеннему семестру:
-            self.up2[f'{d2[t]}AP'] = autumn
-            self.up2[f'{d2[t]}SP'] = spring
-            # Суммируем "Всего":
-            AP += autumn
-            SP += spring
-            YP += summ
-        # Записываем "Всего" = <учебная_работа> + <внеучебная_работа>:
-        self.up2['AP'] = self.up1['lrnAP'] + AP
-        self.up2['SP'] = self.up1['lrnSP'] + SP
-        self.up2['YP'] = self.up1['lrnYP'] + YP
-        # Записываем проценты долей: учебно-методическая работа:
-        self.up2['per_mtd'] = round(perext[0] / sum(perext[:-1]) * 100, 1)
-        # Записываем проценты долей: организационная
-        self.up2['per_org'] = round(perext[1] / sum(perext[:-1]) * 100, 1)
-        # Записываем проценты долей: научно-исследовательская:
-        self.up2['per_sci'] = round(perext[2] / sum(perext[:-1]) * 100, 1)
-        # Записываем проценты долей: воспитательная:
-        self.up2['per_edu'] = round(perext[3] / sum(perext[:-1]) * 100, 1)
-        # Предупреждающее сообщение о неправильном распределении часов:
-        '''
-        if not self.percheck(self.percent_user_rate, self.up2['per_mtd'],
-                             self.up2['per_org'], self.up2['per_sci'], self.up2['per_edu']):
+        try:
+            # Запись данных о внеучебной работе из таблиц интерфейса в файл docx:
+            for t in range(len(tables)):
+                # Общая сумма по разделу внеучебной работы
+                summ = 0
+                # Осенний семестр
+                autumn = 0
+                # Весенний семестр
+                spring = 0
+                for i in range(tables[t].rowCount()):
+                    for j in range(tables[t].columnCount()):
+                        if tables[t].item(i, j) is not None:
+                            # Поле: Виды работы
+                            self.up2[f'{d2[t]}{d1[0]}0{i + 1}'] = tables[t].item(i, 0).text()
+                            # Поле: Форма отчётности
+                            self.up2[f'{d2[t]}{d1[1]}0{i + 1}'] = tables[t].item(i, 2).text()
+                            if tables[t] != self.tw3:
+                                # Поле: Трудоёмкость в часах
+                                self.up2[f'{d2[t]}{d1[2]}0{i + 1}'] = tables[t].item(i, 1).text()
+                                # Поле: Срок выполнения
+                                # tab.cellWidget(i, 3).currentText() - смотрим содержимое
+                                # ячеек поля "Срок выполнения" - названия месяцев учебного года
+                                period = tables[t].cellWidget(i, 3).currentText()
+                                self.up2[f'{d2[t]}{d1[3]}0{i + 1}'] = period
+                                # Поле: Запланировано
+                                itm = tables[t].item(i, 4).text()
+                                self.up2[f'{d2[t]}{d1[4]}0{i + 1}'] = int(itm)
+                            else:
+                                # Поле: Объём п.л. или стр.
+                                self.up2[f'{d2[t]}{d1[2]}0{i + 1}'] = tables[t].item(i, 3).text()
+                                # Поле: Трудоёмкость в часах
+                                self.up2[f'{d2[t]}{d1[4]}0{i + 1}'] = tables[t].item(i, 1).text()
+                                # Поле: Срок выполнения
+                                # tab.cellWidget(i, 3).currentText() - смотрим содержимое
+                                # ячеек поля "Срок выполнения" - названия месяцев учебного года
+                                period = tables[t].cellWidget(i, 4).currentText()
+                                self.up2[f'{d2[t]}{d1[3]}0{i + 1}'] = period
+                                # Поле: Запланировано
+                                itm = tables[t].item(i, 5).text()
+                                self.up2[f'{d2[t]}{d1[5]}0{i + 1}'] = int(itm)
+                            # Распределение часов по осеннему и весеннему семестрам:
+                            if period in ('сентябрь', 'октябрь', 'ноябрь',
+                                          'декабрь', 'январь', '1 семестр'):
+                                autumn += int(itm)
+                            elif period in ('февраль', 'март', 'апрель',
+                                            'май', 'июнь', '2 семестр'):
+                                spring += int(itm)
+                            # Если пользователь выбирает "в течение года",
+                            # то в этом случае часы рспределяются пополам на оба семестра:
+                            elif period == 'в течение года':
+                                autumn += int(itm) // 2
+                                spring += int(itm) - int(itm) // 2
+                            summ += int(itm)
+                            break
+                # Записываем общую сумму по внеучебной работе
+                self.up2[f'{d2[t]}YP'] = summ
+                # Список часов по внеучебной работе на титульный лист. Индексы:
+                # 0 - учебно-методическая
+                # 1 - организационная
+                # 2 - научно-исследовательская
+                # 3 - воспитательная
+                # 4 - повышение квалификации
+                perext.append(summ)
+                # Записываем суммы по осеннему и весеннему семестру:
+                self.up2[f'{d2[t]}AP'] = autumn
+                self.up2[f'{d2[t]}SP'] = spring
+                # Суммируем "Всего":
+                AP += autumn
+                SP += spring
+                YP += summ
+            # Записываем "Всего" = <учебная_работа> + <внеучебная_работа>:
+            self.up2['AP'] = self.up1['lrnAP'] + AP
+            self.up2['SP'] = self.up1['lrnSP'] + SP
+            self.up2['YP'] = self.up1['lrnYP'] + YP
+            # Записываем проценты долей: учебно-методическая работа:
+            self.up2['per_mtd'] = round(perext[0] / sum(perext[:-1]) * 100, 1)
+            # Записываем проценты долей: организационная
+            self.up2['per_org'] = round(perext[1] / sum(perext[:-1]) * 100, 1)
+            # Записываем проценты долей: научно-исследовательская:
+            self.up2['per_sci'] = round(perext[2] / sum(perext[:-1]) * 100, 1)
+            # Записываем проценты долей: воспитательная:
+            self.up2['per_edu'] = round(perext[3] / sum(perext[:-1]) * 100, 1)
+            # Предупреждающее сообщение о неправильном распределении часов:
+            '''
+            if not self.percheck(self.percent_user_rate, self.up2['per_mtd'],
+                                 self.up2['per_org'], self.up2['per_sci'], self.up2['per_edu']):
+                msg = QMessageBox.warning(self, 'Внимание!',
+                                          '<h4>Ошибка.<br>Распределение часов неправильное.</h4>')
+            '''
+            # Словарь для рендеринга:
+            context = {
+                'cathedra': cathedra,
+                'deputy': DEPUTY,
+                'name': name,
+                'degree': degree,
+                'position': position,
+                'election': election,
+                'year_one': str(self.current_year),
+                'year_two': str(self.current_year + 1),
+                'hourly': self.hourly_pay,
+                'user_rate': self.learn_rate,
+                'per_ur': self.percent_user_rate
+            }
+            # Объединяем данные учебной (up1) и внеучебной (up2) работы
+            # в словарь рендеринга для дальнейшего внесения в документ:
+            context.update(self.up1)
+            context.update(self.up2)
+            # Диалоговое окно сохранения файла docx:
+            saveDialog = QFileDialog()
+            saveDialog.setDefaultSuffix('docx')
+            fname, _ = saveDialog.getSaveFileName(self, 'Сохранить документ', '',
+                                                  'Microsoft Word 2007–365 (*.docx)')
+            if fname != str():
+                self.statusBar().showMessage('Идёт процесс формирование документа...')
+                # Создаём поток thread1 и передаём туда имя файла и данные для рендеринга:
+                self.thread1 = Thread1(fname, context)
+                # Сигнал запуска потока hread1 отправляем на слот thread1_start:
+                self.thread1.started.connect(self.thread1_start)
+                # Сигнал завершения потока thread1 отправляем на слот thread1_stop:
+                self.thread1.finished.connect(self.thread1_stop)
+                # Qt.QueuedConnection - сигнал помещается в очередь обработки событий интерфейса Qt:
+                self.thread1.signal.connect(self.thread1_process, Qt.QueuedConnection)
+                # Делаем кнопки неактивными:
+                self.pb_lrn.setDisabled(True)
+                self.pb_save.setDisabled(True)
+                # Запускаем поток рендеринга:
+                self.thread1.start(priority=QThread.IdlePriority)
+            else:
+                msg = QMessageBox.warning(self, 'Внимание!',
+                                          '<h4>Вы не задали имя файла<br>для сохранения.</h4>')
+        except Exception:
             msg = QMessageBox.warning(self, 'Внимание!',
-                                      '<h4>Ошибка.<br>Распределение часов неправильное.</h4>')
-        '''
-        # Словарь для рендеринга:
-        context = {
-            'cathedra': cathedra,
-            'deputy': DEPUTY,
-            'name': name,
-            'degree': degree,
-            'position': position,
-            'election': election,
-            'year_one': str(self.current_year),
-            'year_two': str(self.current_year + 1),
-            'hourly': self.hourly_pay,
-            'user_rate': self.learn_rate,
-            'per_ur': self.percent_user_rate
-        }
-        # Объединяем данные учебной (up1) и внеучебной (up2) работы
-        # в словарь рендеринга для дальнейшего внесения в документ:
-        context.update(self.up1)
-        context.update(self.up2)
-        # Диалоговое окно сохранения файла docx:
-        saveDialog = QFileDialog()
-        saveDialog.setDefaultSuffix('docx')
-        fname, _ = saveDialog.getSaveFileName(self, 'Сохранить документ', '',
-                                              'Microsoft Word 2007–365 (*.docx)')
-        if fname != str():
-            self.statusBar().showMessage('Идёт формирование документа...')
-            # Создаём поток thread1 и передаём туда имя файла и данные для рендеринга:
-            self.thread1 = Thread1(fname, context)
-            # Сигнал запуска потока hread1 отправляем на слот thread1_start:
-            self.thread1.started.connect(self.thread1_start)
-            # Сигнал завершения потока thread1 отправляем на слот thread1_stop:
-            self.thread1.finished.connect(self.thread1_stop)
-            # Qt.QueuedConnection - сигнал помещается в очередь обработки событий интерфейса Qt:
-            self.thread1.signal.connect(self.thread1_process, Qt.QueuedConnection)
-            # Делаем кнопки неактивными:
-            self.pb_lrn.setDisabled(True)
-            self.pb_save.setDisabled(True)
-            # Запускаем поток рендеринга:
-            self.thread1.start(priority=QThread.IdlePriority)
-        else:
-            msg = QMessageBox.warning(self, 'Внимание!',
-                                      '<h4>Вы не задали имя файла<br>для сохранения.</h4>')
+                                      '<h4>Ещё не все поля заполнены.</h4>')
 
     def percheck(self, lrn, mtd, org, sci, edu):
         """Проверка правильности соотношения процентов"""
@@ -549,6 +554,7 @@ class PlanForm(QMainWindow):
         """Вызывается при запуске потока thread1"""
         # Выводим окно QProgressDialog на ожидание рендеринга.
         # HTML-сообщение с иконкой:
+        self.save_error = False
         msg = '<table border = "0"> <tbody> <tr>' \
               '<td> <img src = "pic/save-icon.png"> </td>' \
               '<td> <h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Идёт сохранение документа,<br>' \
@@ -562,18 +568,25 @@ class PlanForm(QMainWindow):
     def thread1_process(self, s):
         """Вызывается сигналами которые отправляет поток thread1"""
         # Параметр s - это сигнал полученный из потока thread1
-        self.statusBar().showMessage(s)
+        if s == 'error':
+            self.dialog.close()
+            self.save_error = True
+            msg = QMessageBox.warning(self, 'Внимание!',
+                                      '<h4>Не удалось сохранить файл.<br>'
+                                      'Возможно, у вас нет доступа<br>к целевой папке.</h4>')
+            self.statusBar().showMessage('Не удалось создать файл')
 
     def thread1_stop(self):
         """Вызывается при завершении потока thread1"""
         self.dialog.close()
-        self.statusBar().showMessage('Документ сохранён')
+        if not self.save_error:
+            # Выводим информационное сообщение:
+            msg = QMessageBox.information(self, 'Инфо',
+                                          '<h4>Индивидуальный план готов.</h4>')
+            self.statusBar().showMessage('Документ сохранён')
         # Делаем кнопки "Открыть..." и "Сохранить..." активными:
         self.pb_lrn.setDisabled(False)
         self.pb_save.setDisabled(False)
-        # Выводим информационное сообщение:
-        msg = QMessageBox.information(self, 'Инфо',
-                                      '<h4>Индивидуальный план готов.</h4>')
 
 
 def except_hook(cls, exception, traceback):
